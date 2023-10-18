@@ -195,7 +195,10 @@ return SlideTransition(position: tween.animate(CurvedAnimation(parent: animation
 
                          IconButton(
                            //padding : EdgeInsets.zero,
-                           onPressed: (){}, icon: SvgPicture.asset("assets/icons/gmail.svg",
+                           onPressed: (){
+                             Navigator.pushNamed(context, '/signup');
+
+                           }, icon: SvgPicture.asset("assets/icons/gmail.svg",
                            height: 64,
                            width: 64,
 

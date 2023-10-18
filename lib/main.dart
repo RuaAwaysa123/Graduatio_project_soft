@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rive_animation/screens/onboding/onboding_screen.dart';
-
+import 'package:rive_animation/screens/signUp/signup_screen.dart'; // Import the SignupScreen class
 void main() {
   runApp(const MyApp());
 }
@@ -8,7 +8,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,10 +26,16 @@ class MyApp extends StatelessWidget {
           errorBorder: defaultInputBorder,
         ),
       ),
-      home: const OnboardingScreen(),
+      initialRoute: '/onboarding', // Set the initial route
+      routes: {
+        '/onboarding': (context) => const OnboardingScreen(),
+        '/signup': (context) => SignupScreen(), // Define a route to the SignupScreen
+      },
     );
   }
 }
+
+
 
 const defaultInputBorder = OutlineInputBorder(
   borderRadius: BorderRadius.all(Radius.circular(16)),
