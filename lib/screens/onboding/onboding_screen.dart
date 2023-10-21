@@ -169,7 +169,7 @@ return SlideTransition(position: tween.animate(CurvedAnimation(parent: animation
                           Expanded(child: Divider()),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16 , vertical: 10),
-                            child: Text("or" , style: TextStyle(color: Colors.blue),),
+                            child: Text("or" , style: TextStyle(color: const Color(0xED6E95F6)),),
                           ),
                           Expanded(child: Divider()),
 
@@ -177,7 +177,7 @@ return SlideTransition(position: tween.animate(CurvedAnimation(parent: animation
                       ),
                      Padding(
                        padding: const EdgeInsets.symmetric(horizontal: 6 ,vertical: 16),
-                       child: Text("Sign Up with email ,facebook or google " ,style:TextStyle(color: Colors.blueAccent)),
+                       child: Text("Sign Up with email ,facebook or google " ,style:TextStyle(color:const Color(0xED6E95F6),)),
                      ),
 
                      Row(
@@ -195,7 +195,9 @@ return SlideTransition(position: tween.animate(CurvedAnimation(parent: animation
 
                          IconButton(
                            //padding : EdgeInsets.zero,
-                           onPressed: (){}, icon: SvgPicture.asset("assets/icons/gmail.svg",
+                           onPressed: (){
+                             Navigator.pushNamed(context, '/signup');
+                           }, icon: SvgPicture.asset("assets/icons/gmail.svg",
                            height: 64,
                            width: 64,
 

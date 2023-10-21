@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rive_animation/screens/onboding/onboding_screen.dart';
+import 'package:rive_animation/screens/sign_up_screen/sign_up_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,7 +9,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,7 +27,11 @@ class MyApp extends StatelessWidget {
           errorBorder: defaultInputBorder,
         ),
       ),
-      home: const OnboardingScreen(),
+      initialRoute: '/onboarding', // Set the initial route
+      routes: {
+        '/onboarding': (context) => const OnboardingScreen(),
+        '/signup': (context) => SignupScreen(), // Define a route to the SignupScreen
+      },
     );
   }
 }

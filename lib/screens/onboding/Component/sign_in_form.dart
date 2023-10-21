@@ -53,7 +53,7 @@ class SigIn_Form extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Icon(
                   Icons.password_outlined, // Replace with the desired icon
-                  color: Colors.blue, // Change the icon color as needed
+                  color: const Color(0xED6E95F6), // Change the icon color as needed
                 ),
 
               ),
