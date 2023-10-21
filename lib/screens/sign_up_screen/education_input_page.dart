@@ -15,6 +15,8 @@ class _StudentRegistrationContinuation2PageState
   List<CertificateInfo> certificateList = [];
 
   List<SkillInfo> skillList = [];
+  List<String> interests = [];
+  TextEditingController interestController = TextEditingController();
 
   final ScrollController _listViewController = ScrollController();
 
@@ -26,7 +28,7 @@ class _StudentRegistrationContinuation2PageState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Student Registration - Page 2'),
+        title: Text('Student Registration'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -48,13 +50,13 @@ class _StudentRegistrationContinuation2PageState
               ),
               SizedBox(height: 8.0), // Add space
               // Display education entries
-              Text(
-                'Education Information:',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              // Text(
+              //   'Education Information:',
+              //   style: TextStyle(
+              //     fontSize: 18,
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              // ),
               SizedBox(height: 8.0),
               Column(
                 children: educationList
@@ -66,7 +68,7 @@ class _StudentRegistrationContinuation2PageState
                   _addCertificate();
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
+                  backgroundColor: MaterialStateProperty.all(Colors.blue.shade400),
                   minimumSize: MaterialStateProperty.all(
                     Size(double.infinity, 40),
                   ),
@@ -75,13 +77,13 @@ class _StudentRegistrationContinuation2PageState
               ),
               SizedBox(height: 8.0), // Add space
               // Display certificate entries
-              Text(
-                'Certificate Information:',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              // Text(
+              //   'Certificate Information:',
+              //   style: TextStyle(
+              //     fontSize: 18,
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              // ),
               Column(
                 children: certificateList
                     .map((certificate) => _buildCertificateItem(certificate))
@@ -90,10 +92,11 @@ class _StudentRegistrationContinuation2PageState
               SizedBox(height: 16.0),
               // Add skills
               Text(
-                'Add Skills:',
+                'Add Skills',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
+                  color: Colors.blue,
                 ),
               ),
               SizedBox(height: 8.0),
@@ -104,23 +107,37 @@ class _StudentRegistrationContinuation2PageState
                   hintText: 'Enter skill name',
                 ),
               ),
-              SmoothStarRating(
 
-                  allowHalfRating: false,
-                  onRatingChanged: (v) {
-                    rating = v;
-                    setState(() {});
-                  },
-                  starCount: 5,
-                  rating: rating,
-                  size: 40.0,
-                  filledIconData: Icons.star,
-                  halfFilledIconData: Icons.blur_on,
-                  color: Colors.amber,
-                  borderColor: Colors.amber,
-                  spacing:0.0
-
+                  SizedBox(height: 16.0),
+              Row(
+                children: [
+                  Text(
+                    'Experience Rate:',
+                    style: TextStyle(
+                      fontSize: 15 , // Adjust the font size as needed
+                      fontWeight: FontWeight.bold, // You can change the fontWeight
+                      color: Colors.black38, // Change the color of the text
+                    ),
+                  ),
+                  SizedBox(width: 15,),
+                  SmoothStarRating(
+                    allowHalfRating: false,
+                    onRatingChanged: (v) {
+                      rating = v;
+                      setState(() {});
+                    },
+                    starCount: 5,
+                    rating: rating,
+                    size: 30.0,
+                    filledIconData: Icons.star,
+                    halfFilledIconData: Icons.blur_on,
+                    color: Colors.amber,
+                    borderColor: Colors.amber,
+                    spacing: 0.0,
+                  ),
+                ],
               ),
+              SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
                   _addSkill();
@@ -147,12 +164,101 @@ class _StudentRegistrationContinuation2PageState
                     .map((skill) => _buildSkillItem(skill))
                     .toList(),
               ),
+
+              // Add Interests button
+              ElevatedButton(
+                onPressed: () {
+                  _addInterests();
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.blue),
+                  minimumSize: MaterialStateProperty.all(
+                    Size(double.infinity, 40),
+                  ),
+                ),
+                child: Text('Add Interests'),
+              ),
+              SizedBox(height: 16.0),
+              // Display selected interests as Chips
+              Wrap(
+                children: interests
+                    .map(
+                      (interest) => Chip(
+                    label: Text(interest),
+                    onDeleted: () {
+                      // Remove the interest when the "x" button is clicked
+                      _removeInterest(interest);
+                    },
+                  ),
+                )
+                    .toList(),
+              ),
             ],
           ),
         ),
+
+
       ),
+
+
     );
+
+
   }
+
+  void _addInterests() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Add Interests'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: interestController,
+                decoration: InputDecoration(
+                  labelText: 'Interest',
+                  hintText: 'Enter your interest',
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                String interest = interestController.text;
+                if (interest.isNotEmpty) {
+                  setState(() {
+                    interests.add(interest);
+                  });
+                }
+                interestController.text = ''; // Clear the text field
+                Navigator.of(context).pop();
+              },
+              child: Text('Add'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancel'),
+            ),
+
+
+          ],
+        );
+      },
+    );
+
+  }
+
+  void _removeInterest(String interest) {
+    setState(() {
+      interests.remove(interest);
+    });
+  }
+
   void _addSkill() {
     String skillName = skillNameController.text;
     SkillInfo skill = SkillInfo(skillName: skillName, rating: rating);

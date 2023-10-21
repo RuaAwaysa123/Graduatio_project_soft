@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../profile/profile_page.dart';
 import 'education_input_page.dart';
 
 class StudentRegistrationContinuationPage extends StatefulWidget {
@@ -84,7 +85,7 @@ class _StudentRegistrationContinuationPageState
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => StudentRegistrationContinuation2Page(),
+                      builder: (context) => ProfilePage(),
                     ),
                   );
 
