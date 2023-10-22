@@ -10,6 +10,8 @@ import 'package:rive_animation/widget/numbers_widget.dart';
 import 'package:rive_animation/widget/profile_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'components/add_skill_dialog.dart';
+
 class ProfilePage extends StatefulWidget {
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -27,31 +29,26 @@ class _ProfilePageState extends State<ProfilePage> {
           body: ListView(
             physics: BouncingScrollPhysics(),
             children: [
-             // if (user != null) // Check if user is not null
-                ProfileWidget(
-                  imagePath: user.imagePath,
-                  onClicked: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => EditProfilePage()),
-                    );
-                  },
-                ),
+              ProfileWidget(
+                imagePath: user.imagePath,
+                onClicked: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => EditProfilePage()),
+                  );
+                },
+              ),
               const SizedBox(height: 24),
-            //  if (user != null) // Check if user is not null
-                buildName(user),
+              buildName(user),
               const SizedBox(height: 24),
               Center(child: buildUpgradeButton()),
               const SizedBox(height: 24),
               NumbersWidget(),
               const SizedBox(height: 10),
-              //if (user != null) // Check if user is not null
-            
               buildAboutme(user),
               const SizedBox(height: 30),
-                buildAbout(user),
-              // const SizedBox(height: 10),
-              //     buildSkills(user),
-
+              buildAbout(user),
+              const SizedBox(height: 10),
+              buildSkills(context, user),
             ],
           ),
         ),
@@ -95,118 +92,113 @@ class _ProfilePageState extends State<ProfilePage> {
       ],
     ),
   );
-}
 
-
-Widget buildAboutme(User user) => Container(
-  padding: EdgeInsets.symmetric(horizontal: 48),
-  child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        '',
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-      ),
-      const SizedBox(height: 16),
-      Row(
-        children: [
-          Icon(FontAwesomeIcons.phone, size: 18 , color: Colors.blue),
-          SizedBox(width: 8),
-          Text(
-            user.phoneNumber,
-            style: TextStyle(fontSize: 16, height: 1.4),
-          ),
-        ],
-      ),
-      const SizedBox(height: 8),
-      Row(
-        children: [
-          Icon(FontAwesomeIcons.graduationCap, size: 18 , color: Colors.blue),
-          SizedBox(width: 8),
-          Text(
-            user.major,
-            style: TextStyle(fontSize: 16, height: 1.4),
-          ),
-        ],
-      ),
-      const SizedBox(height: 8),
-      // Row(
-      //   children: [
-      //     Icon(FontAwesomeIcons.envelope, size: 18),
-      //     SizedBox(width: 8),
-      //     Text(
-      //       user.email,
-      //       style: TextStyle(fontSize: 16, height: 1.4),
-      //     ),
-      //   ],
-      // ),
-      const SizedBox(height: 8),
-      Row(
-        children: [
-          Icon(FontAwesomeIcons.university, size: 18, color: Colors.blue),
-          SizedBox(width: 8),
-          Text(
-            user.university,
-            style: TextStyle(fontSize: 16, height: 1.4,),
-          ),
-        ],
-      ),
-      const SizedBox(height: 8),
-      Row(
-        children: [
-          Icon(FontAwesomeIcons.locationPinLock, size: 18,color: Colors.blue,),
-          SizedBox(width: 8),
-          Text(
-            user.location,
-            style: TextStyle(fontSize: 16, height: 1.4),
-          ),
-        ],
-      ),
-    ],
-  ),
-);
-Widget buildSkills(User user) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        'Skills',
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-      ),
-      const SizedBox(height: 16),
-      for (var skill in user.skills)
+  Widget buildAboutme(User user) => Container(
+    padding: EdgeInsets.symmetric(horizontal: 48),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'About Me',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 16),
         Row(
           children: [
-            Text(skill.name),
-            // Spacer(),
-            const SizedBox(width: 30,),
-            buildSkillRating(skill.rating),
+            Icon(FontAwesomeIcons.phone, size: 18, color: Colors.blue),
+            SizedBox(width: 8),
+            Text(
+              user.phoneNumber,
+              style: TextStyle(fontSize: 16, height: 1.4),
+            ),
           ],
         ),
-      const SizedBox(height: 16),
-      buildAddSkillButton(), // Add the "Add Skill" button here
-    ],
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            Icon(FontAwesomeIcons.graduationCap, size: 18, color: Colors.blue),
+            SizedBox(width: 8),
+            Text(
+              user.major,
+              style: TextStyle(fontSize: 16, height: 1.4),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            Icon(FontAwesomeIcons.university, size: 18, color: Colors.blue),
+            SizedBox(width: 8),
+            Text(
+              user.university,
+              style: TextStyle(fontSize: 16, height: 1.4),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            Icon(FontAwesomeIcons.locationPin, size: 18, color: Colors.blue),
+            SizedBox(width: 8),
+            Text(
+              user.location,
+              style: TextStyle(fontSize: 16, height: 1.4),
+            ),
+          ],
+        ),
+      ],
+    ),
   );
-}
 
-Widget buildAddSkillButton() => ButtonWidget(
-  text: 'Add New Skill',
-  onClicked: () {
-    // Implement functionality to add new skills here
-  },
-);
-Widget buildSkillRating(int rating) {
-  List<Widget> stars = [];
-  for (int i = 0; i < 5; i++) {
-    if (i < rating) {
-      stars.add(Icon(Icons.star, color: Colors.yellow));
-    } else {
-      stars.add(Icon(Icons.star_border, color: Colors.yellow));
-    }
+  Widget buildSkills(BuildContext context, User user) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 48),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Skills',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+          for (var skill in user.skills)
+            Row(
+              children: [
+                Text(skill.name),
+                const SizedBox(width: 30),
+                buildSkillRating(skill.rating),
+              ],
+            ),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AddSkillDialog(
+                  onSkillAdded: (newSkill) {
+                    setState(() {
+                      user.skills.add(newSkill);
+                    });
+                  },
+                ),
+              );
+            },
+            child: Text('Add New Skill'),
+          )
+        ],
+      ),
+    );
   }
-  return Row(children: stars);
+
+  Widget buildSkillRating(int rating) {
+    List<Widget> stars = [];
+    for (int i = 0; i < 5; i++) {
+      if (i < rating) {
+        stars.add(Icon(Icons.star, color: Colors.yellow));
+      } else {
+        stars.add(Icon(Icons.star_border, color: Colors.yellow));
+      }
+    }
+    return Row(children: stars);
+  }
 }
-
-
-//-----------------------------------------------------------------
-
