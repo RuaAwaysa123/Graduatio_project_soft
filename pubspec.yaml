@@ -40,7 +40,8 @@ dependencies:
 
   flutter_rating_bar: ^4.0.1
   smooth_star_rating_nsafe: 1.0.0+1
-  animated_theme_switcher: ^2.0.1-nullsafety.0
+  animated_theme_switcher: ^2.0.8
+  font_awesome_flutter: ^10.6.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

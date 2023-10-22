@@ -68,7 +68,8 @@ Positioned.fill(
                 child: Column(
 children:const [
 
-Text("Empowering Tomorrow's Innovators:",
+Text("Explore.",
+
   style: TextStyle(
     fontSize: 50 ,
     fontFamily: "Poppins",
@@ -76,9 +77,29 @@ Text("Empowering Tomorrow's Innovators:",
   ),
 
 ),
+  Text("LEARN a new skill",
 
-   SizedBox(height: 20),
-  Text("Skill Swap - Bridging Minds & Sharing Wisdom"), //2.47
+    style: TextStyle(
+      fontSize: 35 ,
+      fontFamily: "Poppins",
+      height: 1.2 ,
+    ),
+
+  ),
+  Text("Get a new friend",
+
+    style: TextStyle(
+      fontSize: 30 ,
+      fontFamily: "Poppins",
+      height: 1.2 ,
+    ),
+
+  ),
+
+
+
+  SizedBox(height: 20),
+  Text("Skill Swap - Connect people seeking to share    & acquire skills"), //2.47
 ],
 
                 ),
@@ -97,7 +118,7 @@ Text("Empowering Tomorrow's Innovators:",
               },),
 Padding(
   padding: const EdgeInsets.symmetric(vertical: 24),
-  child:   Text("Unlock Your Potential with Skill Swap! Gain access to 50+ skills, 300+ knowledge-sharing sessions, and endless opportunities for growth and collaboration."),
+  child:   Text("Unlock Your Potential with Skill Swap! Gain access to skills,  knowledge-sharing sessions, and endless opportunities for growth and collaboration."),
 )
             ],
           ),
