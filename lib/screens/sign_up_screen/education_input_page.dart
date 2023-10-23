@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:rive_animation/screens/sign_up_screen/registration_success_screen.dart';
 import 'package:smooth_star_rating_nsafe/smooth_star_rating.dart';
+
+import '../Home/Button_Navigator.dart';
 
 class StudentRegistrationContinuation2Page extends StatefulWidget {
   @override
@@ -193,6 +196,29 @@ class _StudentRegistrationContinuation2PageState
                 )
                     .toList(),
               ),
+
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomePage(),
+                    ),
+                  );
+
+
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.green),
+                  minimumSize: MaterialStateProperty.all(
+                    Size(double.infinity, 40),
+                  ),
+                ),
+                child: Text('Submit'),
+              ),
+
+
+
             ],
           ),
         ),

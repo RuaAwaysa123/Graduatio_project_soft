@@ -54,6 +54,7 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rive_animation/screens/onboding/onboding_screen.dart';
 import 'package:rive_animation/screens/profile/profile_page.dart';
 import 'package:rive_animation/screens/sign_up_screen/education_input_page.dart';
 import 'package:rive_animation/themes.dart';
@@ -69,7 +70,7 @@ Future main() async {
 
   runApp(MyApp());
 }
- final String title = 'User Profile';
+final String title = 'User Profile';
 class MyApp extends StatelessWidget {
 
 
@@ -85,12 +86,12 @@ class MyApp extends StatelessWidget {
               title: 'MyTitle',
               theme: user.isDarkMode ? MyThemes.darkTheme : MyThemes.lightTheme,
               // scrollBehavior: ProfilePage(),
-               home: ProfilePage(),
+              home: OnboardingScreen(),
 
               debugShowCheckedModeBanner: false,
             ),
+
       ),
     );
   }
 }
-

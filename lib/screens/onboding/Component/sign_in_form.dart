@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rive/rive.dart';
 
+import '../../profile/profile_page.dart';
+
 class SigIn_Form extends StatelessWidget {
   const SigIn_Form({
     super.key,
@@ -64,7 +66,16 @@ class SigIn_Form extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 8 , bottom: 10),
-          child:   ElevatedButton.icon(onPressed:(){},
+          child:   ElevatedButton.icon(onPressed:(){
+
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProfilePage(),
+              ),
+            );
+          },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xED6E95F6),
               minimumSize: const Size(double.infinity, 56),

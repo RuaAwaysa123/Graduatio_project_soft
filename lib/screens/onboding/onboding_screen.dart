@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rive/rive.dart';
 
+import '../sign_up_screen/sign_up_screen.dart';
 import 'Component/animated_btn.dart';
 import 'Component/sign_in_form.dart';
 
@@ -213,11 +214,18 @@ return SlideTransition(position: tween.animate(CurvedAnimation(parent: animation
 
                          ),
                          ),
-
+//------------------------------------------------------------------------------
                          IconButton(
                            //padding : EdgeInsets.zero,
                            onPressed: (){
-                             Navigator.pushNamed(context, '/signup');
+                             //Navigator.pushNamed(context, '/signup');
+                             Navigator.push(
+                               context,
+                               MaterialPageRoute(
+                                 builder: (context) => SignupScreen(),
+                               ),
+                             );
+
                            }, icon: SvgPicture.asset("assets/icons/gmail.svg",
                            height: 64,
                            width: 64,

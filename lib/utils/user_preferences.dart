@@ -19,5 +19,20 @@ class UserPreferences {
       Skill(name: 'Skill 3', rating: 5),
       // Add more skills here
     ],
+    interests: [
+      Interest(title: 'python', description: 'Description 1'),
+      Interest(title: 'AI', description: 'Description 2'),
+      Interest(title: 'painting', description: 'Description 2'),
+      Interest(title: 'Design', description: 'Description 2'),
+      Interest(title: 'Ropots', description: 'Description 2'),
+      Interest(title: 'Arduino', description: 'Description 2'),
+      Interest(title: 'Hardware', description: 'Description 2'),
+
+      // Add more interests here
+    ],
+
   );
+
+
 }
+

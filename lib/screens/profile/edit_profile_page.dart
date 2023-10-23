@@ -10,6 +10,68 @@ import 'package:rive_animation/widget/button_widget.dart';
 import 'package:rive_animation/widget/profile_widget.dart';
 import 'package:rive_animation/widget/textfield_widget.dart';
 
+// class EditProfilePage extends StatefulWidget {
+//   @override
+//   _EditProfilePageState createState() => _EditProfilePageState();
+// }
+//
+// class _EditProfilePageState extends State<EditProfilePage> {
+//   User user = UserPreferences.myUser;
+//   File? _image; // Store the selected image
+//
+//   // Function to pick an image from the device's gallery
+//   Future<void> _pickImage() async {
+//     final picker = ImagePicker();
+//     final pickedFile = await picker.pickImage(source: ImageSource.gallery); // Use pickImage method
+//     if (pickedFile != null) {
+//       setState(() {
+//         _image = File(pickedFile.path);
+//       });
+//     }
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) => ThemeSwitchingArea(
+//     child: Builder(
+//       builder: (context) => Scaffold(
+//         appBar: buildAppBar(context),
+//         body: ListView(
+//           padding: EdgeInsets.symmetric(horizontal: 32),
+//           physics: BouncingScrollPhysics(),
+//           children: [
+//             ProfileWidget(
+//               imagePath: _image?.path ?? user.imagePath,
+//               isEdit: true,
+//               onClicked: _pickImage, // Call _pickImage when the image is clicked
+//             ),
+//             const SizedBox(height: 24),
+//             TextFieldWidget(
+//               label: 'Full Name',
+//               text: user.name,
+//               onChanged: (name) {},
+//             ),
+//             const SizedBox(height: 24),
+//             TextFieldWidget(
+//               label: 'Email',
+//               text: user.email,
+//               onChanged: (email) {},
+//             ),
+//             const SizedBox(height: 24),
+//             TextFieldWidget(
+//               label: 'About',
+//               text: user.about,
+//               maxLines: 5,
+//               onChanged: (about) {},
+//             ),
+//           ],
+//         ),
+//       ),
+//     ),
+//   );
+// }
+
+
+
 class EditProfilePage extends StatefulWidget {
   @override
   _EditProfilePageState createState() => _EditProfilePageState();
@@ -20,40 +82,40 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) => ThemeSwitchingArea(
-        child: Builder(
-          builder: (context) => Scaffold(
-            appBar: buildAppBar(context),
-            body: ListView(
-              padding: EdgeInsets.symmetric(horizontal: 32),
-              physics: BouncingScrollPhysics(),
-              children: [
-                ProfileWidget(
-                  imagePath: user.imagePath,
-                  isEdit: true,
-                  onClicked: () async {},
-                ),
-                const SizedBox(height: 24),
-                TextFieldWidget(
-                  label: 'Full Name',
-                  text: user.name,
-                  onChanged: (name) {},
-                ),
-                const SizedBox(height: 24),
-                TextFieldWidget(
-                  label: 'Email',
-                  text: user.email,
-                  onChanged: (email) {},
-                ),
-                const SizedBox(height: 24),
-                TextFieldWidget(
-                  label: 'About',
-                  text: user.about,
-                  maxLines: 5,
-                  onChanged: (about) {},
-                ),
-              ],
+    child: Builder(
+      builder: (context) => Scaffold(
+        appBar: buildAppBar(context),
+        body: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 32),
+          physics: BouncingScrollPhysics(),
+          children: [
+            ProfileWidget(
+              imagePath: user.imagePath,
+              isEdit: true,
+              onClicked: () async {},
             ),
-          ),
+            const SizedBox(height: 24),
+            TextFieldWidget(
+              label: 'Full Name',
+              text: user.name,
+              onChanged: (name) {},
+            ),
+            const SizedBox(height: 24),
+            TextFieldWidget(
+              label: 'Email',
+              text: user.email,
+              onChanged: (email) {},
+            ),
+            const SizedBox(height: 24),
+            TextFieldWidget(
+              label: 'About',
+              text: user.about,
+              maxLines: 5,
+              onChanged: (about) {},
+            ),
+          ],
         ),
-      );
+      ),
+    ),
+  );
 }

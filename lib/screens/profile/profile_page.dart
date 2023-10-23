@@ -10,6 +10,7 @@ import 'package:rive_animation/widget/numbers_widget.dart';
 import 'package:rive_animation/widget/profile_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'components/addInterests.dart';
 import 'components/add_skill_dialog.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -19,6 +20,8 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   @override
+  List<Interest> selectedInterests = [];
+
   Widget build(BuildContext context) {
     final user = UserPreferences.myUser;
     // final user = UserPreferences.myUser;
@@ -49,6 +52,29 @@ class _ProfilePageState extends State<ProfilePage> {
               buildAbout(user),
               const SizedBox(height: 10),
               buildSkills(context, user),
+              const SizedBox(height: 10),
+              // buildInterests(user),
+              buildInterestsChips(user),
+              const SizedBox(height: 10),
+              // ElevatedButton(
+              //   onPressed: () async {
+              //     final updatedInterests = await Navigator.of(context).push(
+              //       MaterialPageRoute(
+              //         builder: (context) => AddInterestPage(
+              //           selectedInterests: selectedInterests,
+              //           onInterestsSelected: (selected) {
+              //             setState(() {
+              //               selectedInterests = selected;
+              //             });
+              //           },
+              //         ),
+              //       ),
+              //     );
+              //   },
+              //   child: Text('Add Interest'),
+              // ),
+
+
             ],
           ),
         ),
@@ -201,4 +227,54 @@ class _ProfilePageState extends State<ProfilePage> {
     }
     return Row(children: stars);
   }
+
+  Widget buildInterestsChips(User user) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 48),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Interests',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+          Wrap(
+            children: selectedInterests.map((interest) {
+              return Chip(
+                label: Text(interest.title),
+                onDeleted: () {
+                  setState(() {
+                    selectedInterests.remove(interest);
+                  });
+                },
+              );
+            }).toList(),
+          ),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () async {
+              final updatedInterests = await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => AddInterestPage(
+                    selectedInterests: selectedInterests,
+                    onInterestsSelected: (selected) {
+                      setState(() {
+                        selectedInterests = selected;
+                      });
+                    },
+                  ),
+                ),
+              );
+
+            },
+            child: Text('Add Interest'),
+          ),
+        ],
+      ),
+    );
+  }
+
 }
+
+
