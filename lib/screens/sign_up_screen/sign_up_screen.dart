@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:rive_animation/screens/sign_up_screen/registration_success_screen.dart';
 import 'package:rive_animation/screens/sign_up_screen/student_regestratin_con.dart';
 
+import '../../services/auth_service.dart';
+
 class SignupScreen extends StatefulWidget {
   @override
   _SignupScreenState createState() => _SignupScreenState();
@@ -11,7 +13,19 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
+  final AuthService authService = AuthService();
   String _selectedUserType = 'Student';
+
+  void signupUser() {
+    authService.signUpUser(
+      context: context,
+      email: _emailController.text,
+      password: _passwordController.text,
+     //name: "Ali",
+      // name: nameController.text,
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -81,9 +95,10 @@ class _SignupScreenState extends State<SignupScreen> {
             ElevatedButton(
               onPressed: () {
                 // Add your registration logic here
-                String email = _emailController.text;
-                String password = _passwordController.text;
-                String confirmPassword = _confirmPasswordController.text;
+                // String email = _emailController.text;
+                // String password = _passwordController.text;
+                // String confirmPassword = _confirmPasswordController.text;
+                signupUser();
 
                 // Validate the password and confirmation
         // Validate the password and confirmation

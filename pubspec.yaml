@@ -42,8 +42,17 @@ dependencies:
   smooth_star_rating_nsafe: 1.0.0+1
   animated_theme_switcher: ^2.0.8
   font_awesome_flutter: ^10.6.0
+  image_picker: ^1.0.1
   curved_navigation_bar: ^1.0.3
-image_picker: ^1.0.4
+  shared_preferences: ^2.2.2
+  provider: ^6.0.5
+  json_annotation: ^4.8.1
+  json_serializable: ^6.7.1
+  build_runner: ^2.4.6
+  http: ^0.13.6
+
+
+
 
 
 dev_dependencies:
@@ -73,6 +82,7 @@ flutter:
     - assets/Backgrounds/
     - assets/icons/
     - assets/RiveAssets/
+    - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
