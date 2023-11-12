@@ -63,6 +63,7 @@ import 'package:rive_animation/screens/sign_up_screen/education_input_page.dart'
 import 'package:rive_animation/themes.dart';
 import 'package:rive_animation/utils/user_preferences.dart';
 
+import 'facebook/calender.dart';
 import 'facebook/profile.dart';
 import 'providers/user_profile_provider.dart';
 
@@ -122,7 +123,7 @@ class MyApp extends StatelessWidget {
               theme: isDarkMode ? MyThemes.darkTheme : MyThemes.lightTheme,
               // scrollBehavior: Profile(),
               home: OnboardingScreen(),
-              // home: Profile(),
+              // home: CalendarPage(),
 
               debugShowCheckedModeBanner: false,
             ),

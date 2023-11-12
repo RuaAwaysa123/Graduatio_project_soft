@@ -127,14 +127,10 @@ authRouter.post("/api/signup", async (req, res) => {
     const hashedPassword = await bcryptjs.hash(password, 8);
 
     const user = new User({
-     // name,
+
       email,
       password: hashedPassword,
-//      about,
-//      location,
-//      phoneNumber,
-//      major,
-//      university,
+
     });
 
     // Save the user
@@ -145,6 +141,54 @@ authRouter.post("/api/signup", async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
+
+
+//regestration page 2
+authRouter.post("/api/signup_continue", async (req, res) => {
+  try {
+    const {
+      email,
+      password,
+      phoneNumber,
+      firstName,
+      lastName,
+      location,
+      universityNumber,
+      major,
+      year,
+    } = req.body;
+
+    const existingUser = await User.findOne({ email });
+
+    if (!existingUser) {
+      return res.status(400).json({ msg: "User with this email Dosn't exisit " });
+    }
+
+    const hashedPassword = await bcryptjs.hash(password, 8);
+
+    const user = new User({
+      email,
+      password: hashedPassword,
+      phoneNumber,
+      firstName,
+      lastName,
+      location,
+      universityNumber,
+      major,
+      year,
+    });
+
+    // Save the user
+    await user.save();
+
+    res.json(user);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
+
 
 // Sign in (login) route for a student
 authRouter.post("/api/login", async (req, res) => {

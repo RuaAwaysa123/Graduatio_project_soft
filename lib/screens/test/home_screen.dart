@@ -10,13 +10,16 @@ class HomePage1 extends StatefulWidget {
 }
 
 class _HomePage1State extends State<HomePage1> {
+  // Define a list of popular topics
+  List<String> popularTopics = ['Topic 1', 'Topic 2', 'Topic 3'];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: SafeArea(
-        child: ListView(
-          children: <Widget>[
+          child: ListView(
+            children: <Widget>[
             Container(
               height: 160,
               width: MediaQuery.of(context).size.width,
@@ -28,7 +31,7 @@ class _HomePage1State extends State<HomePage1> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[ 
+                  children: <Widget>[
                     Text(
                       "Sra, Forum",
                       style: TextStyle(
@@ -60,7 +63,7 @@ class _HomePage1State extends State<HomePage1> {
                 ),
               ),
             ),
-            Container( 
+            Container(
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -70,8 +73,8 @@ class _HomePage1State extends State<HomePage1> {
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[ 
-                  TopBar(), 
+                children: <Widget>[
+                  TopBar(),
                   Padding(
                     padding: EdgeInsets.all(20.0),
                     child: Text(

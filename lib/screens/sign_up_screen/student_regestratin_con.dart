@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../services/auth_service.dart';
 import '../profile/profile_page.dart';
 import 'education_input_page.dart';
 
@@ -21,6 +22,32 @@ class _StudentRegistrationContinuationPageState
 
   List<String> majorOptions = ['Computer Science', 'Engineering', 'Math', 'Other'];
   List<String> yearOptions = ['1st Year', '2nd Year', '3rd Year', '4th Year', '5th Year'];
+
+  void signup_con() async {
+    // You need to create an instance of AuthService
+    AuthService authService = AuthService();
+
+    authService.signupContinue(
+      context: context,
+      phoneNumber: _phoneNumberController.text,
+      firstName: _firstNameController.text,
+      lastName: _lastNameController.text,
+      location: _locationController.text,
+      universityNumber: _universityNumberController.text,
+      major: _selectedMajor,
+      year: _selectedYear,
+      email: '', // You need to provide the email parameter here
+    );
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => StudentRegistrationContinuation2Page(),
+      ),
+    );
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +109,8 @@ class _StudentRegistrationContinuationPageState
                 onPressed: () {
                   // Add your logic to handle the student registration data here
                   // You can access the entered data using controllers
+                  signup_con();
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
