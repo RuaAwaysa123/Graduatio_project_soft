@@ -111,6 +111,9 @@ const Interest = require("../model/interest");
 const mongoose = require("mongoose");
 
 const authRouter = express.Router();
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' }); // Adjust the destination folder as needed
+
 const cors = require("cors");
 app.use(cors());
 
@@ -148,7 +151,7 @@ authRouter.post("/api/signup_continue", async (req, res) => {
   try {
     const {
       email,
-      password,
+//      password,
       phoneNumber,
       firstName,
       lastName,
@@ -158,34 +161,35 @@ authRouter.post("/api/signup_continue", async (req, res) => {
       year,
     } = req.body;
 
+    // Check if the user already exists
     const existingUser = await User.findOne({ email });
 
     if (!existingUser) {
-      return res.status(400).json({ msg: "User with this email Dosn't exisit " });
+      return res.status(400).json({ msg: "User with this email does not exist. Please sign up first!" });
     }
 
-    const hashedPassword = await bcryptjs.hash(password, 8);
+    // Update user information
+    existingUser.phoneNumber = phoneNumber;
+    existingUser.firstName = firstName;
+    existingUser.lastName = lastName;
+    existingUser.location = location;
+    existingUser.universityNumber = universityNumber;
+    existingUser.major = major;
+    existingUser.year = year;
+    existingUser.UserType = "1";
+    existingUser.imgUrl = " ";
+    existingUser.about = "New user" ;
 
-    const user = new User({
-      email,
-      password: hashedPassword,
-      phoneNumber,
-      firstName,
-      lastName,
-      location,
-      universityNumber,
-      major,
-      year,
-    });
+    // Save the updated user
+    await existingUser.save();
 
-    // Save the user
-    await user.save();
-
-    res.json(user);
+    res.json(existingUser);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
 });
+
+
 
 
 
@@ -307,4 +311,50 @@ authRouter.post("/api/addInterest", async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
+
+
+// Add this route to authRouter in index.js
+authRouter.get("/api/user/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ msg: `User not found with ID: ${userId}` });
+    }
+
+    res.json(user);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+authRouter.post("/api/updateProfilePicture/:userId", upload.single('profilePicture'), async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const profilePicture = req.file;
+
+    // Check if the user exists
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ msg: `User not found with ID: ${userId}` });
+    }
+
+    // If a profile picture is uploaded, save it to the user's imgUrl
+    if (profilePicture) {
+      const imgUrl = `data:${profilePicture.mimetype};base64,${profilePicture.buffer.toString('base64')}`;
+      user.imgUrl = imgUrl;
+      await user.save();
+    }
+
+    res.json(user);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
+
+
 module.exports = authRouter;

@@ -197,6 +197,7 @@
 //   // }
 // }
 
+//**********************************************************************************
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:rive_animation/utils/utils.dart';
@@ -237,6 +238,9 @@ class AuthService {
         universityNumber: universityNumber,
         major: major,
         year: year,
+        about: '',
+        university: '',
+         interests: [], certificates: [], skills: [], education: [],
       );
 
       http.Response res = await http.post(
@@ -309,5 +313,367 @@ class AuthService {
     }
   }
 
+  void addEducation({
+    required BuildContext context,
+    required String userId,
+    required String schoolName,
+    required String startDate,
+    required String endDate,
+  }) async {
+    try {
+      http.Response res = await http.post(
+        Uri.parse('${Constants.uri}/api/addEducation'),
+        body: jsonEncode({
+          'userId': userId,
+          'schoolName': schoolName,
+          'startDate': startDate,
+          'endDate': endDate,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(
+            context,
+            'Education information added successfully!',
+          );
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  // Add Certificate Information
+  void addCertificate({
+    required BuildContext context,
+    required String userId,
+    required String certificateName,
+    required String certificateURL,
+    required String issueOrganization,
+  }) async {
+    try {
+      http.Response res = await http.post(
+        Uri.parse('${Constants.uri}/api/addCertificate'),
+        body: jsonEncode({
+          'userId': userId,
+          'certificateName': certificateName,
+          'certificateURL': certificateURL,
+          'issueOrganization': issueOrganization,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(
+            context,
+            'Certificate information added successfully!',
+          );
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  // Add Skill Information
+  void addSkill({
+    required BuildContext context,
+    required String userId,
+    required String skillName,
+    required String rating,
+  }) async {
+    try {
+      http.Response res = await http.post(
+        Uri.parse('${Constants.uri}/api/addSkill'),
+        body: jsonEncode({
+          'userId': userId,
+          'skillName': skillName,
+          'rating': rating,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(
+            context,
+            'Skill information added successfully!',
+          );
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  // Add Interest Information
+  void addInterest({
+    required BuildContext context,
+    required String userId,
+    required String title,
+    required String description,
+  }) async {
+    try {
+      http.Response res = await http.post(
+        Uri.parse('${Constants.uri}/api/addInterest'),
+        body: jsonEncode({
+          'userId': userId,
+          'title': title,
+          'description': description,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(
+            context,
+            'Interest information added successfully!',
+          );
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  // login user
+  // void loginUser({
+  //   required BuildContext context,
+  //   required String email,
+  //   required String password,
+  // }) async {
+  //   try {
+  //     http.Response res = await http.post(
+  //       Uri.parse('${Constants.uri}/api/login'),
+  //       body: jsonEncode({
+  //         'email': email,
+  //         'password': password,
+  //       }),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json; charset=UTF-8',
+  //       },
+  //     );
+  //
+  //     if (res.statusCode == 200) {
+  //       // Successful login
+  //       final Map<String, dynamic> responseData = json.decode(res.body);
+  //       String token = responseData['token'];
+  //       // You can save the token to shared preferences or any other storage
+  //       SharedPreferences prefs = await SharedPreferences.getInstance();
+  //       prefs.setString('token', token);
+  //
+  //       // Navigate to the profile page or any other screen after successful login
+  //       Navigator.pushReplacement(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (context) => ProfilePage(),
+  //         ),
+  //       );
+  //     } else {
+  //       // Handle errors for unsuccessful login
+  //       httpErrorHandle(
+  //         response: res,
+  //         context: context,
+  //         onSuccess: () {
+  //           // Handle success if needed
+  //         },
+  //       );
+  //     }
+  //   } catch (e) {
+  //     showSnackBar(context, e.toString());
+  //   }
+  // }
+  // Future<User> loginUser({
+  //   required BuildContext context,
+  //   required String email,
+  //   required String password,
+  // }) async {
+  //   try {
+  //     http.Response res = await http.post(
+  //       Uri.parse('${Constants.uri}/api/login'),
+  //       body: jsonEncode({
+  //         'email': email,
+  //         'password': password,
+  //       }),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json; charset=UTF-8',
+  //       },
+  //     );
+  //
+  //     if (res.statusCode == 200) {
+  //       // Successful login
+  //       final Map<String, dynamic> responseData = json.decode(res.body);
+  //       String token = responseData['token'];
+  //
+  //       // Retrieve the user data from the response
+  //       User user = User.fromMap(responseData['user']);
+  //
+  //       // You can save the token to shared preferences or any other storage
+  //       SharedPreferences prefs = await SharedPreferences.getInstance();
+  //       prefs.setString('token', token);
+  //
+  //       // Return the user object
+  //       return user;
+  //     } else {
+  //       // Handle errors for unsuccessful login
+  //       httpErrorHandle(
+  //         response: res,
+  //         context: context,
+  //         onSuccess: () {
+  //           // Handle success if needed
+  //         },
+  //       );
+  //       // Return a dummy user object or throw an exception
+  //       return User(id: '', email: '', token: '', password: '', phoneNumber: '', firstName: '', lastName: '', location: '', universityNumber: '', major: '', year: '', about: '', university: '', interests: [], certificates: [], skills: [], education: []);
+  //     }
+  //   } catch (e) {
+  //     showSnackBar(context, e.toString());
+  //     // Return a dummy user object or throw an exception
+  //     return User(id: '', email: '', token: '', password: '', phoneNumber: '', firstName: '', lastName: '', location: '', universityNumber: '', major: '', year: '', about: '', university: '', interests: [], certificates: [], skills: [], education: []);
+  //   }
+  // }
+
+
+  Future<User> getUserProfile({
+    required BuildContext context,
+    required String userId,
+  }) async {
+    try {
+      http.Response res = await http.get(
+        Uri.parse('${Constants.uri}/api/user/$userId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      if (res.statusCode == 200) {
+        final Map<String, dynamic> responseData = json.decode(res.body);
+        User user = User.fromMap(responseData);
+
+        return user;
+      } else {
+        httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            // Handle success if needed
+          },
+        );
+        return User(
+          id: '',
+          email: '',
+          token: '',
+          password: '',
+          phoneNumber: '',
+          firstName: '',
+          lastName: '',
+          location: '',
+          universityNumber: '',
+          major: '',
+          year: '',
+          about: '',
+          university: '',
+          interests: [],
+          certificates: [],
+          skills: [],
+          education: [],
+        );
+      }
+    } catch (e) {
+      showSnackBar(context, e.toString());
+      return User(
+        id: '',
+        email: '',
+        token: '',
+        password: '',
+        phoneNumber: '',
+        firstName: '',
+        lastName: '',
+        location: '',
+        universityNumber: '',
+        major: '',
+        year: '',
+        about: '',
+        university: '',
+        interests: [],
+        certificates: [],
+        skills: [],
+        education: [],
+      );
+    }
+  }
+
+  //-------------------------------------------------
+// Inside AuthService class
+  Future<void> loginUser({
+    required BuildContext context,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      http.Response res = await http.post(
+        Uri.parse('${Constants.uri}/api/login'),
+        body: jsonEncode({
+          'email': email,
+          'password': password,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      if (res.statusCode == 200) {
+        // Successful login
+        final Map<String, dynamic> responseData = json.decode(res.body);
+        String token = responseData['token'];
+
+        // Retrieve the user data from the response
+        User user = User.fromMap(responseData['user']);
+
+        // You can save the token to shared preferences or any other storage
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('token', token);
+
+        // Navigate to the ProfilePage and pass the user as an argument
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProfilePage(user: user),
+          ),
+        );
+      } else {
+        // Handle errors for unsuccessful login
+        httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            // Handle success if needed
+          },
+        );
+      }
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
 
 }

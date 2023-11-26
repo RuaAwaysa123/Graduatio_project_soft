@@ -1,15 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:rive_animation/model/post_model.dart';
+
+import '../../model/author_model.dart';
+import '../../model/replies_model.dart';
+import '../../widget/ReplyInput_widget.dart';
 // import 'package:themify_flutter/themify_flutter.dart';
 
 class PostScreen extends StatefulWidget {
+
+  // final Author mark = Author(
+  //     name: 'Mark Lewis',
+  //     imageUrl: 'assets/images/author1.jpg'
+  // );
   @override
   final Question question;
-  PostScreen({required this.question});
+  PostScreen({required this.question, required Null Function() onReplyAdded});
   _PostScreenState createState() => _PostScreenState();
 }
 
 class _PostScreenState extends State<PostScreen> {
+  TextEditingController replyController = TextEditingController();
+
+  void _submitReply() {
+    // Get the entered reply text
+    String replyText = replyController.text;
+
+    // Create a new reply object
+    Reply newReply = Reply(
+      author:mark,   //author Set the author of the reply, you may get it from the logged-in user or use a default author,
+      content: replyText,
+      likes: 0,
+    );
+
+    // Update the question with the new reply
+    setState(() {
+      widget.question.replies.add(newReply);
+    });
+
+    // Clear the reply text field
+    replyController.clear();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -279,13 +312,19 @@ class _PostScreenState extends State<PostScreen> {
                               ),
                             )
                           ],
-                        )
+                        ),
+                        ReplyInputWidget(
+                          replyController: replyController,
+                          onReplySubmitted: _submitReply,
+                        ),
+
                       ],
                     ),
                   )
                 )
               ).toList(),
             )
+
           ], 
         ),
       ),

@@ -5,6 +5,11 @@ import '../profile/profile_page.dart';
 import 'education_input_page.dart';
 
 class StudentRegistrationContinuationPage extends StatefulWidget {
+
+  final String email;
+  // Add the constructor to receive the email
+  StudentRegistrationContinuationPage({required this.email});
+
   @override
   _StudentRegistrationContinuationPageState createState() =>
       _StudentRegistrationContinuationPageState();
@@ -20,8 +25,8 @@ class _StudentRegistrationContinuationPageState
   String _selectedYear = '1st Year'; // Default value
   TextEditingController _universityNumberController = TextEditingController();
 
-  List<String> majorOptions = ['Computer Science', 'Engineering', 'Math', 'Other'];
-  List<String> yearOptions = ['1st Year', '2nd Year', '3rd Year', '4th Year', '5th Year'];
+  List<String> majorOptions = [' ','Computer Science', 'Engineering', 'Math', 'Other'];
+  List<String> yearOptions = ['', '1st Year', '2nd Year', '3rd Year', '4th Year', '5th Year'];
 
   void signup_con() async {
     // You need to create an instance of AuthService
@@ -36,7 +41,7 @@ class _StudentRegistrationContinuationPageState
       universityNumber: _universityNumberController.text,
       major: _selectedMajor,
       year: _selectedYear,
-      email: '', // You need to provide the email parameter here
+      email: widget.email, // You need to provide the email parameter here
     );
 
     Navigator.push(
@@ -81,6 +86,8 @@ class _StudentRegistrationContinuationPageState
               SizedBox(height: 16.0),
               buildTextField('University Number', 'Enter your university number', Icons.school, _universityNumberController),
               SizedBox(height: 16.0),
+              // Display the email received from the previous page
+
               buildDropdownButtonFormField(
                 'Select Major',
                 majorOptions,

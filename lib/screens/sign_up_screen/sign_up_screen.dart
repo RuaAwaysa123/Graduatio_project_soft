@@ -173,6 +173,35 @@ class _SignupScreenState extends State<SignupScreen> {
     }
   }
 
+  // void signupUser() async {
+  //   if (_passwordController.text == _confirmPasswordController.text) {
+  //     bool success = await authService.signUpUser(
+  //       context: context,
+  //       email: _emailController.text,
+  //       password: _passwordController.text,
+  //       // name: "Ali",
+  //       // name: nameController.text,
+  //     );
+  //
+  //     if (success) {
+  //       // Registration successful, navigate to the next page
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (context) => StudentRegistrationContinuationPage(email: _emailController.text),
+  //         ),
+  //       );
+  //     } else {
+  //       // Registration failed, show an error message
+  //       showSnackBar(context, "Registration failed. Please try again.");
+  //     }
+  //   } else {
+  //     // Passwords do not match, show an error or handle it accordingly
+  //     showSnackBar(context, "Passwords do not match");
+  //   }
+  // }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -272,8 +301,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          StudentRegistrationContinuationPage(),
+                      builder: (context) => StudentRegistrationContinuationPage( email: _emailController.text,),
                     ),
                   );
                 }

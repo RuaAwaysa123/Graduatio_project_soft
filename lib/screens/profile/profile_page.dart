@@ -1,7 +1,7 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rive_animation/model/user.dart';
+
 import 'package:rive_animation/screens/profile/edit_profile_page.dart';
 import 'package:rive_animation/utils/user_preferences.dart';
 import 'package:rive_animation/widget/appbar_widget.dart';
@@ -10,20 +10,53 @@ import 'package:rive_animation/widget/numbers_widget.dart';
 import 'package:rive_animation/widget/profile_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../model/User1.dart';
+import '../../services/auth_service.dart';
 import 'components/addInterests.dart';
 import 'components/add_skill_dialog.dart';
 
 class ProfilePage extends StatefulWidget {
+  final User user;
+
+  const ProfilePage({Key? key, required this.user}) : super(key: key);
+
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  late User userProfile  ; // Declare userProfile variable
+
+  @override
+  void initState() {
+    super.initState();
+    loadUserProfile(); // Load user profile data when the widget is initialized
+  }
+  void loadUserProfile() async {
+    try {
+      final AuthService authService = AuthService();
+      if (widget.user != null) {
+        final loadedProfile = await authService.getUserProfile(
+          context: context,
+          // userId: widget.user.id,
+            userId: '655929cec8405bc3c252353c'
+        );
+        setState(() {
+          userProfile = loadedProfile;
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   List<Interest> selectedInterests = [];
 
   Widget build(BuildContext context) {
-    final user = UserPreferences.myUser;
+    // Use userProfile instead of widget.user
+    final user = userProfile ?? widget.user; // Use widget.user as a fallback if userProfile is null
+
     // final user = UserPreferences.myUser;
     return ThemeSwitchingArea(
       child: Builder(
@@ -33,7 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
             physics: BouncingScrollPhysics(),
             children: [
               ProfileWidget(
-                imagePath: user.imagePath,
+                imagePath: user.imgUrl,
                 onClicked: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => EditProfilePage()),
@@ -51,11 +84,11 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(height: 30),
               buildAbout(user),
               const SizedBox(height: 10),
-              buildSkills(context, user),
+              // buildSkills(context, user),
               const SizedBox(height: 10),
               // buildInterests(user),
-              buildInterestsChips(user),
-              const SizedBox(height: 10),
+              // buildInterestsChips(user),user
+              // const SizedBox(height: 10),
               // ElevatedButton(
               //   onPressed: () async {
               //     final updatedInterests = await Navigator.of(context).push(
@@ -85,7 +118,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget buildName(User user) => Column(
     children: [
       Text(
-        user.name,
+        user.firstName + user.lastName,
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
       ),
       const SizedBox(height: 4),
@@ -176,104 +209,104 @@ class _ProfilePageState extends State<ProfilePage> {
     ),
   );
 
-  Widget buildSkills(BuildContext context, User user) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 48),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Skills',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 16),
-          for (var skill in user.skills)
-            Row(
-              children: [
-                Text(skill.name),
-                const SizedBox(width: 30),
-                buildSkillRating(skill.rating),
-              ],
-            ),
-          const SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => AddSkillDialog(
-                  onSkillAdded: (newSkill) {
-                    setState(() {
-                      user.skills.add(newSkill);
-                    });
-                  },
-                ),
-              );
-            },
-            child: Text('Add New Skill'),
-          )
-        ],
-      ),
-    );
-  }
+  // Widget buildSkills(BuildContext context, User user) {
+  //   return Container(
+  //     padding: EdgeInsets.symmetric(horizontal: 48),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Text(
+  //           'Skills',
+  //           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+  //         ),
+  //         const SizedBox(height: 16),
+  //         for (var skill in user.skills)
+  //           Row(
+  //             children: [
+  //               Text(skill.skillName),
+  //               const SizedBox(width: 30),
+  //               buildSkillRating(skill.rating),
+  //             ],
+  //           ),
+  //         const SizedBox(height: 16),
+  //         ElevatedButton(
+  //           onPressed: () {
+  //             showDialog(
+  //               context: context,
+  //               builder: (context) => AddSkillDialog(
+  //                 onSkillAdded: (newSkill) {
+  //                   setState(() {
+  //                     // user.skills.add(newSkill);
+  //                   });
+  //                 },
+  //               ),
+  //             );
+  //           },
+  //           child: Text('Add New Skill'),
+  //         )
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Widget buildSkillRating(int rating) {
-    List<Widget> stars = [];
-    for (int i = 0; i < 5; i++) {
-      if (i < rating) {
-        stars.add(Icon(Icons.star, color: Colors.yellow));
-      } else {
-        stars.add(Icon(Icons.star_border, color: Colors.yellow));
-      }
-    }
-    return Row(children: stars);
-  }
-
-  Widget buildInterestsChips(User user) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 48),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Interests',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 16),
-          Wrap(
-            children: selectedInterests.map((interest) {
-              return Chip(
-                label: Text(interest.title),
-                onDeleted: () {
-                  setState(() {
-                    selectedInterests.remove(interest);
-                  });
-                },
-              );
-            }).toList(),
-          ),
-          const SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: () async {
-              final updatedInterests = await Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => AddInterestPage(
-                    selectedInterests: selectedInterests,
-                    onInterestsSelected: (selected) {
-                      setState(() {
-                        selectedInterests = selected;
-                      });
-                    },
-                  ),
-                ),
-              );
-
-            },
-            child: Text('Add Interest'),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget buildSkillRating(int rating) {
+  //   List<Widget> stars = [];
+  //   for (int i = 0; i < 5; i++) {
+  //     if (i < rating) {
+  //       stars.add(Icon(Icons.star, color: Colors.yellow));
+  //     } else {
+  //       stars.add(Icon(Icons.star_border, color: Colors.yellow));
+  //     }
+  //   }
+  //   return Row(children: stars);
+  // }
+  //
+  // Widget buildInterestsChips(User user) {
+  //   return Container(
+  //     padding: EdgeInsets.symmetric(horizontal: 48),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Text(
+  //           'Interests',
+  //           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+  //         ),
+  //         const SizedBox(height: 16),
+  //         Wrap(
+  //           children: selectedInterests.map((interest) {
+  //             return Chip(
+  //               label: Text(interest.title),
+  //               onDeleted: () {
+  //                 setState(() {
+  //                   selectedInterests.remove(interest);
+  //                 });
+  //               },
+  //             );
+  //           }).toList(),
+  //         ),
+  //         const SizedBox(height: 16),
+  //         ElevatedButton(
+  //           onPressed: () async {
+  //             // final updatedInterests = await Navigator.of(context).push(
+  //             //   MaterialPageRoute(
+  //             //     builder: (context) => AddInterestPage(
+  //             //       selectedInterests: selectedInterests,
+  //             //       onInterestsSelected: (selected) {
+  //             //         setState(() {
+  //             //           selectedInterests = selected;
+  //             //         });
+  //             //       },
+  //             //     ),
+  //             //   ),
+  //             // );
+  //
+  //           },
+  //           child: Text('Add Interest'),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
 }
 
