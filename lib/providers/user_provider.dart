@@ -101,6 +101,7 @@ class UserProvider extends ChangeNotifier {
     certificates: [],
     skills: [],
     education: [],
+    imgUrl: '',
   );
 
   User get user => _user;

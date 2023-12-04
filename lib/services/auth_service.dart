@@ -198,6 +198,8 @@
 // }
 
 //**********************************************************************************
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:rive_animation/utils/utils.dart';
@@ -240,7 +242,7 @@ class AuthService {
         year: year,
         about: '',
         university: '',
-         interests: [], certificates: [], skills: [], education: [],
+         interests: [], certificates: [], skills: [], education: [], imgUrl: '',
       );
 
       http.Response res = await http.post(
@@ -596,7 +598,7 @@ class AuthService {
           interests: [],
           certificates: [],
           skills: [],
-          education: [],
+          education: [], imgUrl: '',
         );
       }
     } catch (e) {
@@ -618,7 +620,7 @@ class AuthService {
         interests: [],
         certificates: [],
         skills: [],
-        education: [],
+        education: [], imgUrl: '',
       );
     }
   }
@@ -643,26 +645,30 @@ class AuthService {
       );
 
       if (res.statusCode == 200) {
-        // Successful login
         final Map<String, dynamic> responseData = json.decode(res.body);
-        String token = responseData['token'];
 
-        // Retrieve the user data from the response
-        User user = User.fromMap(responseData['user']);
+        if (responseData.containsKey('token') && responseData.containsKey('userId')) {
+          String? token = responseData['token'];
+          String? userId = responseData['userId'];
 
-        // You can save the token to shared preferences or any other storage
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setString('token', token);
+          if (token != null && userId != null) {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.setString('token', token);
+            prefs.setString('userId', userId);
 
-        // Navigate to the ProfilePage and pass the user as an argument
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ProfilePage(user: user),
-          ),
-        );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProfilePage(),
+              ),
+            );
+          } else {
+            showSnackBar(context, 'Invalid response format');
+          }
+        } else {
+          showSnackBar(context, 'Invalid credentials');
+        }
       } else {
-        // Handle errors for unsuccessful login
         httpErrorHandle(
           response: res,
           context: context,
@@ -676,4 +682,33 @@ class AuthService {
     }
   }
 
+  Future<void> updateProfilePicture({
+    required String userId,
+    required File? profilePicture,
+  }) async {
+    try {
+      if (profilePicture == null) {
+        // Handle case when no new profile picture is selected
+        return;
+      }
+
+      String apiUrl = '${Constants.uri}/api/updateProfilePicture/$userId';
+
+      var request = http.MultipartRequest('POST', Uri.parse(apiUrl))
+        ..files.add(await http.MultipartFile.fromPath('profilePicture', profilePicture.path));
+
+      var response = await request.send();
+
+      if (response.statusCode == 200) {
+        // Success, handle the response if needed
+        print('Profile picture updated successfully');
+      } else {
+        // Handle the error
+        print('Failed to update profile picture: ${response.reasonPhrase}');
+      }
+    } catch (e) {
+      // Handle exceptions
+      print('Error updating profile picture: $e');
+    }
+  }
 }

@@ -1271,14 +1271,14 @@ class _StudentRegistrationContinuation2PageState
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => HomePage(),
+                      builder: (context) => RegistrationSuccessScreen(userType: '1',),
                     ),
                   );
 
 
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.green),
+                  backgroundColor: MaterialStateProperty.all(Colors.blue),
                   minimumSize: MaterialStateProperty.all(
                     Size(double.infinity, 40),
                   ),

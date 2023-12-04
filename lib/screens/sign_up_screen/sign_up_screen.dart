@@ -2,7 +2,7 @@
 // import 'package:rive_animation/screens/sign_up_screen/registration_success_screen.dart';
 // import 'package:rive_animation/screens/sign_up_screen/student_regestratin_con.dart';
 //
-// import '../../services/auth_service.dart';
+// import '../../services/auth_service_chat.dart';
 //
 // class SignupScreen extends StatefulWidget {
 //   @override
@@ -139,6 +139,8 @@
 import 'package:flutter/material.dart';
 import 'package:rive_animation/screens/sign_up_screen/registration_success_screen.dart';
 import 'package:rive_animation/screens/sign_up_screen/student_regestratin_con.dart';
+import '../../facebook/Cources_profile.dart';
+import '../../facebook/profile.dart';
 import '../../services/auth_service.dart';
 import '../../utils/utils.dart';
 
@@ -302,6 +304,23 @@ class _SignupScreenState extends State<SignupScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => StudentRegistrationContinuationPage( email: _emailController.text,),
+                    ),
+                  );
+                }
+                else if (_selectedUserType == 'Society') {
+                  // If the selected user type is Society, navigate to the SocietyScreen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Profile(),
+                    ),
+                  );
+                } else if (_selectedUserType == 'Courses Center') {
+                  // If the selected user type is Courses Center, navigate to the CourseCenterScreen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CourceProfile(),
                     ),
                   );
                 }

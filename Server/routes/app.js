@@ -177,7 +177,7 @@ authRouter.post("/api/signup_continue", async (req, res) => {
     existingUser.major = major;
     existingUser.year = year;
     existingUser.UserType = "1";
-    existingUser.imgUrl = " ";
+    existingUser.imgUrl = "assets/images/default-user-icon-8.jpg";
     existingUser.about = "New user" ;
 
     // Save the updated user
@@ -189,12 +189,7 @@ authRouter.post("/api/signup_continue", async (req, res) => {
   }
 });
 
-
-
-
-
-
-// Sign in (login) route for a student
+// Update the login route for a student
 authRouter.post("/api/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -212,7 +207,7 @@ authRouter.post("/api/login", async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, "your-secret-key");
 
-    res.json({ token, user: { name: user.name, email: user.email } });
+    res.json({ token, userId: user._id }); // Include the user ID in the response
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -329,13 +324,17 @@ authRouter.get("/api/user/:userId", async (req, res) => {
   }
 });
 
+
 authRouter.post("/api/updateProfilePicture/:userId", upload.single('profilePicture'), async (req, res) => {
   try {
     const { userId } = req.params;
     const profilePicture = req.file;
 
+    // Convert the user ID to ObjectId using 'new' keyword
+    const userIdObjectId = new mongoose.Types.ObjectId(userId);
+
     // Check if the user exists
-    const user = await User.findById(userId);
+    const user = await User.findById(userIdObjectId);
 
     if (!user) {
       return res.status(404).json({ msg: `User not found with ID: ${userId}` });
@@ -355,6 +354,75 @@ authRouter.post("/api/updateProfilePicture/:userId", upload.single('profilePictu
 });
 
 
+// Add this route to authRouter in index.js
+
+// Get Education Information for a specific student
+authRouter.get("/api/getEducation/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ msg: `User not found with ID: ${userId}` });
+    }
+
+    const educationInfo = user.education;
+    res.json(educationInfo);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Get Certificate Information for a specific student
+authRouter.get("/api/getCertificates/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ msg: `User not found with ID: ${userId}` });
+    }
+
+    const certificateInfo = user.certificates;
+    res.json(certificateInfo);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Get Interest Information for a specific student
+authRouter.get("/api/getInterests/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ msg: `User not found with ID: ${userId}` });
+    }
+
+    const interestInfo = user.interests;
+    res.json(interestInfo);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Get Skill Information for a specific student
+authRouter.get("/api/getSkills/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ msg: `User not found with ID: ${userId}` });
+    }
+
+    const skillInfo = user.skills;
+    res.json(skillInfo);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
 
 
 module.exports = authRouter;

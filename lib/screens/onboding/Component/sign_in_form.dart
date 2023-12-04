@@ -5,7 +5,7 @@
 // import 'package:flutter_svg/flutter_svg.dart';
 // import 'package:rive/rive.dart';
 //
-// import '../../../services/auth_service.dart';
+// import '../../../services/auth_service_chat.dart';
 // import '../../profile/profile_page.dart';
 //
 // class SigIn_Form extends StatelessWidget {
@@ -129,8 +129,8 @@ class SigIn_Form extends StatelessWidget {
   Widget build(BuildContext context) {
     String email = ''; // Add a variable to store the email
     String password = ''; // Add a variable to store the password
-
-    return Form(
+    return SingleChildScrollView(
+        child: Form(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -142,7 +142,7 @@ class SigIn_Form extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 8, bottom: 8),
+            padding: const EdgeInsets.only(top: 8, bottom: 15),
             child: TextFormField(
               onChanged: (value) {
                 // Update the email variable when the text changes
@@ -156,9 +156,10 @@ class SigIn_Form extends StatelessWidget {
                 hintText: 'Enter your email',
               ),
             ),
+
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10, bottom: 8),
+            padding: const EdgeInsets.only(top: 10, bottom: 15),
             child: TextFormField(
               onChanged: (value) {
                 // Update the password variable when the text changes
@@ -175,7 +176,9 @@ class SigIn_Form extends StatelessWidget {
                 ),
                 hintText: 'Enter your password',
               ),
+
             ),
+
           ),
           Padding(
             padding: const EdgeInsets.only(top: 8, bottom: 10),
@@ -188,7 +191,8 @@ class SigIn_Form extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xED6E95F6),
+                // backgroundColor: const Color(0xED6E95F6),
+                backgroundColor:  Colors.blue,
                 minimumSize: const Size(double.infinity, 56),
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
@@ -205,6 +209,7 @@ class SigIn_Form extends StatelessWidget {
           ),
         ],
       ),
-    );
+    ),
+          );
   }
 }

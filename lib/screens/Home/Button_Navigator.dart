@@ -56,12 +56,13 @@ class _HomePageState extends State<HomePage> {
       body: _pages[_currentIndex],
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.white,
-        color: Color(0xED6E95F6),
+        // color: Color(0xED6E95F6),
+        color: Colors.blue,
         items: [
-          Icon(Icons.home, size: 30),
-          Icon(Icons.search, size: 30),
-          Icon(Icons.chat, size: 30),
-          Icon(Icons.notifications, size: 30),
+          Icon(Icons.home, size: 30, color: Colors.white,),
+          Icon(Icons.message_rounded, size: 30 ,color:Colors.white,),
+          Icon(Icons.notifications, size: 30 ,  color: Colors.white),
+          Icon(Icons.person, size: 30 ,color: Colors.white,),
         ],
         onTap: (index) {
           if (index == 0) {

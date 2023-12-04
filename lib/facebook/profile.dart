@@ -170,11 +170,11 @@ class Profile extends StatelessWidget {
                   style: ElevatedButton.styleFrom(primary: Colors.blue[800]),
                   child: Row(
                     children: const [
-                      Icon(Icons.add_circle_rounded),
+                      Icon(Icons.calendar_month),
                       SizedBox(
                         width: 10,
                       ),
-                      Text('Add to story')
+                      Text('Calender')
                     ],
                   ),
                 ),
@@ -186,11 +186,11 @@ class Profile extends StatelessWidget {
                   style: ElevatedButton.styleFrom(primary: Colors.grey[900]),
                   child: Row(
                     children: const [
-                      Icon(Icons.edit),
+                      Icon(Icons.chat),
                       SizedBox(
                         width: 10,
                       ),
-                      Text('Add to story')
+                      Text('Massage')
                     ],
                   ),
                 ),

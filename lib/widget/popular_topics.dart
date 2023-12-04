@@ -60,7 +60,7 @@ import '../screens/test/TopicPostsScreen.dart';
 // }
 
 class PopularTopics extends StatelessWidget {
-  List<String> contents = ["C++", "Laravel", "Node Js", "Nginx"];
+  List<String> contents = ["C++", "Laravel", "Node Js", "Flutter"];
   List<Color> colors = [Colors.purple, Colors.blueAccent, Colors.greenAccent, Colors.redAccent];
 
   @override

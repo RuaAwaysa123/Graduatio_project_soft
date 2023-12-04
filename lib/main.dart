@@ -113,7 +113,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = UserPreferences.myUser;
- final isDarkMode = false;
+    final isDarkMode = false;
     return ThemeProvider(
       initTheme: isDarkMode ? MyThemes.darkTheme : MyThemes.lightTheme,
       child: Builder(
@@ -132,4 +132,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

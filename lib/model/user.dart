@@ -5,10 +5,10 @@ class User {
 
   final String token;
 
-  final String imagePath;
+   final String imagePath;
   final String name;
   final String email;
-  final String about;
+   final String about;
   //final bool isDarkMode;
   final String location;
   final String phoneNumber;

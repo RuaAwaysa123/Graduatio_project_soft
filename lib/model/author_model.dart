@@ -8,44 +8,44 @@ class Author{
   });
 }
 
-final Author mark = Author(
-  name: 'Mark Lewis',
-  imageUrl: 'assets/images/author1.jpg'
+final Author AYA = Author(
+  name: 'Aya ',
+  imageUrl: 'assets/images/pexels-brigitte-tohm-239581.jpg'
 );
 
-final Author john = Author(
-  name: 'John Sabestiam',
-  imageUrl: 'assets/images/author2.jpg'
+final Author Rua = Author(
+  name: 'Rua ',
+  imageUrl: 'assets/images/pexels-ylanite-koppens-776656.jpg'
 );
 
-final Author mike = Author(
-  name: 'Mike Ruther',
-  imageUrl: 'assets/images/author3.jpg'
+final Author Nada = Author(
+  name: 'Test 1',
+  imageUrl: ''
 );
 
 final Author adam = Author(
-  name: 'Adam Zampal',
-  imageUrl: 'assets/images/author4.jpg'
+  name: 'Adam ',
+  imageUrl: 'assets/images/pexels-eberhard-grossgasteiger-1699021.jpg'
 );
-final Author justin = Author(
-  name: 'Justin Neither',
-  imageUrl: 'assets/images/author5.jpg'
+final Author Saly = Author(
+  name: 'John john ',
+  imageUrl: 'assets/images/pexels-eberhard-grossgasteiger-2088172.jpg'
 );
 final Author sam = Author(
-  name: 'Samuel Tarly',
-  imageUrl: 'assets/images/author6.jpg'
+  name: 'Saly',
+  imageUrl: 'assets/images/pexels-eberhard-grossgasteiger-1699021.jpg'
 );
-final Author luther = Author(
-  name: 'Luther',
-  imageUrl: 'assets/images/author7.jpg'
+final Author Ahmad = Author(
+  name: 'Ahmmad',
+  imageUrl: 'assets/images/pexels-irina-iriser-785293.jpg'
 );
 
 final List<Author> authors = [
-  luther,
+  Nada,
   sam,
-  justin,
+  Ahmad,
   adam,
-  mike,
-  john,
-  mark
+  Saly,
+  AYA,
+  Rua
 ];

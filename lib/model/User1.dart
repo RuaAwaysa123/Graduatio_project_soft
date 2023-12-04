@@ -97,10 +97,12 @@ class User {
   final String year;
   final String about;
   final String university;
+  final String imgUrl;
   late final List<Interest> interests;
   late final List<Certificate> certificates;
   late final List<Skill> skills;
   late final List<Education> education;
+
 
   User({
     required this.id,
@@ -120,9 +122,12 @@ class User {
     required this.certificates,
     required this.skills,
     required this.education,
+    required this.imgUrl ,
+
   });
 
-  get imgUrl => "";
+  // String get imageUrl => imageUrl ?? '';
+
 
   Map<String, dynamic> toMap() {
     return {
@@ -138,6 +143,7 @@ class User {
       'year': year,
       'about': about,
       'university': university,
+      'imgUrl' : imgUrl,
       'interests': interests.map((interest) => interest.toMap()).toList(),
       'certificates': certificates.map((certificate) => certificate.toMap()).toList(),
       'skills': skills.map((skill) => skill.toMap()).toList(),
@@ -155,6 +161,8 @@ class User {
       firstName: map['firstName'] ?? '',
       lastName: map['lastName'] ?? '',
       location: map['location'] ?? '',
+      imgUrl: map['imgUrl'] ?? '',
+
       universityNumber: map['universityNumber'] ?? '',
       major: map['major'] ?? '',
       year: map['year'] ?? '',

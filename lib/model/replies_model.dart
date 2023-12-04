@@ -14,13 +14,13 @@ class Reply {
 
 List<Reply> replies = [
   Reply(
-    author: mike,
-    content: 'LMOA try to learn php using udemy or youtube courses if your good enough elrrn from docs',
+    author: Saly,
+    content: 'try to learn php using udemy or youtube courses if your good enough learn from docs',
     likes: 10
   ),
   Reply(
-    author: john,
-    content: 'Officiis iusto dolorum delectus totam. Replioe',
+    author: Nada,
+    content: 'Yes  ....',
     likes: 120
   ),
 

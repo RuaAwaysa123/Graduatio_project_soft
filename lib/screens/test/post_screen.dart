@@ -27,7 +27,7 @@ class _PostScreenState extends State<PostScreen> {
 
     // Create a new reply object
     Reply newReply = Reply(
-      author:mark,   //author Set the author of the reply, you may get it from the logged-in user or use a default author,
+      author:Rua,   //author Set the author of the reply, you may get it from the logged-in user or use a default author,
       content: replyText,
       likes: 0,
     );

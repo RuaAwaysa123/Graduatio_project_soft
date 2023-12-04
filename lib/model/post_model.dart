@@ -31,9 +31,9 @@ class Question{
 
 List<Question> questions = [
   Question(
-    author: mike,
-    question: 'C ## In A Nutshell',
-    content: "Lorem  i've been using c## for a whole decade now, if you guys know how to break the boring feeling of letting to tell everyne of what happed in the day",
+    author: AYA,
+    question: 'C ++ is important ',
+    content: "C++ is a high-level, general-purpose programming language created by Danish computer scientist Bjarne Stroustrup. First released in 1985 as an extension of the C programming language, it has since expanded significantly over time; as of 1997 C++",
     created_at: "1h ago",
     views: 120,
     votes: 100,
@@ -42,9 +42,9 @@ List<Question> questions = [
     replies: replies
   ),
   Question(
-    author: john,
+    author: Rua,
     question: 'List<Dynamic> is not a subtype of Lits<Container>',
-    content: "Lorem  i've been using c## for a whole decade now, if you guys know how to break the boring feeling of letting to tell everyne of what happed in the day",
+    content: "with no change to the body of the code - then to get a List<dynamic> just call it as: List<dynamic> list = GetSwimlaneAttribute(...).ToList(); If you absolutely can't change the declaration, you could convert it outside the method: IEnumerable<dynamic> sequence = GetSwimlaneAttribute(...);",
     created_at: "2h ago",
     views: 20,
     votes: 10,
@@ -55,7 +55,7 @@ List<Question> questions = [
   Question(
     author: sam,
     question: 'React a basic error 404 is not typed',
-    content: "Lorem  i've been using c## for a whole decade now, if you guys know how to break the boring feeling of letting to tell everyne of what happed in the day",
+    content: "How to solvevAssetBundleImageProvider._loadAsync (package:flutter/src/painting/image_provider.dart:811:18) error ",
     created_at: "4h ago",
     views: 220,
     votes: 107,
@@ -65,20 +65,20 @@ List<Question> questions = [
 
   ),
   Question(
-    author: mark,
-    question: 'Basic understanding of what is not good',
-    content: "Lorem  i've been using c## for a whole decade now, if you guys know how to break the boring feeling of letting to tell everyne of what happed in the day",
+    author: Nada,
+    question: 'node js back end ',
+    content: "Node.js is an open-source, cross-platform JavaScript runtime environment facilitated by the Linux Foundation's Collaborative Projects program. The OpenJS Foundation is the premier ...",
     created_at: "10h ago",
     views: 221,
-      topics: ['C++', 'Nginx'],  // Add topics here
+      topics: ['C++', 'node jd '],  // Add topics here
     votes: 109,
     repliesCount: 67,
     replies: replies
   ),
   Question(
-    author: justin,
-    question: 'Luther is not author in here',
-    content: "Lorem  i've been using c## for a whole decade now, if you guys know how to break the boring feeling of letting to tell everyne of what happed in the day",
+    author: Ahmad,
+    question: 'Any one Know C++  here',
+    content: "I'm first year student need some one to help me in c++ .................................................... ",
     created_at: "24h ago",
       topics: ['laravel'],  // Add topics here
     views: 325,

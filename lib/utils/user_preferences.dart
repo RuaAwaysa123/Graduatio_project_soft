@@ -4,15 +4,15 @@ class UserPreferences {
   static final myUser = User(
     token:  'dfgbh',
     id: 'dfgbh',
-    imagePath:
+    imagePath: //'assets/avatar.jpg',
     'https://images.unsplash.com/photo-1554151228-14d9def656e4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=333&q=80',
-    name: 'Sarah Abs',
-    email: 'sarah.abs@gmail.com',
+    name: 'Rua Mohmmad',
+    email: 'ruaana112001@gmail.com',
     about:
-    'Certified Personal Trainer and Nutritionist with years of experience in creating effective diets and training plans focused on achieving individual customers goals in a smooth way.',
+    'COmputer Engineering 5th year student .....',
     phoneNumber: '0592245351',
     location: 'nablus',
-    university: '11924826',
+    university: 'Najah National Univercity ',
     major: 'computer engineer',
   //  isDarkMode: false,
     skills: [

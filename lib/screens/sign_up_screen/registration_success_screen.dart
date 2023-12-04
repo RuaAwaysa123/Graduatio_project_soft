@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../onboding/onboding_screen.dart';
+
 class RegistrationSuccessScreen extends StatelessWidget {
   final String userType;
 
@@ -40,6 +42,13 @@ class RegistrationSuccessScreen extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => OnboardingScreen(),
+                  ),
+                );
+
                 // Navigate to your main screen or home screen.
                 Navigator.popUntil(context, ModalRoute.withName('/'));
               },
