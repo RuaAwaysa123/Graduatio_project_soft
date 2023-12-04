@@ -424,5 +424,33 @@ authRouter.get("/api/getSkills/:userId", async (req, res) => {
   }
 });
 
+// Add this route to authRouter in index.js
+
+// Update About Information for a specific user
+authRouter.put("/api/updateAbout/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const { about } = req.body;
+
+    // Check if the user exists
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ msg: `User not found with ID: ${userId}` });
+    }
+
+    // Update the about field
+    user.about = about;
+
+    // Save the updated user
+    const updatedUser = await user.save();
+
+    res.json(updatedUser);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
 
 module.exports = authRouter;
