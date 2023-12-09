@@ -245,16 +245,19 @@ class Certificate {
 }
 
 class Skill {
+  final String id; // Add this line
   final String skillName;
   final int rating;
 
   Skill({
+    required this.id, // Add this line
     required this.skillName,
     required this.rating,
   });
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id, // Add this line
       'skillName': skillName,
       'rating': rating,
     };
@@ -262,6 +265,7 @@ class Skill {
 
   factory Skill.fromMap(Map<String, dynamic> map) {
     return Skill(
+      id: map['id'] ?? '',
       skillName: map['skillName'] ?? '',
       rating: map['rating'] ?? 0,
     );
@@ -269,11 +273,13 @@ class Skill {
 }
 
 class Education {
+  final String educationId ;
   final String schoolName;
   final String startDate;
   final String endDate;
 
-  Education({
+  Education( {
+    required this.educationId,
     required this.schoolName,
     required this.startDate,
     required this.endDate,
@@ -281,6 +287,7 @@ class Education {
 
   Map<String, dynamic> toMap() {
     return {
+      'educationId' : educationId,
       'schoolName': schoolName,
       'startDate': startDate,
       'endDate': endDate,
@@ -289,6 +296,7 @@ class Education {
 
   factory Education.fromMap(Map<String, dynamic> map) {
     return Education(
+      educationId : map['educationId'] ?? '',
       schoolName: map['schoolName'] ?? '',
       startDate: map['startDate'] ?? '',
       endDate: map['endDate'] ?? '',

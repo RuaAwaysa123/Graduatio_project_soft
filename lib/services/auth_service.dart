@@ -1,214 +1,11 @@
-// // import 'package:flutter/material.dart';
-// // import 'package:flutter/services.dart';
-// // import 'package:rive_animation/utils/utils.dart';
-// // import 'package:http/http.dart' as http;
-// // import 'package:provider/provider.dart';
-// // import 'package:rive_animation/model/user.dart';
-// // class AuthoService {
-// //   static String uri = 'http://localhost:3000';
-// //   void signupUser({
-// //     required BuildContext context,
-// //     required String email,
-// //     required String password,
-// //    required String name,
-// // }) async{
-// // try {
-// //   User user1 = User(
-// //     id: '',
-// //     name: '',
-// //     email: '',
-// //     token: '',
-// //     imagePath: '',
-// //     about: '',
-// //     location: '',
-// //     major: '',
-// //     phoneNumber: '',
-// //     university: '',
-// //     interests: [],
-// //     skills: [],
-// // //password: '',
-// //   );
-// //   http.Response res = await http.post(
-// //     Uri.parse('${uri}/api/signup'),
-// //     body: user1.toJson() ,
-// //     headers: <String, String>{
-// //       'Content-Type': 'application/json; charset=UTF-8',
-// //     },
-// //   ) ;
-// //
-// //   httpErrorHandle(
-// //     response: res,
-// //     context: context,
-// //     onSuccess: () {
-// //       showSnackBar(
-// //         context,
-// //         'Account created! Login with the same credentials!',
-// //       );
-// //     },
-// //   );
-// // }catch(e){
-// //   showSnackBar(context, e.toString());
-// // }
-// //
-// //   }
-// // }
-//
-// //----------------------------------------------------------------------------
-//
-// import 'package:flutter/material.dart';
-// import 'dart:convert';
-// // import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-// import 'package:rive_animation/utils/utils.dart';
-// import 'package:http/http.dart' as http;
-// import 'package:provider/provider.dart';
-// import 'package:rive_animation/model/User1.dart';
-//
-// import 'package:shared_preferences/shared_preferences.dart';
-//
-// import '../providers/user_provider.dart';
-// import '../screens/onboding/onboding_screen.dart';
-// import '../screens/profile/profile_page.dart';
-// import '../utils/Constants.dart';
-//
-// class AuthService {
-//   void signUpUser({
-//     required BuildContext context,
-//     required String email,
-//     required String password,
-//     // required String name,
-//   }) async {
-//     try {
-//       User user = User(
-//         id: '',
-//        // name: name,
-//         password: password,
-//         email: email,
-//         token: '',
-//       );
-//
-//       http.Response res = await http.post(
-//         Uri.parse('${Constants.uri}/api/signup'),
-//         body: user.toJson(),
-//         headers: <String, String>{
-//           'Content-Type': 'application/json; charset=UTF-8',
-//         },
-//       );
-//
-//       httpErrorHandle(
-//         response: res,
-//         context: context,
-//         onSuccess: () {
-//           showSnackBar(
-//             context,
-//             'Account created! Login with the same credentials!',
-//           );
-//         },
-//       );
-//     } catch (e) {
-//       showSnackBar(context, e.toString());
-//     }
-//   }
-//
-//   // void signInUser({
-//   //   required BuildContext context,
-//   //   required String email,
-//   //   required String password,
-//   // }) async {
-//   //   try {
-//   //     var userProvider = Provider.of<UserProvider>(context, listen: false);
-//   //     final navigator = Navigator.of(context);
-//   //     http.Response res = await http.post(
-//   //       Uri.parse('${Constants.uri}/api/signin'),
-//   //       body: jsonEncode({
-//   //         'email': email,
-//   //         'password': password,
-//   //       }),
-//   //       headers: <String, String>{
-//   //         'Content-Type': 'application/json; charset=UTF-8',
-//   //       },
-//   //     );
-//   //     httpErrorHandle(
-//   //       response: res,
-//   //       context: context,
-//   //       onSuccess: () async {
-//   //         SharedPreferences prefs = await SharedPreferences.getInstance();
-//   //         userProvider.setUser(res.body);
-//   //         await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
-//   //         navigator.pushAndRemoveUntil(
-//   //           MaterialPageRoute(
-//   //             builder: (context) =>  ProfilePage(),
-//   //           ),
-//   //               (route) => false,
-//   //         );
-//   //       },
-//   //     );
-//   //   } catch (e) {
-//   //     showSnackBar(context, e.toString());
-//   //   }
-//   // }
-//   //
-//   // // get user data
-//   // void getUserData(
-//   //     BuildContext context,
-//   //     ) async {
-//   //   try {
-//   //     var userProvider = Provider.of<UserProvider>(context, listen: false);
-//   //     SharedPreferences prefs = await SharedPreferences.getInstance();
-//   //     String? token = prefs.getString('x-auth-token');
-//   //
-//   //     if (token == null) {
-//   //       prefs.setString('x-auth-token', '');
-//   //     }
-//   //
-//   //     var tokenRes = await http.post(
-//   //       Uri.parse('${Constants.uri}/tokenIsValid'),
-//   //       headers: <String, String>{
-//   //         'Content-Type': 'application/json; charset=UTF-8',
-//   //         'x-auth-token': token!,
-//   //       },
-//   //     );
-//   //
-//   //     var response = jsonDecode(tokenRes.body);
-//   //
-//   //     if (response == true) {
-//   //       http.Response userRes = await http.get(
-//   //         Uri.parse('${Constants.uri}/'),
-//   //         headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', 'x-auth-token': token},
-//   //       );
-//   //
-//   //       userProvider.setUser(userRes.body);
-//   //     }
-//   //   } catch (e) {
-//   //     showSnackBar(context, e.toString());
-//   //   }
-//   // }
-//   //
-//   // void signOut(BuildContext context) async {
-//   //   final navigator = Navigator.of(context);
-//   //   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   //   prefs.setString('x-auth-token', '');
-//   //   navigator.pushAndRemoveUntil(
-//   //     MaterialPageRoute(
-//   //       builder: (context) => const OnboardingScreen(),
-//   //     ),
-//   //         (route) => false,
-//   //   );
-//   // }
-// }
-
-//**********************************************************************************
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:rive_animation/utils/utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:rive_animation/model/User1.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../providers/user_provider.dart';
 import '../screens/onboding/onboding_screen.dart';
 import '../screens/profile/profile_page.dart';
@@ -320,7 +117,7 @@ class AuthService {
     required String userId,
     required String schoolName,
     required String startDate,
-    required String endDate,
+    required String endDate, required educationId,
   }) async {
     try {
       http.Response res = await http.post(
@@ -457,104 +254,6 @@ class AuthService {
       showSnackBar(context, e.toString());
     }
   }
-
-  // login user
-  // void loginUser({
-  //   required BuildContext context,
-  //   required String email,
-  //   required String password,
-  // }) async {
-  //   try {
-  //     http.Response res = await http.post(
-  //       Uri.parse('${Constants.uri}/api/login'),
-  //       body: jsonEncode({
-  //         'email': email,
-  //         'password': password,
-  //       }),
-  //       headers: <String, String>{
-  //         'Content-Type': 'application/json; charset=UTF-8',
-  //       },
-  //     );
-  //
-  //     if (res.statusCode == 200) {
-  //       // Successful login
-  //       final Map<String, dynamic> responseData = json.decode(res.body);
-  //       String token = responseData['token'];
-  //       // You can save the token to shared preferences or any other storage
-  //       SharedPreferences prefs = await SharedPreferences.getInstance();
-  //       prefs.setString('token', token);
-  //
-  //       // Navigate to the profile page or any other screen after successful login
-  //       Navigator.pushReplacement(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (context) => ProfilePage(),
-  //         ),
-  //       );
-  //     } else {
-  //       // Handle errors for unsuccessful login
-  //       httpErrorHandle(
-  //         response: res,
-  //         context: context,
-  //         onSuccess: () {
-  //           // Handle success if needed
-  //         },
-  //       );
-  //     }
-  //   } catch (e) {
-  //     showSnackBar(context, e.toString());
-  //   }
-  // }
-  // Future<User> loginUser({
-  //   required BuildContext context,
-  //   required String email,
-  //   required String password,
-  // }) async {
-  //   try {
-  //     http.Response res = await http.post(
-  //       Uri.parse('${Constants.uri}/api/login'),
-  //       body: jsonEncode({
-  //         'email': email,
-  //         'password': password,
-  //       }),
-  //       headers: <String, String>{
-  //         'Content-Type': 'application/json; charset=UTF-8',
-  //       },
-  //     );
-  //
-  //     if (res.statusCode == 200) {
-  //       // Successful login
-  //       final Map<String, dynamic> responseData = json.decode(res.body);
-  //       String token = responseData['token'];
-  //
-  //       // Retrieve the user data from the response
-  //       User user = User.fromMap(responseData['user']);
-  //
-  //       // You can save the token to shared preferences or any other storage
-  //       SharedPreferences prefs = await SharedPreferences.getInstance();
-  //       prefs.setString('token', token);
-  //
-  //       // Return the user object
-  //       return user;
-  //     } else {
-  //       // Handle errors for unsuccessful login
-  //       httpErrorHandle(
-  //         response: res,
-  //         context: context,
-  //         onSuccess: () {
-  //           // Handle success if needed
-  //         },
-  //       );
-  //       // Return a dummy user object or throw an exception
-  //       return User(id: '', email: '', token: '', password: '', phoneNumber: '', firstName: '', lastName: '', location: '', universityNumber: '', major: '', year: '', about: '', university: '', interests: [], certificates: [], skills: [], education: []);
-  //     }
-  //   } catch (e) {
-  //     showSnackBar(context, e.toString());
-  //     // Return a dummy user object or throw an exception
-  //     return User(id: '', email: '', token: '', password: '', phoneNumber: '', firstName: '', lastName: '', location: '', universityNumber: '', major: '', year: '', about: '', university: '', interests: [], certificates: [], skills: [], education: []);
-  //   }
-  // }
-
 
   Future<User> getUserProfile({
     required BuildContext context,
@@ -709,6 +408,372 @@ class AuthService {
     } catch (e) {
       // Handle exceptions
       print('Error updating profile picture: $e');
+    }
+  }
+
+  // Get Certificate Information
+  Future<List<Certificate>> getCertificates({
+    required BuildContext context,
+    required String userId,
+  }) async {
+    try {
+      http.Response res = await http.get(
+        Uri.parse('${Constants.uri}/api/getCertificates/$userId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      if (res.statusCode == 200) {
+        final List<dynamic> responseData = json.decode(res.body);
+        List<Certificate> certificates = responseData
+            .map((certificate) => Certificate.fromMap(certificate))
+            .toList();
+        return certificates;
+      } else {
+        httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            // Handle success if needed
+          },
+        );
+        return [];
+      }
+    } catch (e) {
+      showSnackBar(context, e.toString());
+      return [];
+    }
+  }
+
+  // Get Education Information
+  Future<List<Education>> getEducation({
+    required BuildContext context,
+    required String userId,
+  }) async {
+    try {
+      http.Response res = await http.get(
+        Uri.parse('${Constants.uri}/api/getEducation/$userId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      if (res.statusCode == 200) {
+        final List<dynamic> responseData = json.decode(res.body);
+        List<Education> education = responseData
+            .map((edu) => Education.fromMap(edu))
+            .toList();
+        return education;
+      } else {
+        httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            // Handle success if needed
+          },
+        );
+        return [];
+      }
+    } catch (e) {
+      showSnackBar(context, e.toString());
+      return [];
+    }
+  }
+
+  // Get Skills Information
+  Future<List<Skill>> getSkills({
+    required BuildContext context,
+    required String userId,
+  }) async {
+    try {
+      http.Response res = await http.get(
+        Uri.parse('${Constants.uri}/api/getSkills/$userId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      if (res.statusCode == 200) {
+        final List<dynamic> responseData = json.decode(res.body);
+        List<Skill> skills = responseData
+            .map((skill) => Skill.fromMap(skill))
+            .toList();
+        return skills;
+      } else {
+        httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            // Handle success if needed
+          },
+        );
+        return [];
+      }
+    } catch (e) {
+      showSnackBar(context, e.toString());
+      return [];
+    }
+  }
+
+  // Get Interests Information
+  Future<List<Interest>> getInterests({
+    required BuildContext context,
+    required String userId,
+  }) async {
+    try {
+      http.Response res = await http.get(
+        Uri.parse('${Constants.uri}/api/getInterests/$userId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      if (res.statusCode == 200) {
+        final List<dynamic> responseData = json.decode(res.body);
+        List<Interest> interests = responseData
+            .map((interest) => Interest.fromMap(interest))
+            .toList();
+        return interests;
+      } else {
+        httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            // Handle success if needed
+          },
+        );
+        return [];
+      }
+    } catch (e) {
+      showSnackBar(context, e.toString());
+      return [];
+    }
+  }
+
+  // Update About Information
+  Future<void> updateAbout({
+    required BuildContext context,
+    required String userId,
+    required String about,
+  }) async {
+    try {
+      http.Response res = await http.put(
+        Uri.parse('${Constants.uri}/api/updateAbout/$userId'),
+        body: jsonEncode({
+          'about': about,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          // Handle success if needed
+          showSnackBar(
+            context,
+            'About information updated successfully!',
+          );
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  // Update Skill Information
+  Future<void> updateSkill({
+    required BuildContext context,
+    required String userId,
+    required String skillId,
+    required String skillName,
+    required String rating,
+  }) async {
+    try {
+      http.Response res = await http.put(
+        Uri.parse('${Constants.uri}/api/updateSkill/$userId/$skillId'),
+        body: jsonEncode({
+          'skillName': skillName,
+          'rating': rating,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(
+            context,
+            'Skill information updated successfully!',
+          );
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  // Delete Skill Information
+  void deleteSkill({
+    required BuildContext context,
+    required String userId,
+    required String skillId,
+  }) async {
+    try {
+      http.Response res = await http.delete(
+        Uri.parse('${Constants.uri}/api/deleteSkill/$userId/$skillId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(
+            context,
+            'Skill information deleted successfully!',
+          );
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+  // Update Interest Information
+  void updateInterest({
+    required BuildContext context,
+    required String userId,
+    required String interestId,
+    required String title,
+    required String description,
+  }) async {
+    try {
+      http.Response res = await http.put(
+        Uri.parse('${Constants.uri}/api/updateInterest/$userId/$interestId'),
+        body: jsonEncode({
+          'title': title,
+          'description': description,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(
+            context,
+            'Interest information updated successfully!',
+          );
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  // Delete Interest Information
+  void deleteInterest({
+    required BuildContext context,
+    required String userId,
+    required String interestId,
+  }) async {
+    try {
+      http.Response res = await http.delete(
+        Uri.parse('${Constants.uri}/api/deleteInterest/$userId/$interestId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(
+            context,
+            'Interest information deleted successfully!',
+          );
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  // Update Certificate Information
+  void updateCertificate({
+    required BuildContext context,
+    required String userId,
+    required String certificateId,
+    required String certificateName,
+    required String certificateURL,
+    required String issueOrganization,
+  }) async {
+    try {
+      http.Response res = await http.put(
+        Uri.parse('${Constants.uri}/api/updateCertificate/$userId/$certificateId'),
+        body: jsonEncode({
+          'certificateName': certificateName,
+          'certificateURL': certificateURL,
+          'issueOrganization': issueOrganization,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(
+            context,
+            'Certificate information updated successfully!',
+          );
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  // Delete Certificate Information
+  void deleteCertificate({
+    required BuildContext context,
+    required String userId,
+    required String certificateId,
+  }) async {
+    try {
+      http.Response res = await http.delete(
+        Uri.parse('${Constants.uri}/api/deleteCertificate/$userId/$certificateId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(
+            context,
+            'Certificate information deleted successfully!',
+          );
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
     }
   }
 }

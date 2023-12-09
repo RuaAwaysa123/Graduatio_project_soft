@@ -53,17 +53,7 @@ class _AddSkillDialogState extends State<AddSkillDialog> {
             Navigator.of(context).pop();
           },
         ),
-        // TextButton(
-        //   child: Text('Add'),
-        //   onPressed: () {
-        //     if (skillName.isNotEmpty) {
-        //       final newSkill = Skill(name: skillName, rating: skillRating);
-        //       // Add the new skill to the user's skills list
-        //       // You need to implement the logic to add the skill to the user here
-        //       Navigator.of(context).pop();
-        //     }
-        //   },
-        // ),
+
         TextButton(
           child: Text('Add'),
           onPressed: () {

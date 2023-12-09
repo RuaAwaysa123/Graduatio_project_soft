@@ -3,8 +3,6 @@ const mongoose = require("mongoose");
 const authRouter = require("./routes/app");
 const bcryptjs = require("bcryptjs");
 
-
-
 const PORT = process.env.PORT || 3000;
 const app = express();
 //const cors = require("cors");

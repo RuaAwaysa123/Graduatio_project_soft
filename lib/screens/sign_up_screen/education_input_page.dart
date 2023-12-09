@@ -681,6 +681,7 @@ class _StudentRegistrationContinuation2PageState
         schoolName: education.schoolName,
         startDate: education.startDate.toString(),
         endDate: education.endDate.toString(),
+        educationId: null,
       );
       setState(() {
         educationList.add(education);

@@ -57,7 +57,9 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rive_animation/providers/user_provider.dart';
 import 'package:rive_animation/screens/Home/Button_Navigator.dart';
+import 'package:rive_animation/screens/cources/root_app.dart';
 import 'package:rive_animation/screens/onboding/onboding_screen.dart';
+import 'package:rive_animation/screens/profile/components/interest_select.dart';
 import 'package:rive_animation/screens/profile/profile_page.dart';
 import 'package:rive_animation/screens/sign_up_screen/education_input_page.dart';
 import 'package:rive_animation/themes.dart';
@@ -123,12 +125,14 @@ class MyApp extends StatelessWidget {
               theme: isDarkMode ? MyThemes.darkTheme : MyThemes.lightTheme,
               // scrollBehavior: Profile(),
               home: OnboardingScreen(),
-              // home: CalendarPage(),
+              // home: InterestSelectionPage(),
 
               debugShowCheckedModeBanner: false,
             ),
 
       ),
+
+
     );
   }
 }
