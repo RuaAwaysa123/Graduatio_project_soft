@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const authRouter = require("./routes/app");
+//const courceCenterRouter = require("./routes/Cource_Center_routes");    //Server/routes/Cource_Center_routes.js
 const bcryptjs = require("bcryptjs");
 
 const PORT = process.env.PORT || 3000;
@@ -10,7 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use(authRouter);
-
+//app.use(courceCenterRouter);
 const DB = "mongodb+srv://Rua:CNkuPgFcdKzGLHPv@cluster0.uouryro.mongodb.net/?retryWrites=true&w=majority"
 
 mongoose

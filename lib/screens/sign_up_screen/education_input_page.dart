@@ -679,8 +679,8 @@ class _StudentRegistrationContinuation2PageState
         context: context,
         userId: '65553b04c5b0a3f543d7241d',
         schoolName: education.schoolName,
-        startDate: education.startDate.toString(),
-        endDate: education.endDate.toString(),
+        startDate: education.startDate,
+        endDate: education.endDate,
         educationId: null,
       );
       setState(() {

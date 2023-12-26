@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "627233417497",
+    "project_id": "chatgroup-9905e",
+    "storage_bucket": "chatgroup-9905e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627233417497:android:b65e7e5c8c8afb66dbbd88",
+        "android_client_info": {
+          "package_name": "com.example.rive_animation"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBez4JEuePgRT8guQDjRcW02r29WHYo3ZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

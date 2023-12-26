@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:rive_animation/model/User1.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../providers/user_provider.dart';
+import '../screens/Home/Button_Navigator.dart';
 import '../screens/onboding/onboding_screen.dart';
 import '../screens/profile/profile_page.dart';
 import '../utils/Constants.dart';
@@ -116,8 +117,8 @@ class AuthService {
     required BuildContext context,
     required String userId,
     required String schoolName,
-    required String startDate,
-    required String endDate, required educationId,
+    required DateTime startDate,
+    required DateTime endDate, required educationId,
   }) async {
     try {
       http.Response res = await http.post(
@@ -354,11 +355,11 @@ class AuthService {
             SharedPreferences prefs = await SharedPreferences.getInstance();
             prefs.setString('token', token);
             prefs.setString('userId', userId);
-
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ProfilePage(),
+                // builder: (context) => ProfilePage(),
+                  builder: (context) => RootApp1(),
               ),
             );
           } else {
@@ -776,4 +777,6 @@ class AuthService {
       showSnackBar(context, e.toString());
     }
   }
+
+
 }

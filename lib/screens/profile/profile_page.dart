@@ -1,6 +1,7 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:rive_animation/screens/profile/edit_profile_page.dart';
 // import 'package:rive_animation/utils/user_preferences.dart';
@@ -82,21 +83,70 @@ class _ProfilePageState extends State<ProfilePage> {
           body: ListView(
             physics: BouncingScrollPhysics(),
             children: [
-              ProfileWidget(
-                // imagePath: userProfile.imgUrl,
-          imagePath :  'assets/images/pexels-brigitte-tohm-239581.jpg' ,
-                onClicked: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => EditProfilePage()),
-                  );
-                },
-              ),
+              // ProfileWidget(
+              //   imageProvider: _pickedImage != null ? FileImage(_pickedImage!) : NetworkImage(userProfile.imgUrl),
+              //   isEdit: true,
+              //   onClicked: () {
+              //     Navigator.of(context).push(
+              //       MaterialPageRoute(builder: (context) => EditProfilePage()),
+              //     );
+              //   },
+              // ),
               const SizedBox(height: 24),
               buildName(userProfile),
               const SizedBox(height: 24),
-              Center(child: buildUpgradeButton()),
+             // Center(child: buildUpgradeButton()),
               const SizedBox(height: 24),
-              NumbersWidget(),
+             // NumbersWidget(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(primary: Colors.blue),
+                    child: Row(
+                      children: const [
+                        Icon(Icons.message),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text('Message me')
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      // You can navigate to the calendar page here
+                    },
+                    style: ElevatedButton.styleFrom(primary: Colors.grey[900]),
+                    child: Row(
+                      children: const [
+                        Icon(Icons.calendar_month_outlined),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text('Calendar')
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(primary: Colors.grey[900]),
+                    child: const Icon(Icons.more_horiz),
+                  )
+                ],
+              ),
+              Divider(
+                thickness: 1,
+                height: 10,
+                color: Colors.blue,
+              ),
               const SizedBox(height: 10),
               buildAboutme(userProfile),
               const SizedBox(height: 30),
@@ -109,7 +159,7 @@ class _ProfilePageState extends State<ProfilePage> {
               buildCertificates(userProfile),
              // buildCertificates(userProfile),
               const SizedBox(height: 10),
-              //buildEducation(userProfile),
+              buildEducation(context, userProfile),
               const SizedBox(height: 10),
             ],
           ),
@@ -429,25 +479,43 @@ class _ProfilePageState extends State<ProfilePage> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(certificate.certificateName),
-                      Text(certificate.issueOrganization),
+                      Row(
+                        children: [
+                          Text("Certificate Name : " ,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 12,
+              ),),
+                          Text(certificate.certificateName),],
+                      ),
+
+                      Row(
+                        children: [
+                          Text("Issue Organization : " ,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 12,
+                            ),
+                          ),
+                          Text(certificate.issueOrganization),
+                        ],
+                      ),
                     ],
                   ),
                   Row(
                     children: [
                       IconButton(
-                        icon: Icon(Icons.pin),
+                      icon: Icon(Icons.edit , color: Colors.green,),
+                      onPressed: () {
+                        // Implement your edit logic here
+                        updateCertificateDialog(context, user, certificate);
+                      },
+                    ),
+                      IconButton(
+                        icon: Icon(Icons.delete , color: Colors.red),
                         onPressed: () {
                           // Implement your pin logic here
                         },
                       ),
-                      IconButton(
-                        icon: Icon(Icons.edit),
-                        onPressed: () {
-                          // Implement your edit logic here
-                          updateCertificateDialog(context, user, certificate);
-                        },
-                      ),
+
                     ],
                   ),
                 ],
@@ -503,12 +571,23 @@ Widget buildEducation(BuildContext context, User user) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(width: 10),
-                    Text(education.schoolName),
-                    const SizedBox(width: 10),
-                    Text('${education.startDate} - ${education.endDate}'),
+                    Text(
+                      education.schoolName,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '${education.startDate.year} - ${education.endDate.year}',
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
                   ],
                 ),
                 Row(
@@ -532,13 +611,11 @@ Widget buildEducation(BuildContext context, User user) {
                           startDate: education.startDate,
                           endDate: education.endDate,
                           educationId: education.educationId,
-                            // educationId: education.id ,
-                          // educationId: education.i,
                         );
                         // Remove the education from the UI
-                       // setState(() {
-                       //    user.education.remove(education);
-                       //  });
+                        // setState(() {
+                        //   user.education.remove(education);
+                        // });
                       },
                     ),
                   ],
@@ -566,6 +643,7 @@ Widget buildEducation(BuildContext context, User user) {
     ),
   );
 }
+
 
 
 

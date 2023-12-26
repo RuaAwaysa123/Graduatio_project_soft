@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rive/rive.dart';
 
+import '../../login_page.dart';
 import '../../services/auth_service.dart';
+import '../../widget/chat_wedgets/widgets.dart';
+import '../sign_up_screen/regestration_with_fierbase.dart';
 import '../sign_up_screen/sign_up_screen.dart';
 import 'Component/animated_btn.dart';
 import 'Component/sign_in_form.dart';
@@ -112,7 +115,9 @@ Text("Explore.",
                 press: () {
                 _btnAnimationController.isActive = true ;
                 // add the code for the login dialog when button click
-                Future.delayed(Duration(milliseconds: 800),(){  CustomSignDialog(context, AuthService());
+                Future.delayed(Duration(milliseconds: 800),(){
+                  nextScreen(context, const LoginPage());
+                 // CustomSignDialog(context, AuthService());
                   },
                 );
 
@@ -186,7 +191,9 @@ return SlideTransition(position: tween.animate(CurvedAnimation(parent: animation
                        ),
                           textAlign: TextAlign.center,
                        ),
-                 SigIn_Form(authService: authService),
+
+                 // LoginPage
+                 //SignInForm(authService: authService),
                       Row(
                         children: [
                           Expanded(child: Divider()),
@@ -224,7 +231,7 @@ return SlideTransition(position: tween.animate(CurvedAnimation(parent: animation
                              Navigator.push(
                                context,
                                MaterialPageRoute(
-                                 builder: (context) => SignupScreen(),
+                                 builder: (context) => RegisterPage(),
                                ),
                              );
 
@@ -251,20 +258,6 @@ return SlideTransition(position: tween.animate(CurvedAnimation(parent: animation
                ],
 
                      ),
-               Positioned(
-                 left: 0,
-                 right: 0,
-                 bottom: -48,
-                 child: CircleAvatar(
-
-                   radius: 16,
-                   backgroundColor: Colors.white,
-                   child: Icon(
-                     Icons.close,
-                     color: Colors.black,
-                   ),
-                 ),
-               ),
                    ],
 
                  ),

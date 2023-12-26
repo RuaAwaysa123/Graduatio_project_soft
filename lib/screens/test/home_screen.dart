@@ -5,13 +5,16 @@ import 'package:rive_animation/widget/top_bar.dart';
 //import 'package:themify_flutter/themify_flutter.dart';
 
 class HomePage1 extends StatefulWidget {
+
   @override
   _HomePage1State createState() => _HomePage1State();
 }
 
 class _HomePage1State extends State<HomePage1> {
   // Define a list of popular topics
+
   List<String> popularTopics = ['Topic 1', 'Topic 2', 'Topic 3'];
+
 
   @override
   Widget build(BuildContext context) {

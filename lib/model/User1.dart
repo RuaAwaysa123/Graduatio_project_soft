@@ -273,12 +273,12 @@ class Skill {
 }
 
 class Education {
-  final String educationId ;
+  final String educationId;
   final String schoolName;
-  final String startDate;
-  final String endDate;
+  final DateTime startDate;
+  final DateTime endDate;
 
-  Education( {
+  Education({
     required this.educationId,
     required this.schoolName,
     required this.startDate,
@@ -287,19 +287,19 @@ class Education {
 
   Map<String, dynamic> toMap() {
     return {
-      'educationId' : educationId,
+      'educationId': educationId,
       'schoolName': schoolName,
-      'startDate': startDate,
-      'endDate': endDate,
+      'startDate': startDate.toIso8601String(),
+      'endDate': endDate.toIso8601String(),
     };
   }
 
   factory Education.fromMap(Map<String, dynamic> map) {
     return Education(
-      educationId : map['educationId'] ?? '',
+      educationId: map['educationId'] ?? '',
       schoolName: map['schoolName'] ?? '',
-      startDate: map['startDate'] ?? '',
-      endDate: map['endDate'] ?? '',
+      startDate: DateTime.parse(map['startDate']),
+      endDate: DateTime.parse(map['endDate']),
     );
   }
 }

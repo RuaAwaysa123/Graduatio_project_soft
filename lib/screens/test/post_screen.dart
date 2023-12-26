@@ -19,6 +19,7 @@ class PostScreen extends StatefulWidget {
 }
 
 class _PostScreenState extends State<PostScreen> {
+  bool isSearching = false;
   TextEditingController replyController = TextEditingController();
 
   void _submitReply() {
@@ -41,6 +42,11 @@ class _PostScreenState extends State<PostScreen> {
     replyController.clear();
   }
 
+  void _toggleSearch() {
+    setState(() {
+      isSearching = !isSearching;
+    });
+  }
 
 
   @override
@@ -169,7 +175,7 @@ class _PostScreenState extends State<PostScreen> {
                             children: <Widget>[
                               Icon(
                                 // Themify.thumb_up,
-                                Icons.thumb_up ,
+                                Icons.save ,
                                 color: Colors.grey.withOpacity(0.5),
                                 size: 22,
                               ),

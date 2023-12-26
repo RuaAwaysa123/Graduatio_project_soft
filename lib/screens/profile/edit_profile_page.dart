@@ -231,11 +231,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
           padding: EdgeInsets.symmetric(horizontal: 32),
           physics: BouncingScrollPhysics(),
           children: [
-            ProfileWidget(
-              imagePath: _pickedImage != null ? _pickedImage!.path : user.imagePath,
-              isEdit: true,
-              onClicked: _pickImage,
-            ),
+            // ProfileWidget(
+            //   imageProvider: _pickedImage != null ? FileImage(_pickedImage!) : NetworkImage(imagePath),
+            //   isEdit: true,
+            //   onClicked: _pickImage,
+            // ),
+
             const SizedBox(height: 24),
             TextFieldWidget(
               label: 'Full Name',

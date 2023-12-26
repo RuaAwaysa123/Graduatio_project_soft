@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../model/User1.dart';
+import '../../../services/auth_service.dart';
 import '../profile_page.dart';
 
 class InterestSelectionPage extends StatefulWidget {
@@ -31,6 +33,7 @@ class _InterestSelectionPageState extends State<InterestSelectionPage> {
     'Social Media & Marketing',
     'Tech & Digital Services',
     'Writing & Editing'
+    'Other'
   ];
 
   List<bool> selectedInterests = List.generate(21, (index) => false);
@@ -88,20 +91,51 @@ class _InterestSelectionPageState extends State<InterestSelectionPage> {
           );
         },
       ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: Colors.blueAccent.shade100,
+      //   foregroundColor: Colors.white,
+      //   onPressed: () {
+      //     // TODO: Implement confirm button logic
+      //     Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => ProfilePage(),
+      //     ),
+      //   );
+      //     // ProfilePage
+      //   },
+      //   child: Icon(Icons.check ),
+      // ),
+
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blueAccent.shade100,
         foregroundColor: Colors.white,
         onPressed: () {
-          // TODO: Implement confirm button logic
-          Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ProfilePage(),
-          ),
-        );
-          // ProfilePage
+          // Add selected interests to the user's profile
+          List<Interest> selectedInterestsList = [];
+          for (int i = 0; i < selectedInterests.length; i++) {
+            if (selectedInterests[i]) {
+              selectedInterestsList.add(
+                Interest(
+                  title: interests[i],
+                  description: '', // Add a description or leave it empty
+                ),
+              );
+            }
+          }
+
+          // Call the addInterest function to save interests
+          AuthService().addInterest(
+            context: context,
+            userId: 'user_id_here', // Replace with the actual user ID
+            title: 'Interest Title', // You can replace this with a title or leave it empty
+            description: 'Interest Description', // You can replace this with a description or leave it empty
+          );
+
+          // Update the user's interests in the profile page
+          //loadUserProfile();
         },
-        child: Icon(Icons.check ),
+        child: Icon(Icons.check),
       ),
     );
   }

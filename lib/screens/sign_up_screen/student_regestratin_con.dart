@@ -7,6 +7,7 @@ import 'education_input_page.dart';
 class StudentRegistrationContinuationPage extends StatefulWidget {
 
   final String email;
+
   // Add the constructor to receive the email
   StudentRegistrationContinuationPage({required this.email});
 
@@ -25,7 +26,7 @@ class _StudentRegistrationContinuationPageState
   String _selectedYear = '1st Year'; // Default value
   TextEditingController _universityNumberController = TextEditingController();
 
-  List<String> majorOptions = [' ','Computer Science', 'Engineering', 'Math', 'Other'];
+  List<String> majorOptions = ['','Computer Science', 'Engineering', 'Math', 'Other'];
   List<String> yearOptions = ['', '1st Year', '2nd Year', '3rd Year', '4th Year', '5th Year'];
 
   void signup_con() async {

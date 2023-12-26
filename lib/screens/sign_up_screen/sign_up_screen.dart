@@ -1,148 +1,16 @@
-// import 'package:flutter/material.dart';
-// import 'package:rive_animation/screens/sign_up_screen/registration_success_screen.dart';
-// import 'package:rive_animation/screens/sign_up_screen/student_regestratin_con.dart';
-//
-// import '../../services/auth_service_chat.dart';
-//
-// class SignupScreen extends StatefulWidget {
-//   @override
-//   _SignupScreenState createState() => _SignupScreenState();
-// }
-//
-// class _SignupScreenState extends State<SignupScreen> {
-//   final TextEditingController _emailController = TextEditingController();
-//   final TextEditingController _passwordController = TextEditingController();
-//   final TextEditingController _confirmPasswordController = TextEditingController();
-//   final AuthService authService = AuthService();
-//   String _selectedUserType = 'Student';
-//
-//   void signupUser() {
-//     authService.signUpUser(
-//       context: context,
-//       email: _emailController.text,
-//       password: _passwordController.text,
-//      //name: "Ali",
-//       // name: nameController.text,
-//     );
-//   }
-//
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: null, // Remove the app bar
-//       body: Padding(
-//         padding: const EdgeInsets.all(16.0),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             Text(
-//               'Welcome back',
-//               style: TextStyle(
-//                 fontSize: 24,
-//                 fontWeight: FontWeight.bold,
-//                 color: Colors.blue
-//               ),
-//             ),
-//             Image.asset('assets/Backgrounds/img_3.png', height: 150, width: 300),
-//             SizedBox(height: 16.0),
-//             TextField(
-//               controller: _emailController,
-//               decoration: InputDecoration(
-//                 labelText: 'Email',
-//                 hintText: 'Enter your email',
-//                 prefixIcon: Icon(Icons.email),
-//
-//               ),
-//             ),
-//             SizedBox(height: 16.0),
-//             TextField(
-//               controller: _passwordController,
-//               decoration: InputDecoration(
-//                 labelText: 'Password',
-//                 hintText: 'Enter your password',
-//                 prefixIcon: Icon(Icons.lock),
-//               ),
-//               obscureText: true,
-//             ),
-//             SizedBox(height: 16.0),
-//             TextField(
-//               controller: _confirmPasswordController,
-//               decoration: InputDecoration(
-//                 labelText: 'Confirm Password',
-//                 hintText: 'Confirm your password',
-//                 prefixIcon: Icon(Icons.lock),
-//               ),
-//               obscureText: true,
-//             ),
-//             SizedBox(height: 16.0),
-//             DropdownButtonFormField(
-//               value: _selectedUserType,
-//               onChanged: (String? userType) {
-//                 setState(() {
-//                   _selectedUserType = userType!;
-//                 });
-//               },
-//               items: ['Student', 'Courses Center', 'Society'].map((userType) {
-//                 return DropdownMenuItem(
-//                   value: userType,
-//                   child: Text(userType),
-//                 );
-//               }).toList(),
-//             ),
-//             SizedBox(height: 24.0),
-//             ElevatedButton(
-//               onPressed: () {
-//                 // Add your registration logic here
-//                 // String email = _emailController.text;
-//                 // String password = _passwordController.text;
-//                 // String confirmPassword = _confirmPasswordController.text;
-//                 // signupUser();
-//
-//                 // Validate the password and confirmation
-//         // Validate the password and confirmation
-//
-//       // Registration logic goes here
-//       // You can check the user type using _selectedUserType
-//
-//       if (_selectedUserType == 'Student') {
-//         // If the user type is Student, navigate to the continuation page
-//         signupUser();
-//         Navigator.push(
-//           context,
-//           MaterialPageRoute(
-//             builder: (context) => StudentRegistrationContinuationPage(),
-//           ),
-//         );
-//       }
-//     },
-//               style: ButtonStyle(
-//                 backgroundColor: MaterialStateProperty.all(const Color(0xED6E95F6),), // Change the button color
-//                 minimumSize: MaterialStateProperty.all(
-//                   Size(double.infinity, 50), // Set button size
-//                 ),
-//               ),
-//               child: Text(
-//                 'Register',
-//                 style: TextStyle(
-//                   color: Colors.white, // Change the button text color
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 import 'package:flutter/material.dart';
 import 'package:rive_animation/screens/sign_up_screen/registration_success_screen.dart';
 import 'package:rive_animation/screens/sign_up_screen/student_regestratin_con.dart';
 import '../../facebook/Cources_profile.dart';
 import '../../facebook/profile.dart';
 import '../../services/auth_service.dart';
+import '../../services/auth_service_firebase.dart';
 import '../../utils/utils.dart';
+import '../profile/profile_page.dart';
+// import 'package:flutter/gestures.dart';
+//
+
+final AuthServiceFierbase chatAuthService = AuthServiceFierbase();
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -150,15 +18,29 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  bool _isLoading = false;
+  final formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
   TextEditingController();
   final AuthService authService = AuthService();
   String _selectedUserType = 'Student';
-
-  bool _isPasswordVisible = false;
+  // final formKey = GlobalKey<FormState>();  final formKey = GlobalKey<FormState>();
+  bool _isPasswordVisible = true;
   bool _isConfirmPasswordVisible = false;
+
+  // Function to perform basic email validation
+  String? emailValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your email';
+    }
+    // You can add more sophisticated email validation if needed
+    if (!RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$').hasMatch(value)) {
+      return 'Please enter a valid email address';
+    }
+    return null;
+  }
 
   void signupUser() {
     if (_passwordController.text == _confirmPasswordController.text) {
@@ -166,48 +48,17 @@ class _SignupScreenState extends State<SignupScreen> {
         context: context,
         email: _emailController.text,
         password: _passwordController.text,
-        // name: "Ali",
-        // name: nameController.text,
       );
     } else {
-      // Passwords do not match, show an error or handle it accordingly
       showSnackBar(context, "Passwords do not match");
     }
   }
 
-  // void signupUser() async {
-  //   if (_passwordController.text == _confirmPasswordController.text) {
-  //     bool success = await authService.signUpUser(
-  //       context: context,
-  //       email: _emailController.text,
-  //       password: _passwordController.text,
-  //       // name: "Ali",
-  //       // name: nameController.text,
-  //     );
-  //
-  //     if (success) {
-  //       // Registration successful, navigate to the next page
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (context) => StudentRegistrationContinuationPage(email: _emailController.text),
-  //         ),
-  //       );
-  //     } else {
-  //       // Registration failed, show an error message
-  //       showSnackBar(context, "Registration failed. Please try again.");
-  //     }
-  //   } else {
-  //     // Passwords do not match, show an error or handle it accordingly
-  //     showSnackBar(context, "Passwords do not match");
-  //   }
-  // }
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: null, // Remove the app bar
+      resizeToAvoidBottomInset: false,
+      appBar: null,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -221,8 +72,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   fontWeight: FontWeight.bold,
                   color: Colors.blue),
             ),
-            Image.asset('assets/Backgrounds/img_3.png',
-                height: 150, width: 300),
+            Image.asset('assets/Backgrounds/img_3.png', height: 150, width: 300),
             SizedBox(height: 16.0),
             TextField(
               controller: _emailController,
@@ -230,6 +80,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 labelText: 'Email',
                 hintText: 'Enter your email',
                 prefixIcon: Icon(Icons.email),
+                errorText: emailValidator(_emailController.text),
               ),
             ),
             SizedBox(height: 16.0),
@@ -296,47 +147,33 @@ class _SignupScreenState extends State<SignupScreen> {
             SizedBox(height: 24.0),
             ElevatedButton(
               onPressed: () {
-
-
-                if (_selectedUserType == 'Student') {
+                if (_selectedUserType == 'Student' &&
+                    emailValidator(_emailController.text) == null) {
                   signupUser();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => StudentRegistrationContinuationPage( email: _emailController.text,),
+                      builder: (context) =>
+                          StudentRegistrationContinuationPage(
+                            email: _emailController.text,
+                          ),
                     ),
                   );
-                }
-                else if (_selectedUserType == 'Society') {
-                  // If the selected user type is Society, navigate to the SocietyScreen
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Profile(),
-                    ),
-                  );
-                } else if (_selectedUserType == 'Courses Center') {
-                  // If the selected user type is Courses Center, navigate to the CourseCenterScreen
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CourceProfile(),
-                    ),
-                  );
+                } else {
+                  showSnackBar(context, "Please enter a valid email");
                 }
               },
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
-                    const Color(0xED6E95F6)), // Change the button color
+                backgroundColor:
+                MaterialStateProperty.all( Colors.blue),
                 minimumSize: MaterialStateProperty.all(
-                  Size(double.infinity,
-                      50), // Set button size
+                  Size(double.infinity, 50),
                 ),
               ),
               child: Text(
                 'Register',
                 style: TextStyle(
-                  color: Colors.white, // Change the button text color
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -346,3 +183,34 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 }
+// chatAuthService
+// register() async {
+//   //var formKey;
+//   if (formKey.currentState!.validate()) {
+//
+//   }
+//
+// }
+
+// if (formKey.currentState!.validate()) {
+// setState(() {
+// _isLoading = true;
+// });
+// await authService
+//     .registerUserWithEmailandPassword(fullName, email, password)
+//     .then((value) async {
+// if (value == true) {
+// // saving the shared preference state
+// await HelperFunctions.saveUserLoggedInStatus(true);
+// await HelperFunctions.saveUserEmailSF(email);
+// await HelperFunctions.saveUserNameSF(fullName);
+// nextScreenReplace(context, const HomePage());
+// } else {
+// showSnackbar(context, Colors.red, value);
+// setState(() {
+// _isLoading = false;
+// });
+// }
+// });
+// }
+// }
