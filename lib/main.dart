@@ -60,6 +60,7 @@ import 'package:provider/provider.dart';
 import 'package:rive_animation/providers/user_provider.dart';
 import 'package:rive_animation/screens/Home/Button_Navigator.dart';
 import 'package:rive_animation/screens/Home/notifcation_tap.dart';
+import 'package:rive_animation/screens/cources/Cource_info.dart';
 import 'package:rive_animation/screens/cources/root_app.dart';
 import 'package:rive_animation/screens/onboding/onboding_screen.dart';
 import 'package:rive_animation/screens/profile/components/interest_select.dart';
@@ -140,8 +141,8 @@ class MyApp extends StatelessWidget {
               title: 'MyTitle',
               theme: isDarkMode ? MyThemes.darkTheme : MyThemes.lightTheme,
               // scrollBehavior: Profile(),
-              home: OnboardingScreen(),
-              // home: RegisterPage(),
+              // home: OnboardingScreen(),
+              home: RootAppCources(),//
 
               debugShowCheckedModeBanner: false,
             ),
@@ -152,6 +153,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 
 
 

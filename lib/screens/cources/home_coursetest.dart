@@ -7,6 +7,8 @@ import 'package:rive_animation/screens/cources/widgets_cources/feature_item.dart
 import 'package:rive_animation/screens/cources/widgets_cources/notification_box.dart';
 import 'package:rive_animation/screens/cources/widgets_cources/recommend_item.dart';
 
+import 'All_Coueces_page.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -146,23 +148,71 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // _buildFeatured() {
+  //   return CarouselSlider(
+  //     options: CarouselOptions(
+  //       height: 290,
+  //       enlargeCenterPage: true,
+  //       disableCenter: true,
+  //       viewportFraction: .75,
+  //     ),
+  //     items: List.generate(
+  //       features.length,
+  //       (index) => FeatureItem(
+  //         data: features[index],
+  //       ),
+  //     ),
+  //   );
+  // }
   _buildFeatured() {
-    return CarouselSlider(
-      options: CarouselOptions(
-        height: 290,
-        enlargeCenterPage: true,
-        disableCenter: true,
-        viewportFraction: .75,
-      ),
-      items: List.generate(
-        features.length,
-        (index) => FeatureItem(
-          data: features[index],
+    return Column(
+      children: [
+        CarouselSlider(
+          options: CarouselOptions(
+            height: 290,
+            enlargeCenterPage: true,
+            disableCenter: true,
+            viewportFraction: .75,
+          ),
+          items: List.generate(
+            features.length,
+                (index) => FeatureItem(
+              data: features[index],
+            ),
+          ),
         ),
-      ),
+        const SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  // Navigate to the page containing the featured items as a list
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FeaturedListPage(features: features),
+                    ),
+                  );
+                },
+                child: Row(
+                  children: [
+                    Text(
+                      "See all",
+                      style: TextStyle(fontSize: 14, color: AppColor.darker),
+                    ),
+                    Icon(Icons.arrow_forward_ios, size: 16, color: AppColor.darker),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
-
   _buildRecommended() {
     return SingleChildScrollView(
       padding: EdgeInsets.fromLTRB(15, 5, 0, 5),

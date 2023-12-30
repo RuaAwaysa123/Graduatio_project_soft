@@ -1,85 +1,3 @@
-// import 'dart:convert';
-//
-// class user {
-//   final String id;
-//   final String name;
-//   final String email;
-//   final String token;
-//   final String password;
-//   user({
-//     required this.id,
-//     required this.name,
-//     required this.email,
-//     required this.token,
-//     required this.password,
-//   });
-//
-//   Map<String, dynamic> toMap() {
-//     return {
-//       'name': name,
-//       'email': email,
-//       'token': token,
-//       'password': password,
-//     };
-//   }
-//
-//   factory user.fromMap(Map<String, dynamic> map) {
-//     return user(
-//       id: map['_id'] ?? '',
-//       name: map['name'] ?? '',
-//       email: map['email'] ?? '',
-//       token: map['token'] ?? '',
-//       password: map['password'] ?? '',
-//     );
-//   }
-//
-//   String toJson() => json.encode(toMap());
-//
-//   factory user.fromJson(String source) => user.fromMap(json.decode(source));
-//
-// }
-
-// import 'dart:convert';
-//
-// class User {
-//   final String id;
-//  // final String name;
-//   final String email;
-//   final String token;
-//   final String password;
-//   User({
-//     required this.id,
-//    // required this.name,
-//     required this.email,
-//     required this.token,
-//     required this.password, required String major,
-//   });
-//
-//   Map<String, dynamic> toMap() {
-//     return {
-//      // 'name': name,
-//       'email': email,
-//       'token': token,
-//       'password': password,
-//     };
-//   }
-//
-//   factory User.fromMap(Map<String, dynamic> map) {
-//     return User(
-//       id: map['_id'] ?? '',
-//      // name: map['name'] ?? '',
-//       email: map['email'] ?? '',
-//       token: map['token'] ?? '',
-//       password: map['password'] ?? '', major: '',
-//     );
-//   }
-//
-//   String toJson() => json.encode(toMap());
-//
-//   factory User.fromJson(String source) => User.fromMap(json.decode(source));
-// }
-
-
 //*****************************************************************************************
 import 'dart:convert';
 
@@ -89,8 +7,9 @@ class User {
   final String token;
   final String password;
   final String phoneNumber;
-  final String firstName;
-  final String lastName;
+  final String fullName;
+  // final String firstName;
+  // final String lastName;
   final String location;
   final String universityNumber;
   final String major;
@@ -110,8 +29,9 @@ class User {
     required this.token,
     required this.password,
     required this.phoneNumber,
-    required this.firstName,
-    required this.lastName,
+    required this.fullName ,
+    // required this.firstName,
+    // required this.lastName,
     required this.location,
     required this.universityNumber,
     required this.major,
@@ -122,7 +42,7 @@ class User {
     required this.certificates,
     required this.skills,
     required this.education,
-    required this.imgUrl ,
+    required this.imgUrl,
 
   });
 
@@ -135,8 +55,7 @@ class User {
       'token': token,
       'password': password,
       'phoneNumber': phoneNumber,
-      'firstName': firstName,
-      'lastName': lastName,
+      'fullName' :fullName ,
       'location': location,
       'universityNumber': universityNumber,
       'major': major,
@@ -158,8 +77,8 @@ class User {
       token: map['token'] ?? '',
       password: map['password'] ?? '',
       phoneNumber: map['phoneNumber'] ?? '',
-      firstName: map['firstName'] ?? '',
-      lastName: map['lastName'] ?? '',
+      fullName: map['fullName'] ?? '',
+      //lastName: map['lastName'] ?? '',
       location: map['location'] ?? '',
       imgUrl: map['imgUrl'] ?? '',
 
@@ -193,16 +112,19 @@ class User {
 }
 
 class Interest {
+  final String id;
   final String title;
   final String description;
 
   Interest({
+    required this.id,
     required this.title,
     required this.description,
   });
 
   Map<String, dynamic> toMap() {
     return {
+      'id' : id,
       'title': title,
       'description': description,
     };
@@ -210,6 +132,7 @@ class Interest {
 
   factory Interest.fromMap(Map<String, dynamic> map) {
     return Interest(
+      id: map['_id'] ?? '',
       title: map['title'] ?? '',
       description: map['description'] ?? '',
     );
@@ -217,11 +140,13 @@ class Interest {
 }
 
 class Certificate {
+  final String id;
   final String certificateName;
   final String certificateURL;
   final String issueOrganization;
 
   Certificate({
+    required this.id,
     required this.certificateName,
     required this.certificateURL,
     required this.issueOrganization,
@@ -229,6 +154,7 @@ class Certificate {
 
   Map<String, dynamic> toMap() {
     return {
+      'id' : id, // Update this line
       'certificateName': certificateName,
       'certificateURL': certificateURL,
       'issueOrganization': issueOrganization,
@@ -237,6 +163,7 @@ class Certificate {
 
   factory Certificate.fromMap(Map<String, dynamic> map) {
     return Certificate(
+      id: map['_id'] ?? '', // Update this line
       certificateName: map['certificateName'] ?? '',
       certificateURL: map['certificateURL'] ?? '',
       issueOrganization: map['issueOrganization'] ?? '',
@@ -265,7 +192,7 @@ class Skill {
 
   factory Skill.fromMap(Map<String, dynamic> map) {
     return Skill(
-      id: map['id'] ?? '',
+      id: map['_id'] ?? '',
       skillName: map['skillName'] ?? '',
       rating: map['rating'] ?? 0,
     );
@@ -273,13 +200,13 @@ class Skill {
 }
 
 class Education {
-  final String educationId;
+  final String id;
   final String schoolName;
   final DateTime startDate;
   final DateTime endDate;
 
   Education({
-    required this.educationId,
+    required this.id,
     required this.schoolName,
     required this.startDate,
     required this.endDate,
@@ -287,7 +214,7 @@ class Education {
 
   Map<String, dynamic> toMap() {
     return {
-      'educationId': educationId,
+      'id': id,
       'schoolName': schoolName,
       'startDate': startDate.toIso8601String(),
       'endDate': endDate.toIso8601String(),
@@ -296,7 +223,7 @@ class Education {
 
   factory Education.fromMap(Map<String, dynamic> map) {
     return Education(
-      educationId: map['educationId'] ?? '',
+      id: map['_id'] ?? '',
       schoolName: map['schoolName'] ?? '',
       startDate: DateTime.parse(map['startDate']),
       endDate: DateTime.parse(map['endDate']),

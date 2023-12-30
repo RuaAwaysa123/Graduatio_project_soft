@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const certificateSchema = new mongoose.Schema({
- _id: mongoose.Schema.Types.ObjectId,
+ //_cerid: mongoose.Schema.Types.ObjectId,
   certificateName: {
     type: String,
     required: true,

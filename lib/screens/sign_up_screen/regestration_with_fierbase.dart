@@ -276,6 +276,7 @@ class _RegisterPageState extends State<RegisterPage> {
     if (password == confimPass) {
       authService.signUpUser(
         context: context,
+        fullName:fullName,
         email: email,
         password: password,
       );

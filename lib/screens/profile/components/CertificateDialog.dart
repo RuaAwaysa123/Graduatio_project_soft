@@ -45,7 +45,8 @@ class _AddCertificateDialogState extends State<AddCertificateDialog> {
             Certificate newCertificate = Certificate(
               certificateName: certificateNameController.text,
               issueOrganization: issueOrganizationController.text,
-              certificateURL: '', // Update with the correct field or remove if not needed
+              certificateURL: '',  // Update with the correct field or remove if not needed
+              id: '',
             );
 
             widget.onCertificateAdded(newCertificate);

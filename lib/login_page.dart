@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:rive_animation/screens/Home/Button_Navigator.dart';
 import 'package:rive_animation/screens/sign_up_screen/regestration_with_fierbase.dart';
 import 'package:rive_animation/services/auth_service.dart';
 import 'package:rive_animation/services/auth_service_firebase.dart';
@@ -178,7 +179,7 @@ class _LoginPageState extends State<LoginPage> {
           await HelperFunctions.saveUserLoggedInStatus(true);
           await HelperFunctions.saveUserEmailSF(email);
           await HelperFunctions.saveUserNameSF(snapshot.docs[0]['fullName']);
-          // nextScreenReplace(context, const HomePageChat());
+          nextScreenReplace(context, const RootApp1());
         } else {
           showSnackbar(context, Colors.red, value);
           setState(() {

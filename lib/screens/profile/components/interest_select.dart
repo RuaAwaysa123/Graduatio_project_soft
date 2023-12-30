@@ -118,7 +118,7 @@ class _InterestSelectionPageState extends State<InterestSelectionPage> {
               selectedInterestsList.add(
                 Interest(
                   title: interests[i],
-                  description: '', // Add a description or leave it empty
+                  description: '', id: '', // Add a description or leave it empty
                 ),
               );
             }

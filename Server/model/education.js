@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const educationSchema = new mongoose.Schema({
 
-_id: mongoose.Schema.Types.ObjectId,
+//_id: mongoose.Schema.Types.ObjectId,
 
   schoolName: {
     type: String,

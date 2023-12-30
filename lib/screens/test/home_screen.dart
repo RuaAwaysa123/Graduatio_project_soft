@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:rive_animation/widget/popular_topics.dart';
 import 'package:rive_animation/widget/posts.dart';
 import 'package:rive_animation/widget/top_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../model/User1.dart';
+import '../../services/auth_service.dart';
 //import 'package:themify_flutter/themify_flutter.dart';
 
 class HomePage1 extends StatefulWidget {
@@ -14,8 +18,52 @@ class _HomePage1State extends State<HomePage1> {
   // Define a list of popular topics
 
   List<String> popularTopics = ['Topic 1', 'Topic 2', 'Topic 3'];
+  late User userhome = User(
+    id: '',
+    email: '',
+    token: '',
+    password: '',
+    phoneNumber: '',
+    fullName: '',
+    // firstName: '',
+    // lastName: '',
+    location: '',
+    universityNumber: '',
+    major: '',
+    year: '',
+    about: '',
+    university: '',
+    interests: [],
+    certificates: [],
+    skills: [],
+    education: [],
+    imgUrl: '',
+  );
+  @override
+  void initState() {
+    super.initState();
+    loaduser();
+  }
 
+  void loaduser() async {
+    try {
+      final AuthService authService = AuthService();
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String userId = prefs.getString('userId') ?? '';
 
+      if (userId.isNotEmpty) {
+        final user1 = await authService.getUserProfile(
+          context: context,
+          userId: userId,
+        );
+        setState(() {
+          userhome = user1;
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +84,7 @@ class _HomePage1State extends State<HomePage1> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "Hi user",
+                        "Hi "+userhome.fullName,
                         style: TextStyle(
                           fontSize: 24,
                           color: Colors.white,
@@ -113,3 +161,4 @@ class _HomePage1State extends State<HomePage1> {
     );
   }
 }
+

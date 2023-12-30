@@ -67,33 +67,56 @@ const cors = require("cors");
 app.use(cors());
 
 // Sign up (register) route for a student
+//authRouter.post("/api/signup", async (req, res) => {
+//  try {
+//    const {email, password, about, location, phoneNumber, major, university } = req.body;
+//    const existingUser = await User.findOne({ email });
+//
+//    if (existingUser) {
+//      return res.status(400).json({ msg: "User with this email already exists!" });
+//    }
+//
+//    const hashedPassword = await bcryptjs.hash(password, 8);
+//
+//    const user = new User({
+//
+//      email,
+//      password: hashedPassword,
+//
+//    });
+//
+//    // Save the user
+//    await user.save();
+//
+//    res.json(user);
+//  } catch (e) {
+//    res.status(500).json({ error: e.message });
+//  }
+//});
 authRouter.post("/api/signup", async (req, res) => {
   try {
-    const { name, email, password, about, location, phoneNumber, major, university } = req.body;
-    const existingUser = await User.findOne({ email });
+    const { fullName, email, password } = req.body;
 
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ msg: "User with this email already exists!" });
+      return res
+        .status(400)
+        .json({ msg: "User with same email already exists!" });
     }
 
     const hashedPassword = await bcryptjs.hash(password, 8);
 
-    const user = new User({
-
+    let user = new User({
       email,
       password: hashedPassword,
-
+      fullName,
     });
-
-    // Save the user
-    await user.save();
-
+    user = await user.save();
     res.json(user);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
 });
-
 
 //regestration page 2
 authRouter.post("/api/signup_continue", async (req, res) => {
@@ -102,8 +125,6 @@ authRouter.post("/api/signup_continue", async (req, res) => {
       email,
 //      password,
       phoneNumber,
-      firstName,
-      lastName,
       location,
       universityNumber,
       major,
@@ -119,8 +140,8 @@ authRouter.post("/api/signup_continue", async (req, res) => {
 
     // Update user information
     existingUser.phoneNumber = phoneNumber;
-    existingUser.firstName = firstName;
-    existingUser.lastName = lastName;
+//    existingUser.firstName = firstName;
+//    existingUser.lastName = lastName;
     existingUser.location = location;
     existingUser.universityNumber = universityNumber;
     existingUser.major = major;

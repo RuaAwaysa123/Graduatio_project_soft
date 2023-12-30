@@ -33,8 +33,9 @@ class _ProfilePageState extends State<ProfilePage> {
     token: '',
     password: '',
     phoneNumber: '',
-    firstName: '',
-    lastName: '',
+    fullName: '',
+    // firstName: '',
+    // lastName: '',
     location: '',
     universityNumber: '',
     major: '',
@@ -92,6 +93,7 @@ class _ProfilePageState extends State<ProfilePage> {
               //     );
               //   },
               // ),
+
               const SizedBox(height: 24),
               buildName(userProfile),
               const SizedBox(height: 24),
@@ -171,7 +173,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget buildName(User user1) => Column(
     children: [
       Text(
-        user1.firstName + user1.lastName,
+        user1.fullName,
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
       ),
       const SizedBox(height: 4),
@@ -290,8 +292,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
                       const SizedBox(width: 10),
                       Text(skill.skillName),
-                      const SizedBox(width: 10),
-                      Text(skill.id),
+                      // const SizedBox(width: 10),
+                      // Text(skill.id),
                     ],
                   ),
                   Row(
@@ -610,7 +612,8 @@ Widget buildEducation(BuildContext context, User user) {
                           schoolName: education.schoolName,
                           startDate: education.startDate,
                           endDate: education.endDate,
-                          educationId: education.educationId,
+                          educationId: "",
+
                         );
                         // Remove the education from the UI
                         // setState(() {
