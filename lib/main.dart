@@ -58,46 +58,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rive_animation/providers/user_provider.dart';
-import 'package:rive_animation/screens/Home/Button_Navigator.dart';
-import 'package:rive_animation/screens/Home/notifcation_tap.dart';
-import 'package:rive_animation/screens/cources/Cource_info.dart';
 import 'package:rive_animation/screens/cources/root_app.dart';
-import 'package:rive_animation/screens/onboding/onboding_screen.dart';
-import 'package:rive_animation/screens/profile/components/interest_select.dart';
-import 'package:rive_animation/screens/profile/profile_page.dart';
-import 'package:rive_animation/screens/sign_up_screen/education_input_page.dart';
-import 'package:rive_animation/screens/sign_up_screen/regestration_with_fierbase.dart';
 import 'package:rive_animation/themes.dart';
 import 'package:rive_animation/utils/Constants.dart';
 import 'package:rive_animation/utils/user_preferences.dart';
-
-import 'facebook/calender.dart';
-import 'facebook/profile.dart';
-import 'providers/user_profile_provider.dart';
-
-//
-// Future main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await SystemChrome.setPreferredOrientations([
-//     DeviceOrientation.portraitUp,
-//     DeviceOrientation.portraitDown,
-//   ]);
-//
-//   runApp(MyApp());
-// }
-
-// void main() {
-//   runApp(
-//     ChangeNotifierProvider(
-//       create: (context) => UserProfileProvider(),
-//       child: MyApp(),
-//     ),
-//   );
-// }
-
-// void main() {
-//   runApp( MyApp());
-// }
 
 
 Future<void> main() async {

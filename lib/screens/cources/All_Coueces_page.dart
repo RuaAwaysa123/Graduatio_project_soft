@@ -32,7 +32,7 @@ class FeaturedListPage extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => StepperExampleApp(), // Use AddFeaturePage() instead of AddFeaturePage
+              builder: (context) => AddCourse(), // Use AddFeaturePage() instead of AddFeaturePage
             ),
           );
         },

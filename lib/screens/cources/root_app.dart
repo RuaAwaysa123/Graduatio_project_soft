@@ -215,11 +215,11 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:rive_animation/screens/cources/account.dart';
-import 'package:rive_animation/screens/cources/chat_course.dart';
 import 'package:rive_animation/screens/cources/theme/color.dart';
 import 'package:rive_animation/utils/constant.dart';
 import 'package:rive_animation/screens/cources/widgets_cources/bottombar_item.dart';
 import '../../facebook/Cources_profile.dart';
+import 'dashboard.dart';
 import 'home_coursetest.dart';
 
 class RootAppCources extends StatefulWidget {
@@ -246,7 +246,7 @@ class _RootAppCourcesState extends State<RootAppCources>
     {
       "icon": "assets/icons/play.svg",
       "active_icon": "assets/icons/play.svg",
-      "page": Container(),
+      "page": MyHomePage(),
     },
     {
       "icon": "assets/icons/chat.svg",
@@ -302,7 +302,8 @@ class _RootAppCourcesState extends State<RootAppCources>
     return Scaffold(
       backgroundColor: AppColor.appBgColor,
       appBar: AppBar(
-        title: Text("Your App Name"),
+        backgroundColor: Colors.white,
+        //title: Text(""),
       ),
       drawer: _buildSideMenu(),
       bottomNavigationBar: _buildBottomBar(),
@@ -310,118 +311,8 @@ class _RootAppCourcesState extends State<RootAppCources>
     );
   }
 
-  // Widget _buildSideMenu() {
-  //   return Drawer(
-  //     child: ListView(
-  //       padding: EdgeInsets.zero,
-  //       children: <Widget>[
-  //         DrawerHeader(
-  //           decoration: BoxDecoration(
-  //             color: AppColor.appBgColor,
-  //           ),
-  //           child: Text(
-  //             'Menu',
-  //             style: TextStyle(
-  //               color: Colors.white,
-  //               fontSize: 24,
-  //             ),
-  //           ),
-  //         ),
-  //         ListTile(
-  //           title: Text('Home'),
-  //           onTap: () {
-  //             Navigator.pop(context);
-  //             onPageChanged(0);
-  //           },
-  //         ),
-  //         ListTile(
-  //           title: Text('Search'),
-  //           onTap: () {
-  //             Navigator.pop(context);
-  //             onPageChanged(1);
-  //           },
-  //         ),
-  //         ListTile(
-  //           title: Text('Play'),
-  //           onTap: () {
-  //             Navigator.pop(context);
-  //             onPageChanged(2);
-  //           },
-  //         ),
-  //         ListTile(
-  //           title: Text('Chat'),
-  //           onTap: () {
-  //             Navigator.pop(context);
-  //             onPageChanged(3);
-  //           },
-  //         ),
-  //         ListTile(
-  //           title: Text('Profile'),
-  //           onTap: () {
-  //             Navigator.pop(context);
-  //             onPageChanged(4);
-  //           },
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   Widget _buildSideMenu() {
     return Drawer(
-      // child: ListView(
-      //   padding: EdgeInsets.zero,
-      //   children: <Widget>[
-      //     DrawerHeader(
-      //       decoration: BoxDecoration(
-      //         color: AppColor.appBgColor,
-      //       ),
-      //       child: Text(
-      //         'Menu',
-      //         style: TextStyle(
-      //           color: Colors.white,
-      //           fontSize: 24,
-      //         ),
-      //       ),
-      //     ),
-      //     ListTile(
-      //       title: Text('Home'),
-      //       onTap: () {
-      //         Navigator.pop(context);
-      //         onPageChanged(0);
-      //       },
-      //     ),
-      //     ListTile(
-      //       title: Text('Search'),
-      //       onTap: () {
-      //         Navigator.pop(context);
-      //         onPageChanged(1);
-      //       },
-      //     ),
-      //     ListTile(
-      //       title: Text('Play'),
-      //       onTap: () {
-      //         Navigator.pop(context);
-      //         onPageChanged(2);
-      //       },
-      //     ),
-      //     ListTile(
-      //       title: Text('Chat'),
-      //       onTap: () {
-      //         Navigator.pop(context);
-      //         onPageChanged(3);
-      //       },
-      //     ),
-      //     ListTile(
-      //       title: Text('Profile'),
-      //       onTap: () {
-      //         Navigator.pop(context);
-      //         onPageChanged(4);
-      //       },
-      //     ),
-         // Call the method to build Account UI
-    //     ],
-    //   ),
       child: _buildAccountUI(),
     );
   }
