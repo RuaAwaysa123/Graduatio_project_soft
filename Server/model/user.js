@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+
+
 const userSchema = mongoose.Schema({
 
   email: {
@@ -87,7 +89,10 @@ const userSchema = mongoose.Schema({
  UserType : {
                 type: String,
             },
-
+posts: [{
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'Post',
+}],
 });
 
 const User = mongoose.model("User", userSchema);

@@ -10,7 +10,7 @@ const SkillInfo = require("../model/skill");
 const Interest = require("../model/interest");
 //const authRouter = require("./routes/app");
 const mongoose = require("mongoose");
-
+const Post = require("../model/posts");
 const authRouter = express.Router();
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' }); // Adjust the destination folder as needed
@@ -66,33 +66,7 @@ authRouter.post("/api/uploadProfilePicture/:userId", upload.single('profilePictu
 const cors = require("cors");
 app.use(cors());
 
-// Sign up (register) route for a student
-//authRouter.post("/api/signup", async (req, res) => {
-//  try {
-//    const {email, password, about, location, phoneNumber, major, university } = req.body;
-//    const existingUser = await User.findOne({ email });
-//
-//    if (existingUser) {
-//      return res.status(400).json({ msg: "User with this email already exists!" });
-//    }
-//
-//    const hashedPassword = await bcryptjs.hash(password, 8);
-//
-//    const user = new User({
-//
-//      email,
-//      password: hashedPassword,
-//
-//    });
-//
-//    // Save the user
-//    await user.save();
-//
-//    res.json(user);
-//  } catch (e) {
-//    res.status(500).json({ error: e.message });
-//  }
-//});
+
 authRouter.post("/api/signup", async (req, res) => {
   try {
     const { fullName, email, password } = req.body;
@@ -591,6 +565,68 @@ authRouter.delete("/api/deleteEducation/:userId/:educationId", async (req, res) 
     await user.save();
 
     res.json(user);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+authRouter.post("/api/createPost/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ msg: `User not found with ID: ${userId}` });
+    }
+
+    const { question, content, topics } = req.body;
+
+    const post = new Post({
+      question,
+      content,
+      topics,
+      author: user._id,
+    });
+
+    await post.save();
+
+    // Associate the post with the user
+    user.posts.push(post._id);
+    await user.save();
+
+    res.json(post);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Get all posts for a specific user
+authRouter.get("/api/getUserPosts/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId).populate('posts');
+
+    if (!user) {
+      return res.status(404).json({ msg: `User not found with ID: ${userId}` });
+    }
+
+    res.json(user.posts);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Delete a post
+authRouter.delete("/api/deletePost/:postId", async (req, res) => {
+  try {
+    const postId = req.params.postId;
+
+    // Remove post reference from the user
+    await User.updateOne({ posts: postId }, { $pull: { posts: postId } });
+
+    // Delete the post
+    await Post.findByIdAndDelete(postId);
+
+    res.json({ msg: "Post deleted successfully" });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }

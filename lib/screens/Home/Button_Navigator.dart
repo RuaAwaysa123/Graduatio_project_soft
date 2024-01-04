@@ -114,7 +114,7 @@ class _RootApp1State extends State<RootApp1> with TickerProviderStateMixin {
     {
       "icon": "assets/icons/notification.svg",
       "active_icon": "assets/icons/notification.svg",
-      "page": NotitcationTap(),
+      "page": NotificationTap(),
     },
     {
       "icon": "assets/icons/play.svg",

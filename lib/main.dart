@@ -59,6 +59,8 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rive_animation/providers/user_provider.dart';
 import 'package:rive_animation/screens/cources/root_app.dart';
+import 'package:rive_animation/screens/onboding/onboding_screen.dart';
+import 'package:rive_animation/screens/society/root_app_society.dart';
 import 'package:rive_animation/themes.dart';
 import 'package:rive_animation/utils/Constants.dart';
 import 'package:rive_animation/utils/user_preferences.dart';
@@ -105,8 +107,9 @@ class MyApp extends StatelessWidget {
               title: 'MyTitle',
               theme: isDarkMode ? MyThemes.darkTheme : MyThemes.lightTheme,
               // scrollBehavior: Profile(),
-              // home: OnboardingScreen(),
-              home: RootAppCources(),//
+              home: OnboardingScreen(),
+              // home: RootAppSociety(),//RootAppCources
+
 
               debugShowCheckedModeBanner: false,
             ),

@@ -50,13 +50,13 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                profile["name"]!,
-                style: TextStyle(
-                  color: AppColor.labelColor,
-                  fontSize: 14,
-                ),
-              ),
+              // Text(
+              //   profile["name"]!,
+              //   style: TextStyle(
+              //     color: AppColor.labelColor,
+              //     fontSize: 14,
+              //   ),
+              // ),
               const SizedBox(
                 height: 5,
               ),
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
             child: Text(
-              "Featured",
+              "Cources",
               style: TextStyle(
                 color: AppColor.textColor,
                 fontWeight: FontWeight.w600,

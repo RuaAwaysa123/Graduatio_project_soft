@@ -219,8 +219,10 @@ import 'package:rive_animation/screens/cources/theme/color.dart';
 import 'package:rive_animation/utils/constant.dart';
 import 'package:rive_animation/screens/cources/widgets_cources/bottombar_item.dart';
 import '../../facebook/Cources_profile.dart';
+import '../Home/notifcation_tap.dart';
 import 'dashboard.dart';
-import 'home_coursetest.dart';
+import 'home_courses.dart';
+
 
 class RootAppCources extends StatefulWidget {
   const RootAppCources({Key? key}) : super(key: key);
@@ -241,7 +243,7 @@ class _RootAppCourcesState extends State<RootAppCources>
     {
       "icon": "assets/icons/search.svg",
       "active_icon": "assets/icons/search.svg",
-      "page": Container(),
+      "page": NotificationTap(),
     },
     {
       "icon": "assets/icons/play.svg",

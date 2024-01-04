@@ -121,7 +121,7 @@ class _CourceProfileState extends State<CourceProfile> {
                       fit: BoxFit.cover,
                     )
                         : const DecorationImage(
-                      image: AssetImage('assets/bg.jpg'),
+                      image: AssetImage('assets/images/default-user-icon-8.jpg'),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -133,7 +133,7 @@ class _CourceProfileState extends State<CourceProfile> {
                     backgroundColor: Colors.white,
                     child: CircleAvatar(
                       radius: 70.0,
-                      backgroundImage: AssetImage('assets/avatar.jpg'),
+                      // backgroundImage: AssetImage('aassets/images/default-user-icon-8.jpg'),
                     ),
                   ),
                 ),
