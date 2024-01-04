@@ -5,11 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rive/rive.dart';
 
-import '../../login_page.dart';
-import '../../services/auth_service.dart';
-import '../../widget/chat_wedgets/widgets.dart';
-import '../sign_up_screen/regestration_with_fierbase.dart';
-import '../sign_up_screen/sign_up_screen.dart';
 import 'Component/animated_btn.dart';
 import 'Component/sign_in_form.dart';
 
@@ -73,8 +68,7 @@ Positioned.fill(
                 child: Column(
 children:const [
 
-Text("Explore.",
-
+Text("Empowering Tomorrow's Innovators:",
   style: TextStyle(
     fontSize: 50 ,
     fontFamily: "Poppins",
@@ -82,29 +76,9 @@ Text("Explore.",
   ),
 
 ),
-  Text("LEARN a new skill",
 
-    style: TextStyle(
-      fontSize: 35 ,
-      fontFamily: "Poppins",
-      height: 1.2 ,
-    ),
-
-  ),
-  Text("Get a new friend",
-
-    style: TextStyle(
-      fontSize: 30 ,
-      fontFamily: "Poppins",
-      height: 1.2 ,
-    ),
-
-  ),
-
-
-
-  SizedBox(height: 20),
-  Text("Skill Swap - Connect people seeking to share    & acquire skills"), //2.47
+   SizedBox(height: 20),
+  Text("Skill Swap - Bridging Minds & Sharing Wisdom"), //2.47
 ],
 
                 ),
@@ -115,9 +89,7 @@ Text("Explore.",
                 press: () {
                 _btnAnimationController.isActive = true ;
                 // add the code for the login dialog when button click
-                Future.delayed(Duration(milliseconds: 800),(){
-                  nextScreen(context, const LoginPage());
-                 // CustomSignDialog(context, AuthService());
+                Future.delayed(Duration(milliseconds: 800),(){  CustomSignDialog(context);
                   },
                 );
 
@@ -125,7 +97,7 @@ Text("Explore.",
               },),
 Padding(
   padding: const EdgeInsets.symmetric(vertical: 24),
-  child:   Text("Unlock Your Potential with Skill Swap! Gain access to skills,  knowledge-sharing sessions, and endless opportunities for growth and collaboration."),
+  child:   Text("Unlock Your Potential with Skill Swap! Gain access to 50+ skills, 300+ knowledge-sharing sessions, and endless opportunities for growth and collaboration."),
 )
             ],
           ),
@@ -140,7 +112,7 @@ Padding(
     );
   }
 
-  Future<Object?> CustomSignDialog(BuildContext context, AuthService authService) {
+  Future<Object?> CustomSignDialog(BuildContext context) {
     return showGeneralDialog(
       //add the close sign at the buttom
 
@@ -191,15 +163,12 @@ return SlideTransition(position: tween.animate(CurvedAnimation(parent: animation
                        ),
                           textAlign: TextAlign.center,
                        ),
-
-                 // LoginPage
-                 //SignInForm(authService: authService),
+                         SigIn_Form(),
                       Row(
                         children: [
                           Expanded(child: Divider()),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16 , vertical: 10),
-                            // child: Text("or" , style: TextStyle(color: const Color(0xED6E95F6)),),
                             child: Text("or" , style: TextStyle(color: Colors.blue),),
                           ),
                           Expanded(child: Divider()),
@@ -208,7 +177,7 @@ return SlideTransition(position: tween.animate(CurvedAnimation(parent: animation
                       ),
                      Padding(
                        padding: const EdgeInsets.symmetric(horizontal: 6 ,vertical: 16),
-                       child: Text("Sign Up with email ,facebook or google " ,style:TextStyle(color: Colors.blue,)),
+                       child: Text("Sign Up with email ,facebook or google " ,style:TextStyle(color: Colors.blueAccent)),
                      ),
 
                      Row(
@@ -223,19 +192,10 @@ return SlideTransition(position: tween.animate(CurvedAnimation(parent: animation
 
                          ),
                          ),
-//------------------------------------------------------------------------------
+
                          IconButton(
                            //padding : EdgeInsets.zero,
-                           onPressed: (){
-                             //Navigator.pushNamed(context, '/signup');
-                             Navigator.push(
-                               context,
-                               MaterialPageRoute(
-                                 builder: (context) => RegisterPage(),
-                               ),
-                             );
-
-                           }, icon: SvgPicture.asset("assets/icons/gmail.svg",
+                           onPressed: (){}, icon: SvgPicture.asset("assets/icons/gmail.svg",
                            height: 64,
                            width: 64,
 
@@ -258,6 +218,20 @@ return SlideTransition(position: tween.animate(CurvedAnimation(parent: animation
                ],
 
                      ),
+               Positioned(
+                 left: 0,
+                 right: 0,
+                 bottom: -48,
+                 child: CircleAvatar(
+
+                   radius: 16,
+                   backgroundColor: Colors.white,
+                   child: Icon(
+                     Icons.close,
+                     color: Colors.black,
+                   ),
+                 ),
+               ),
                    ],
 
                  ),
@@ -268,3 +242,73 @@ return SlideTransition(position: tween.animate(CurvedAnimation(parent: animation
   }
 }
 
+// class SigIn_Form extends StatelessWidget {
+//   const SigIn_Form({
+//     super.key,
+//   });
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Form(child:
+//     Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+// Padding(
+//   padding: const EdgeInsets.only(top: 16 ,bottom: 16),
+//   child:   TextFormField(
+//     decoration: InputDecoration(
+//       prefixIcon: Padding(
+//         padding: const EdgeInsets.symmetric(horizontal: 8),
+//         child: SvgPicture.asset("assets/icons/email11.svg"),
+//
+//       ),
+//       hintText: 'Enter your email', // Add your explanatory text here
+//     ),
+//
+//   ),
+// ),
+//
+// // the password filed
+//         Padding(
+//           padding: const EdgeInsets.only(top: 16 ,bottom: 16),
+//           child:   TextFormField(
+//             obscureText: true ,
+//             decoration: InputDecoration(
+//               prefixIcon: Padding(
+//                 padding: const EdgeInsets.symmetric(horizontal: 8),
+//                 child: Icon(
+//                   Icons.password_outlined, // Replace with the desired icon
+//                   color: Colors.blue, // Change the icon color as needed
+//                 ),
+//
+//               ),
+//               hintText: 'Enter your password', // Add your explanatory text here
+//             ),
+//
+//           ),
+//         ),
+// Padding(
+//   padding: const EdgeInsets.only(top: 8 , bottom: 24),
+//   child:   ElevatedButton.icon(onPressed:(){},
+//     style: ElevatedButton.styleFrom(
+//       backgroundColor: const Color(0xED6E95F6),
+//       minimumSize: const Size(double.infinity, 56),
+//       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(
+//         topLeft: Radius.circular(10),
+//         topRight: Radius.circular(25),
+//         bottomLeft: Radius.circular(25),
+//         bottomRight: Radius.circular(10),
+//       ),
+//
+//       ),
+//     ),
+//     icon: Icon(CupertinoIcons.arrow_right) ,
+//     label:Text("Signin"),
+//   ),
+// )
+//
+//       ],
+//     ),
+//     );
+//   }
+// }
