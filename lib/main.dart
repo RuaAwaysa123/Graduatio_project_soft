@@ -1,41 +1,69 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:rive_animation/providers/user_provider.dart';
+import 'package:rive_animation/screens/cources/root_app.dart';
 import 'package:rive_animation/screens/onboding/onboding_screen.dart';
+import 'package:rive_animation/screens/signUp/society_signup/signup_society_step2.dart';
+import 'package:rive_animation/screens/society/root_app_society.dart';
+import 'package:rive_animation/themes.dart';
+import 'package:rive_animation/utils/Constants.dart';
+import 'package:rive_animation/utils/user_preferences.dart';
 
-void main() {
-  runApp(const MyApp());
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (kIsWeb) {
+    await Firebase.initializeApp(
+        options: FirebaseOptions(
+            apiKey: Constants.apiKey,
+            appId: Constants.appId,
+            messagingSenderId: Constants.messagingSenderId,
+            projectId: Constants.projectId));
+  } else {
+    await Firebase.initializeApp();
+  }
+  runApp(
+    MultiProvider(
+      providers: [
+        // Define your providers here, for example:
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+        // You should add other providers here as needed.
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
 
-  // This widget is the root of your application.
+final String title = 'User Profile';
+class MyApp extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'The Flutter Way',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Color(0xFFEEF1F8),
-        primarySwatch: Colors.blue,
-        fontFamily: "Intel",
-        inputDecorationTheme: InputDecorationTheme(
-          filled: true,
-          fillColor: Colors.white,
-          errorStyle: TextStyle(height: 0),
-          border: defaultInputBorder,
-          enabledBorder: defaultInputBorder,
-          focusedBorder: defaultInputBorder,
-          errorBorder: defaultInputBorder,
-        ),
+    final user = UserPreferences.myUser;
+    final isDarkMode = false;
+    return ThemeProvider(
+      initTheme: isDarkMode ? MyThemes.darkTheme : MyThemes.lightTheme,
+      child: Builder(
+        builder: (context) =>
+            MaterialApp(
+              title: 'MyTitle',
+              theme: isDarkMode ? MyThemes.darkTheme : MyThemes.lightTheme,
+              // scrollBehavior: Profile(),
+              // home: OnboardingScreen(),
+              home: RootAppCources(),// SignupStepper
+
+
+              debugShowCheckedModeBanner: false,
+            ),
+
       ),
-      home: const OnboardingScreen(),
+
     );
   }
 }
-
-const defaultInputBorder = OutlineInputBorder(
-  borderRadius: BorderRadius.all(Radius.circular(16)),
-  borderSide: BorderSide(
-    color: Color(0xFFDEE3F2),
-    width: 1,
-  ),
-);

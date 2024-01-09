@@ -32,10 +32,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const authRouter = require("./routes/app");
 const societyRouter = require("./routes/society_apis");  // Import your society APIs
+const course_centerRouter = require("./routes/Cource_Center_routes");
 
 const PORT = process.env.PORT || 3000;
 const app = express();
-
+app.use(course_centerRouter);
 app.use(express.json());
 app.use(authRouter);
 app.use(societyRouter);  // Use your society APIs router
@@ -54,3 +55,4 @@ mongoose
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Connected at port ${PORT}`);
 });
+// index.js

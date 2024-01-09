@@ -310,13 +310,5 @@ class _RegisterPageState extends State<RegisterPage> {
     // if (userType == "Student") {
       nextScreenReplace(
           context, StudentRegistrationContinuationPage(email: email));
-    // } else if (userType == "Society") {
-    //   nextScreenReplace(
-    //       context, RootAppCources());
-    // } else if (userType == "Course Center") {
-    //   nextScreenReplace(
-    //       context, RootAppCources());
-    //   // Navigate to course center registration page (add your code here)
-    // }
   }
 }

@@ -68,7 +68,17 @@ const course = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+
+  organization:
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Society',
+      },
+
   image: Buffer
 });
-const course = mongoose.model("course", course);
-module.exports = course;
+//const course = mongoose.model("course", course);
+//module.exports = course;
+const Course = mongoose.model("Course", course);
+
+module.exports = Course;
