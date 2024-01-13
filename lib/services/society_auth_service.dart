@@ -8,37 +8,74 @@ import '../utils/Constants.dart';
 class SocietyAuthService {
    static String baseUrl = Constants.uri ;// Replace with your API base URL
 
-  Future<Map<String, dynamic>> signUpSociety({
-    required String name,
-    required String email,
-    required String password,
-  }) async {
-    final url = Uri.parse('${Constants.uri}/api/signup_society');
+  // Future<Map<String, dynamic>> signUpSociety({
+  //   required String name,
+  //   required String email,
+  //   required String password,
+  // }) async {
+  //   final url = Uri.parse('${Constants.uri}/api/signup_society');
+  //
+  //   try {
+  //     final response = await http.post(
+  //       url,
+  //       headers: {'Content-Type': 'application/json'},
+  //       body: jsonEncode({
+  //         'name': name,
+  //         'email': email,
+  //         'password': password,
+  //       }),
+  //     );
+  //
+  //     final responseData = json.decode(response.body);
+  //
+  //     if (response.statusCode == 200) {
+  //       return {'success': true, 'message': 'Society signed up successfully'};
+  //     } else {
+  //       return {'success': false, 'message': responseData['error'] ?? 'Error signing up society'};
+  //     }
+  //   } catch (e) {
+  //     return {'success': false, 'message': 'Error signing up society: $e'};
+  //   }
+  // }
+   Future<Map<String, dynamic>> signUpSociety({
+     required String name,
+     required String email,
+     required String password,
+   }) async {
+     final url = Uri.parse('$baseUrl/api/signup_society');
 
-    try {
-      final response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'name': name,
-          'email': email,
-          'password': password,
-        }),
-      );
+     try {
+       final response = await http.post(
+         url,
+         headers: {'Content-Type': 'application/json'},
+         body: jsonEncode({
+           'name': name,
+           'email': email,
+           'password': password,
+         }),
+       );
 
-      final responseData = json.decode(response.body);
+       final responseData = json.decode(response.body);
 
-      if (response.statusCode == 200) {
-        return {'success': true, 'message': 'Society signed up successfully'};
-      } else {
-        return {'success': false, 'message': responseData['error'] ?? 'Error signing up society'};
-      }
-    } catch (e) {
-      return {'success': false, 'message': 'Error signing up society: $e'};
-    }
-  }
+       if (response.statusCode == 200) {
+         final societyId = responseData['_id']; // Use the correct field for societyId
+         _saveSocietyId(societyId); // Save societyId to shared preferences
 
-  Future<Map<String, dynamic>> signUpSocietyStep2({
+         return {
+           'success': true,
+           'message': 'Society signed up successfully',
+           'societyId': societyId,
+         };
+       } else {
+         return {'success': false, 'message': responseData['error'] ?? 'Error signing up society'};
+       }
+     } catch (e) {
+       return {'success': false, 'message': 'Error signing up society: $e'};
+     }
+   }
+
+
+   Future<Map<String, dynamic>> signUpSocietyStep2({
     required String societyId,
     required String mission,
     required String vision,

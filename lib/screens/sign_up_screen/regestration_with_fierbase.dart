@@ -337,36 +337,55 @@ class _RegisterPageState extends State<RegisterPage> {
       nextScreenReplace(
           context, StudentRegistrationContinuationPage(email: email));
   }
-
   void signUpSociety() async {
     if (formKey.currentState!.validate()) {
       setState(() {
         _isLoading = true;
       });
 
-      final result = await societyAuthService.signUpSociety(
-        name: fullName,
-        email: email,
-        password: password,
-      );
+      try {
+        final result = await societyAuthService.signUpSociety(
+          name: fullName,
+          email: email,
+          password: password,
+        );
 
-      if (result['success']) {
-        print(result['message']);
-        setState(() {
-          _isLoading = false;
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              // builder: (context) => ProfilePage(),
-              builder: (context) => SignupStepper(email: email,),
-            ),
-          );
-        });
-      } else {
-        // Error signing up society
-        // Handle the error, display an error message, or take appropriate action.
-        print(result['message']);
-        showSnackBar(context, result['message']);
+        if (result.containsKey('success') && result.containsKey('message')) {
+          if (result['success']) {
+            // Extract society ID from the result
+            String societyId = result['societyId'];
+
+            print(result['message']);
+            setState(() {
+              _isLoading = false;
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SignupStepper(societyId: societyId),
+                ),
+              );
+            });
+          } else {
+            // Error signing up society
+            // Handle the error, display an error message, or take appropriate action.
+            print(result['message']);
+            showSnackBar(context, result['message']);
+            setState(() {
+              _isLoading = false;
+            });
+          }
+        } else {
+          // Handle unexpected response format
+          print('Unexpected response format');
+          showSnackBar(context, 'Unexpected response format');
+          setState(() {
+            _isLoading = false;
+          });
+        }
+      } catch (e) {
+        // Handle other exceptions
+        print('Error signing up society: $e');
+        showSnackBar(context, 'Error signing up society: $e');
         setState(() {
           _isLoading = false;
         });
