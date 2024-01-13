@@ -12,8 +12,6 @@ import 'package:rive_animation/screens/society/root_app_society.dart';
 import 'package:rive_animation/themes.dart';
 import 'package:rive_animation/utils/Constants.dart';
 import 'package:rive_animation/utils/user_preferences.dart';
-
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (kIsWeb) {

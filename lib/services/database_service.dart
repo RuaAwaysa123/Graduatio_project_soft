@@ -11,13 +11,23 @@ class DatabaseService {
       FirebaseFirestore.instance.collection("groups");
 
   // saving the userdata
-  Future savingUserData(String fullName, String email) async {
+  // Future savingUserData(String fullName, String email) async {
+  //   return await userCollection.doc(uid).set({
+  //     "fullName": fullName,
+  //     "email": email,
+  //     "groups": [],
+  //     "profilePic": "",
+  //     "uid": uid,
+  //   });
+  // }
+  Future savingUserData(String fullName, String email, String userType) async {
     return await userCollection.doc(uid).set({
       "fullName": fullName,
       "email": email,
       "groups": [],
       "profilePic": "",
       "uid": uid,
+      "userType": userType, // Add this line
     });
   }
 

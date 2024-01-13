@@ -7,11 +7,13 @@ import '../../chat_groups/helper/helper_function.dart';
 import '../../chat_groups/home_page.dart';
 import '../../services/auth_service.dart';
 import '../../services/auth_service_firebase.dart';
+import '../../services/society_auth_service.dart';
 import '../../utils/utils.dart';
 import '../../widget/frequently_used_functions.dart';
 import '../Home/Button_Navigator.dart';
 import '../cources/root_app.dart';
 import '../onboding/onboding_screen.dart';
+import '../signUp/society_signup/signup_society_step2.dart';
 import '../society/root_app_society.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -33,7 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   AuthServiceFierbase authServiceFierbase = AuthServiceFierbase();
   final AuthService authService = AuthService();
-
+ final  SocietyAuthService societyAuthService  = SocietyAuthService();
   final InputDecoration textInputDecoration = InputDecoration(
     labelText: "Full Name",
     prefixIcon: Icon(
@@ -227,8 +229,10 @@ class _RegisterPageState extends State<RegisterPage> {
                         signupUser();
                       }
                       else if (userType == "Society") {
-                      nextScreenReplace(
-                      context, RootAppSociety());
+                      // nextScreenReplace(
+                      // context, RootAppSociety());
+
+                         signUpSociety(); //register();
                       } else if (userType == "Course Center") {
                       nextScreenReplace(
                       context, RootAppCources());
@@ -275,7 +279,7 @@ class _RegisterPageState extends State<RegisterPage> {
         _isLoading = true;
       });
       await authServiceFierbase
-          .registerUserWithEmailandPassword(fullName, email, password)
+          .registerUserWithEmailandPassword(fullName, email, password , userType)
           .then((value) async {
         if (value == true) {
           await HelperFunctions.saveUserLoggedInStatus(true);
@@ -292,6 +296,28 @@ class _RegisterPageState extends State<RegisterPage> {
       });
     }
   }
+  // void register() {
+  //   if (password == confimPass) {
+  //     authServiceFierbase.registerUserWithEmailandPassword(
+  //         fullName, email, password, userType).then((value) async {
+  //       if (value == true) {
+  //         await HelperFunctions.saveUserLoggedInStatus(true);
+  //         await HelperFunctions.saveUserEmailSF(email);
+  //         await HelperFunctions.saveUserNameSF(fullName);
+  //
+  //         navigateBasedOnUserType();
+  //       } else {
+  //         showSnackbar(context, Colors.red, value);
+  //         setState(() {
+  //           _isLoading = false;
+  //         });
+  //       }
+  //     });
+  //   } else {
+  //     showSnackBar(context, "Passwords do not match");
+  //   }
+  // }
+
 
   void signupUser() {
     if (password == confimPass) {
@@ -311,4 +337,42 @@ class _RegisterPageState extends State<RegisterPage> {
       nextScreenReplace(
           context, StudentRegistrationContinuationPage(email: email));
   }
+
+  void signUpSociety() async {
+    if (formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      final result = await societyAuthService.signUpSociety(
+        name: fullName,
+        email: email,
+        password: password,
+      );
+
+      if (result['success']) {
+        print(result['message']);
+        setState(() {
+          _isLoading = false;
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              // builder: (context) => ProfilePage(),
+              builder: (context) => SignupStepper(email: email,),
+            ),
+          );
+        });
+      } else {
+        // Error signing up society
+        // Handle the error, display an error message, or take appropriate action.
+        print(result['message']);
+        showSnackBar(context, result['message']);
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
 }
+// }

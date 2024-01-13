@@ -332,47 +332,5 @@ societyRouter.post("/api/login_society", async (req, res) => {
   }
 });
 
-// ... (existing code)
-
-
-// Login Society with jwt
-//societyRouter.post("/api/login_society", async (req, res) => {
-//  try {
-//    const { email, password } = req.body;
-//
-//    // Find the society by email
-//    const society = await Society.findOne({ email });
-//
-//    if (!society) {
-//      return res.status(404).json({ msg: "Society not found" });
-//    }
-//
-//    // Check if the provided password is correct
-//    const isPasswordValid = await bcryptjs.compare(password, society.password);
-//
-//    if (!isPasswordValid) {
-//      return res.status(401).json({ msg: "Invalid password" });
-//    }
-//
-//    // Generate and send an authentication token (you might want to use JWT)
-//    const authToken = generateAuthToken(society._id);
-//
-//    res.json({ msg: "Society logged in successfully", authToken });
-//  } catch (e) {
-//    res.status(500).json({ error: e.message });
-//  }
-//});
-//
-//// Helper function to generate an authentication token (using JWT)
-//function generateAuthToken(societyId) {
-//  // You need to implement the logic to generate and sign a JWT token here
-//  // Example using a fictional library
-//  const authToken = fictionalJWTLibrary.sign({ societyId }, "your-secret-key", { expiresIn: "1h" });
-//
-//  return authToken;
-//}
-
-
-
 module.exports = societyRouter;
 

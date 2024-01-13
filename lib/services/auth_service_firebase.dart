@@ -21,8 +21,24 @@ class AuthServiceFierbase {
     }
   }
 // signup
+//   Future registerUserWithEmailandPassword(
+//       String fullName, String email, String password) async {
+//     try {
+//       User user = (await firebaseAuth.createUserWithEmailAndPassword(
+//           email: email, password: password))
+//           .user!;
+//
+//       if (user != null) {
+//         // call our database service to update the user data.
+//         await DatabaseService(uid: user.uid).savingUserData(fullName, email);
+//         return true;
+//       }
+//     } on FirebaseAuthException catch (e) {
+//       return e.message;
+//     }
+//   }
   Future registerUserWithEmailandPassword(
-      String fullName, String email, String password) async {
+      String fullName, String email, String password, String userType) async {
     try {
       User user = (await firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password))
@@ -30,13 +46,15 @@ class AuthServiceFierbase {
 
       if (user != null) {
         // call our database service to update the user data.
-        await DatabaseService(uid: user.uid).savingUserData(fullName, email);
+        await DatabaseService(uid: user.uid)
+            .savingUserData(fullName, email, userType); // Pass userType
         return true;
       }
     } on FirebaseAuthException catch (e) {
       return e.message;
     }
   }
+
 // logout
 // signout
   Future signOut() async {
