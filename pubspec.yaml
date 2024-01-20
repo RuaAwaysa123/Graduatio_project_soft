@@ -66,6 +66,10 @@ dependencies:
   intl: ^0.18.1
   url_launcher: ^6.1.14
   go_router: ^13.0.1
+  syncfusion_flutter_calendar: ^24.1.45
+  pie_chart: ^5.4.0
+  flutter_custom_clippers: ^2.1.0
+  wave: ^0.2.2
 
 
 
@@ -111,6 +115,7 @@ flutter:
     - assets/icons/
     - assets/RiveAssets/
     - assets/images/
+    - assets/navigator_icons/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

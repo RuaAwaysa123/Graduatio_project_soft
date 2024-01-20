@@ -431,7 +431,7 @@ class _societyProfileState extends State<societyProfile> {
                   style: ElevatedButton.styleFrom(primary: Colors.blue),
                   child: Row(
                     children: const [
-                      Icon(Icons.message),
+                      Icon(Icons.message , color: Colors.white ,),
                       SizedBox(
                         width: 10,
                       ),
@@ -447,7 +447,7 @@ class _societyProfileState extends State<societyProfile> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => CalendarPage(),
+                        builder: (context) => MyCalendarPage(),
                       ),
                     );
                   },

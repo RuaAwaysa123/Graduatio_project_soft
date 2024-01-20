@@ -6,12 +6,18 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rive_animation/providers/user_provider.dart';
 import 'package:rive_animation/screens/cources/root_app.dart';
+import 'package:rive_animation/screens/cources/society_profile%20test.dart';
 import 'package:rive_animation/screens/onboding/onboding_screen.dart';
+import 'package:rive_animation/screens/profile_test/pages/profile_Screen.dart';
 import 'package:rive_animation/screens/signUp/society_signup/signup_society_step2.dart';
 import 'package:rive_animation/screens/society/root_app_society.dart';
 import 'package:rive_animation/themes.dart';
 import 'package:rive_animation/utils/Constants.dart';
 import 'package:rive_animation/utils/user_preferences.dart';
+
+import 'facebook/Cources_profile.dart';
+import 'facebook/calender.dart';
+import 'facebook/myCalnderhome.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (kIsWeb) {
@@ -54,7 +60,8 @@ class MyApp extends StatelessWidget {
               theme: isDarkMode ? MyThemes.darkTheme : MyThemes.lightTheme,
               // scrollBehavior: Profile(),
               //  home: OnboardingScreen(),
-              home: RootAppCources(),// SignupStepper /
+              home: MyCalendarPage(),// SignupStepper /  /  /RootAppSociety
+              // home: MyHomePageTest(title: 'Flutter Demo Home Page', key: UniqueKey()),
 
 
               debugShowCheckedModeBanner: false,

@@ -209,7 +209,7 @@ class _CourceProfileState extends State<CourceProfile> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => CalendarPage(),
+                        builder: (context) => MyCalendarPage(),
                       ),
                     );
                   },

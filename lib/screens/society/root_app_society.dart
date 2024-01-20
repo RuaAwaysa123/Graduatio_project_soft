@@ -9,6 +9,7 @@ import '../../facebook/Cources_profile.dart';
 import '../../facebook/profile.dart';
 import '../cources/dashboard.dart';
 import '../cources/home_courses.dart';
+import '../profile_test/pages/profile_Screen.dart';
 
 
 class RootAppSociety extends StatefulWidget {
@@ -28,13 +29,13 @@ class _RootAppSocietyState extends State<RootAppSociety>
       "page": HomePage(),
     },
     {
-      "icon": "assets/icons/search.svg",
-      "active_icon": "assets/icons/search.svg",
+      "icon": "assets/icons/notification.svg",
+      "active_icon": "assets/icons/notification.svg",
       "page": Container(),
     },
     {
-      "icon": "assets/icons/play.svg",
-      "active_icon": "assets/icons/play.svg",
+      "icon": "assets/navigator_icons/analysis_simple.svg",
+      "active_icon": "assets/navigator_icons/analysis_simple.svg",//assets/navigator_icons/analysis.svg
       "page": MyHomePage(),
     },
     {
@@ -45,7 +46,8 @@ class _RootAppSocietyState extends State<RootAppSociety>
     {
       "icon": "assets/icons/profile.svg",
       "active_icon": "assets/icons/profile.svg",
-      "page": societyProfile(),
+      // "page": societyProfile(),//  //SocietyProfileScreen
+      "page": MyHomePageTest(title: 'Flutter Demo Home Page', key: UniqueKey())
     },
   ];
 
