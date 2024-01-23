@@ -15,7 +15,7 @@
 // import '../../profile/profile_page.dart';
 //
 // class SignInForm extends StatefulWidget {
-//   final AuthService authService;
+//   //final AuthService authService;
 //   // final formKey = GlobalKey<FormState>();
 //   // bool _isLoading = false;
 //   // AuthServiceFierbase authServiceFierbase = AuthServiceFierbase();
@@ -24,7 +24,7 @@
 //
 //   SignInForm({
 //     Key? key,
-//     required this.authService,
+//    // required this.authService,
 //   }) : super(key: key);
 //   @override
 //   _SignInFormState createState() => _SignInFormState();
@@ -34,7 +34,8 @@
 //
 //   final formKey = GlobalKey<FormState>();
 //   bool _isLoading = false;
-//   AuthServiceFierbase authServiceFierbase = AuthServiceFierbase();
+//   // AuthServiceFierbase authServiceFierbase = AuthServiceFierbase();
+//   final AuthService authService = AuthService();
 //   String email = '';
 //   String password = '';
 //
@@ -104,7 +105,11 @@
 //                   email: email, // Pass the email variable
 //                   password: password, // Pass the password variable
 //                 );
-//                 login();
+//                 // authService.loginUser(
+//                 //   context: context,
+//                 //   email: email,
+//                 //   password: password,
+//                 // );
 //               },
 //               style: ElevatedButton.styleFrom(
 //                 // backgroundColor: const Color(0xED6E95F6),
@@ -128,36 +133,135 @@
 //     ),
 //           );
 //   }
-//   login() async {
-//
-//     if (formKey.currentState!.validate()) {
-//       setState(() {
-//         _isLoading = true;
-//       });
-//       await authServiceFierbase
-//           .loginWithUserNameandPassword(email, password)
-//           .then((value) async {
-//         if (value == true) {
-//           QuerySnapshot snapshot =
-//           await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
-//               .gettingUserData(email);
-//           // saving the values to our shared preferences
-//           await HelperFunctions.saveUserLoggedInStatus(true);
-//           await HelperFunctions.saveUserEmailSF(email);
-//           await HelperFunctions.saveUserNameSF(snapshot.docs[0]['fullName']);
-//           //nextScreenReplace(context, const HomePageChat());
-//         } else {
-//           showSnackbar(context, Colors.red, value);
-//           setState(() {
-//             _isLoading = false;
-//           });
-//         }
-//       });
-//     }
-//   }
+//   // login() async {
+//   //
+//   //   if (formKey.currentState!.validate()) {
+//   //     setState(() {
+//   //       _isLoading = true;
+//   //     });
+//   //     await authService
+//   //         .loginWithUserNameandPassword(email, password)
+//   //         .then((value) async {
+//   //       if (value == true) {
+//   //         QuerySnapshot snapshot =
+//   //         await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
+//   //             .gettingUserData(email);
+//   //         // saving the values to our shared preferences
+//   //         await HelperFunctions.saveUserLoggedInStatus(true);
+//   //         await HelperFunctions.saveUserEmailSF(email);
+//   //         await HelperFunctions.saveUserNameSF(snapshot.docs[0]['fullName']);
+//   //         //nextScreenReplace(context, const HomePageChat());
+//   //       } else {
+//   //         showSnackbar(context, Colors.red, value);
+//   //         setState(() {
+//   //           _isLoading = false;
+//   //         });
+//   //       }
+//   //     });
+//   //   }
+//   // }
 //
 //
 // }
 //
 //
 //
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:rive/rive.dart';
+
+import '../../profile/profile_page.dart';
+
+class SigIn_Form extends StatelessWidget {
+  const SigIn_Form({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(child:
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+
+
+        Center(
+          child: Image.asset(
+            'assets/Backgrounds/R-removebg-preview.png',
+            width: 700.0,
+            height: 140.0,
+          ),
+        ),
+
+
+
+        Padding(
+          padding: const EdgeInsets.only(top: 8 ,bottom: 8),
+          child:   TextFormField(
+            decoration: InputDecoration(
+              prefixIcon: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: SvgPicture.asset("assets/icons/email11.svg"),
+
+              ),
+              hintText: 'Enter your email', // Add your explanatory text here
+            ),
+
+          ),
+        ),
+
+// the password filed
+        Padding(
+          padding: const EdgeInsets.only(top: 10 ,bottom: 8),
+          child:   TextFormField(
+            obscureText: true ,
+            decoration: InputDecoration(
+              prefixIcon: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Icon(
+                  Icons.password_outlined, // Replace with the desired icon
+                  color: const Color(0xED6E95F6), // Change the icon color as needed
+                ),
+
+              ),
+              hintText: 'Enter your password', // Add your explanatory text here
+            ),
+
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 8 , bottom: 10),
+          child:   ElevatedButton.icon(onPressed:(){
+//**********************************************************************
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProfilePage(),
+              ),
+            );
+          },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xED6E95F6),
+              minimumSize: const Size(double.infinity, 56),
+              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(25),
+                bottomLeft: Radius.circular(25),
+                bottomRight: Radius.circular(10),
+              ),
+
+              ),
+            ),
+            icon: Icon(CupertinoIcons.arrow_right) ,
+            label:Text("Signin"),
+          ),
+        ),
+      ],
+    ),
+    );
+  }
+}

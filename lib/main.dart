@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rive_animation/providers/user_provider.dart';
+import 'package:rive_animation/screens/cources/course_details/Navigator_coffie.dart';
 import 'package:rive_animation/screens/cources/root_app.dart';
 import 'package:rive_animation/screens/cources/society_profile%20test.dart';
 import 'package:rive_animation/screens/onboding/onboding_screen.dart';
@@ -15,6 +16,8 @@ import 'package:rive_animation/themes.dart';
 import 'package:rive_animation/utils/Constants.dart';
 import 'package:rive_animation/utils/user_preferences.dart';
 
+import 'facebook/Calender_event_wedgets/create_event_page.dart';
+import 'facebook/Calender_event_wedgets/detals_ui.dart';
 import 'facebook/Cources_profile.dart';
 import 'facebook/calender.dart';
 import 'facebook/myCalnderhome.dart';
@@ -59,8 +62,8 @@ class MyApp extends StatelessWidget {
               title: 'MyTitle',
               theme: isDarkMode ? MyThemes.darkTheme : MyThemes.lightTheme,
               // scrollBehavior: Profile(),
-              //  home: OnboardingScreen(),
-              home: MyCalendarPage(),// SignupStepper /  /  /RootAppSociety
+              //  home: OnboardingScreen(),// //MyCalendarPage
+              home: EventDetailsPage(),// SignupStepper /MyCalendarPage/ MyHomePageCources /MyHomePageCources
               // home: MyHomePageTest(title: 'Flutter Demo Home Page', key: UniqueKey()),
 
 
@@ -72,3 +75,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+

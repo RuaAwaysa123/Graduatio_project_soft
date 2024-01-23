@@ -206,12 +206,12 @@ class _CourceProfileState extends State<CourceProfile> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MyCalendarPage(),
-                      ),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => MyCalendarPage(),
+                    //   ),
+                    // );
                   },
                   style: ElevatedButton.styleFrom(primary: Colors.grey[900]),
                   child: Row(

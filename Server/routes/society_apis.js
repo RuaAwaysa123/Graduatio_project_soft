@@ -331,6 +331,33 @@ societyRouter.post("/api/login_society", async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
+societyRouter.post("/api/upload_event_image/:eventId", upload.single("image"), async (req, res) => {
+  try {
+    const { eventId } = req.params;
+    const event = await Event.findById(eventId);
+
+    if (!event) {
+      return res.status(404).json({ msg: "Event not found" });
+    }
+
+    // Check if an image file is provided
+    if (!req.file) {
+      return res.status(400).json({ msg: "No image file provided" });
+    }
+
+    // Save the image data to the event
+    event.image = {
+      data: req.file.buffer,
+      contentType: req.file.mimetype,
+    };
+
+    await event.save();
+
+    res.json({ msg: "Event image uploaded successfully" });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
 
 module.exports = societyRouter;
 

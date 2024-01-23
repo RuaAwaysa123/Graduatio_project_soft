@@ -1,15 +1,4 @@
-//const mongoose = require("mongoose");
-//
-//const courseSchema = new mongoose.Schema({
-//  name: String,
-//  description: String,
-//  instructor: String,
-//});
-//const Post = mongoose.model("posts", postSchema);
-//module.exports = Post;
-
 const mongoose = require("mongoose");
-
 const course = new mongoose.Schema({
   name: {
     type: String,

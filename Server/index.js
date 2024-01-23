@@ -42,7 +42,7 @@ app.use(authRouter);
 app.use(societyRouter);  // Use your society APIs router
 
 const DB = "mongodb+srv://Rua:CNkuPgFcdKzGLHPv@cluster0.uouryro.mongodb.net/?retryWrites=true&w=majority";
-
+//const DB ="mongodb+srv://Ruaa:Ruaa12345678@cluster0.fjjvrmb.mongodb.net/?retryWrites=true&w=majority"
 mongoose
   .connect(DB)
   .then(() => {

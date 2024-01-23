@@ -117,6 +117,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     // add the code for the login dialog when button click
                     Future.delayed(Duration(milliseconds: 800),(){
                       nextScreen(context, const LoginPage());
+
                       // CustomSignDialog(context, AuthService());
                     },
                     );

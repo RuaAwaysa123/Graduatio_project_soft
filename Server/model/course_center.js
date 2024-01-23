@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-
-
 // Course center Schema
 const courseCenter = new mongoose.Schema({
   name: {

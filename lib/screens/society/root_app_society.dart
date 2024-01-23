@@ -6,6 +6,7 @@ import 'package:rive_animation/utils/constant.dart';
 import 'package:rive_animation/screens/cources/widgets_cources/bottombar_item.dart';
 import '../../facebook/Cources_profile.dart';
 
+import '../../facebook/calender.dart';
 import '../../facebook/profile.dart';
 import '../cources/dashboard.dart';
 import '../cources/home_courses.dart';
@@ -34,9 +35,9 @@ class _RootAppSocietyState extends State<RootAppSociety>
       "page": Container(),
     },
     {
-      "icon": "assets/navigator_icons/analysis_simple.svg",
-      "active_icon": "assets/navigator_icons/analysis_simple.svg",//assets/navigator_icons/analysis.svg
-      "page": MyHomePage(),
+      "icon": "assets/images/calendar.svg",//assets/navigator_icons/analysis_simple.svg
+      "active_icon": "assets/images/calendar.svg",//assets/navigator_icons/analysis.svg
+      "page": MyCalendarPage(),//MyHomePage
     },
     {
       "icon": "assets/icons/chat.svg",
