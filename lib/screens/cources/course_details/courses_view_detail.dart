@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-class DetailsPage extends StatefulWidget {
+class courseDetails extends StatefulWidget {
   @override
-  _DetailsPageState createState() => _DetailsPageState();
+  _courseDetailsState createState() => _courseDetailsState();
 }
 
-class _DetailsPageState extends State<DetailsPage> {
+class _courseDetailsState extends State<courseDetails> {
   buildIngredientItem(String name, IconData iconData, Color bgColor) {
     return Padding(
       padding: EdgeInsets.only(right: 10.0),
@@ -49,9 +49,9 @@ class _DetailsPageState extends State<DetailsPage> {
           Stack(
             children: <Widget>[
               Container(
-                height: MediaQuery.of(context).size.height - 20.0,
-                width: MediaQuery.of(context).size.width,
-                color:Colors.blue //Color(0xFFF3B2B7),
+                  height: MediaQuery.of(context).size.height - 20.0,
+                  width: MediaQuery.of(context).size.width,
+                  color:Colors.blue //Color(0xFFF3B2B7),
               ),
               Positioned(
                 top: MediaQuery.of(context).size.height / 2,
@@ -171,7 +171,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               children: [
                                 SizedBox(height: 5.0),
                                 Text(
-                                 'IEEE ,Computer Community',
+                                  'IEEE ,Computer Community',
                                   style: TextStyle(
                                     fontFamily: 'nunito',
                                     fontSize: 12.0,

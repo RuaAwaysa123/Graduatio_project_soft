@@ -1063,6 +1063,7 @@ class _LoginPageState extends State<LoginPage> {
                           if (result['success']) {
                             // Society logged in successfully, implement your logic here
                             // You can also navigate to the next screen or perform other actions
+
                             Navigator.push(
                               context,
                               MaterialPageRoute(

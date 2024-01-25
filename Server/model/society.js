@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-//const eventSchema = require("./model/course.js"); // Import the correct eventSchema file path
 
 // Society Schema
 const societySchema = new mongoose.Schema({
@@ -13,7 +12,7 @@ const societySchema = new mongoose.Schema({
     unique: true,
     validate: {
       validator: (value) => {
-        const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@((([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,}|(\d{1,3}\.){3}\d{1,3}(\:\d{1,5})?))$/i;
         return value.match(re);
       },
       message: "Invalid email",
@@ -35,29 +34,33 @@ const societySchema = new mongoose.Schema({
       ref: 'User',
     },
   ],
-  //events: [event], // Use the correct eventSchema
-events: [{
-  type: mongoose.Schema.Types.ObjectId,
-  ref: 'event',
-}],
-
+  events: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Event',
+  }],
   location: String,
   mission: String,
   vision: String,
-//  courses: [course],
   course: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'course',
+    ref: 'Course',
   }],
-  //workshops: [workshopSchema],
   recommendedTopics: [String],
-  joinRequestsOpenDate: Date,
   membershipRequestsOpenDate: Date,
+   membershipRequestsCloseDate: Date,
   rate: {
     type: Number,
     default: 0,
   },
-  image: Buffer
+  image: Buffer,
+   membershipRequests: [{
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+      paymentAmount: Number,
+      status: String,
+    }],
 });
 
 const Society = mongoose.model("Society", societySchema);

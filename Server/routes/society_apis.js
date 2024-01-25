@@ -10,14 +10,11 @@ const Post = require("../model/posts");
 const jwt = require("jsonwebtoken");
 const Event = require("../model/event");
 const Course = require("../model/course");
-
-
 const multer = require("multer");
 
 // Set up multer storage
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-
 societyRouter.post("/api/signup_society", async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -95,11 +92,6 @@ societyRouter.post("/api/upload_society_image/:societyId", upload.single("image"
   }
 });
 
-// society_apis.js
-
-// ... (existing imports)
-
-// Create a new event
 societyRouter.post("/api/create_event/:societyId", async (req, res) => {
   try {
     const { societyId } = req.params;
@@ -194,15 +186,11 @@ societyRouter.delete("/api/delete_event/:eventId", async (req, res) => {
   }
 });
 
-// society_apis.js
-
-// ... (existing imports)
-
 // Create a new course
 societyRouter.post("/api/create_course/:societyId", async (req, res) => {
   try {
     const { societyId } = req.params;
-    const { name, topics, prequests, majors, location, isOnline, startDate, endDate, time, credential, price, trainer, description } = req.body;
+    const { name, topics, prequests, majors, location, isOnline, startDate, time, credential, price, trainer, description } = req.body;
 
     // Find the society by ID
     const society = await Society.findById(societyId);
@@ -245,7 +233,7 @@ societyRouter.post("/api/create_course/:societyId", async (req, res) => {
 societyRouter.put("/api/update_course/:courseId", async (req, res) => {
   try {
     const { courseId } = req.params;
-    const { name, topics, prequests, majors, location, isOnline, startDate, endDate, time, credential, price, trainer, description } = req.body;
+    const { name, topics, prequests, majors, location, isOnline, startDate, time, credential, price, trainer, description } = req.body;
 
     // Find the course by ID
     const course = await Course.findById(courseId);
@@ -326,7 +314,7 @@ societyRouter.post("/api/login_society", async (req, res) => {
       return res.status(401).json({ msg: "Invalid password" });
     }
 
-    res.json({ msg: "Society logged in successfully" });
+    res.json({ msg: "Society logged in successfully" ,society });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -359,5 +347,227 @@ societyRouter.post("/api/upload_event_image/:eventId", upload.single("image"), a
   }
 });
 
-module.exports = societyRouter;
+societyRouter.get("/api/get_society/:societyId", async (req, res) => {
+  try {
+    const { societyId } = req.params;
 
+    const society = await Society.findById(societyId)
+      .populate('members')
+      .populate('followers')
+      .populate('events')
+      .populate('course');
+
+    if (!society) {
+      return res.status(404).json({ msg: "Society not found" });
+    }
+
+    res.json({ society });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+// Define a route to handle user membership application
+societyRouter.post("/api/join_society/:societyId", async (req, res) => {
+  try {
+    const { societyId } = req.params;
+    const { userId, paymentAmount } = req.body;
+
+    // Find the society by ID
+    const society = await Society.findById(societyId);
+
+    if (!society) {
+      return res.status(404).json({ msg: "Society not found" });
+    }
+
+    // Check if the membership application period is open
+    const currentDate = new Date();
+    if (
+      !society.membershipRequestsOpenDate ||
+      currentDate < society.membershipRequestsOpenDate
+    ) {
+      return res.status(403).json({ msg: "Membership application period is not open" });
+    }
+
+    // Create a membership request
+    const membershipRequest = {
+      user: userId,
+      paymentAmount,
+      status: "Pending", // You can set the initial status to "Pending"
+    };
+
+    // Add the membership request to the society's membershipRequests array
+    society.membershipRequests.push(membershipRequest);
+
+    // Save the updated society
+    await society.save();
+
+    res.json({ msg: "Membership request submitted successfully" });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Define a route to accept or reject a user's membership request
+societyRouter.put("/api/process_membership_request/:societyId", async (req, res) => {
+  try {
+    const { societyId } = req.params;
+    const { userId, isAccepted } = req.body;
+
+    // Find the society by ID
+    const society = await Society.findById(societyId);
+
+    if (!society) {
+      return res.status(404).json({ msg: "Society not found" });
+    }
+
+    // Check if the user has a pending membership request
+    const membershipRequest = society.membershipRequests.find(
+      (request) => request.user.toString() === userId && request.status === "Pending"
+    );
+
+    if (!membershipRequest) {
+      return res.status(404).json({ msg: "No pending membership request found for the user" });
+    }
+
+    // Update the status of the membership request based on the decision
+    membershipRequest.status = isAccepted ? "Accepted" : "Rejected";
+
+    // If accepted, add the user to the society's members array
+    if (isAccepted) {
+      society.members.push(userId);
+    }
+
+    // Remove the processed membership request from the array
+    society.membershipRequests = society.membershipRequests.filter(
+      (request) => request.user.toString() !== userId
+    );
+
+    // Save the updated society
+    await society.save();
+
+    res.json({ msg: `Membership request ${isAccepted ? 'accepted' : 'rejected'} successfully` });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// society_apis.js
+
+// Define a route to set the membership application period
+societyRouter.post("/api/set_membership_application_period/:societyId", async (req, res) => {
+  try {
+    const { societyId } = req.params;
+    const { openDate, closeDate } = req.body;
+
+    // Find the society by ID
+    const society = await Society.findById(societyId);
+
+    if (!society) {
+      return res.status(404).json({ msg: "Society not found" });
+    }
+
+    // Update the membership application period
+    society.membershipRequestsOpenDate = openDate;
+    society.membershipRequestsCloseDate = closeDate;
+
+    // Save the updated society
+    await society.save();
+
+    res.json({ msg: "Membership application period set successfully" });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+// society_apis.js
+
+// Define a route to get the membership application period
+societyRouter.get("/api/get_membership_application_period/:societyId", async (req, res) => {
+  try {
+    const { societyId } = req.params;
+
+    // Find the society by ID
+    const society = await Society.findById(societyId);
+
+    if (!society) {
+      return res.status(404).json({ msg: "Society not found" });
+    }
+
+    const membershipApplicationPeriod = {
+      membershipRequestsOpenDate: society.membershipRequestsOpenDate,
+      membershipRequestsCloseDate: society.membershipRequestsCloseDate,
+    };
+
+    res.json({ membershipApplicationPeriod });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+// Define a route to update the membership application period dates
+societyRouter.put("/api/update_membership_application_period/:societyId", async (req, res) => {
+  try {
+    const { societyId } = req.params;
+    const { openDate, closeDate } = req.body;
+
+    // Find the society by ID
+    const society = await Society.findById(societyId);
+
+    if (!society) {
+      return res.status(404).json({ msg: "Society not found" });
+    }
+
+    // Validate the dates
+    const currentDate = new Date();
+
+    // Check if openDate is greater than the current date
+    if (openDate && new Date(openDate) <= currentDate) {
+      return res.status(400).json({ msg: "Open date must be greater than the current date" });
+    }
+
+    // Check if closeDate is greater than openDate
+    if (closeDate && openDate && new Date(closeDate) <= new Date(openDate)) {
+      return res.status(400).json({ msg: "Close date must be greater than open date" });
+    }
+
+    // Update the membership application period dates
+    if (openDate) {
+      society.membershipRequestsOpenDate = openDate;
+    }
+
+    if (closeDate) {
+      society.membershipRequestsCloseDate = closeDate;
+    }
+
+    // Save the updated society
+    await society.save();
+
+    res.json({ msg: "Membership application period dates updated successfully" });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+societyRouter.post("/api/upload_course_image/:courseId", upload.single("image"), async (req, res) => {
+  try {
+    const { courseId } = req.params;
+    const course = await Course.findById(courseId);
+
+    if (!course) {
+      return res.status(404).json({ msg: "Course not found" });
+    }
+
+    // Check if an image file is provided
+    if (!req.file) {
+      return res.status(400).json({ msg: "No image file provided" });
+    }
+
+    // Save the image data to the course
+    course.image = req.file.buffer;
+
+    await course.save();
+
+    res.json({ msg: "Course image uploaded successfully" });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+module.exports = societyRouter;

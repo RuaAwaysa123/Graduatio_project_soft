@@ -37,12 +37,7 @@ const course = new mongoose.Schema({
       ref: 'User',
     },
   ],
-  acceptedApplicants: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-    },
-  ],
+
   rejectedApplicants: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -63,11 +58,56 @@ const course = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Society',
       },
+       sessions: [
+          {
+            sessionDate: {
+              type: Date,
+              required: true,
+            },
+            attendance: [
+              {
+                userId: {
+                  type: mongoose.Schema.Types.ObjectId,
+                  ref: 'User',
+                },
+                attended: {
+                  type: Boolean,
+                  default: false,
+                },
+              },
+            ],
+          },
+        ],
 
-  image: Buffer
+        ratings: [
+          {
+            societyId: {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: 'Society',
+            },
+            rating: {
+              type: Number,
+              default: 0,
+            },
+          },
+        ],
+         startTime: {
+            type: String,
+            required: true,
+          },
+          endTime: {
+            type: String,
+            required: true,
+          },
+          days: [
+            {
+              type: String,
+              enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+              required: true,
+            },
+          ],
+ image: Buffer,
+ maxnumof :Number
 });
-//const course = mongoose.model("course", course);
-//module.exports = course;
 const Course = mongoose.model("Course", course);
-
 module.exports = Course;

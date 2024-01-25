@@ -21,12 +21,6 @@ const userSchema = mongoose.Schema({
     type: String,
    },
 
-//   firstName: {
-//      type: String,
-//    },
-//    lastName: {
-//      type: String,
-//    },
   phoneNumber: {
     type: String, // You can choose to store it as a string
   },

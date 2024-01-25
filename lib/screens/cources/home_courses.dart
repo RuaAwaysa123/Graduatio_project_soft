@@ -1,3 +1,4 @@
+//
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:rive_animation/screens/cources/theme/color.dart';
@@ -7,6 +8,8 @@ import 'package:rive_animation/screens/cources/widgets_cources/feature_item.dart
 import 'package:rive_animation/screens/cources/widgets_cources/notification_box.dart';
 import 'package:rive_animation/screens/cources/widgets_cources/recommend_item.dart';
 
+import '../../model/society.dart';
+import '../../services/society_auth_service.dart';
 import 'All_Coueces_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,8 +20,80 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late SocietyAuthService _societyAuthService =SocietyAuthService() ;
+  late Society _society = Society(
+    id: '',
+    name: '',
+    email: '',
+    password: '', // Add other fields with appropriate default values
+    members: [],
+    followers: [],
+    events: [],
+    location: '',
+    mission: '',
+    vision: '',
+    courses: [],
+    recommendedTopics: [],
+    joinRequestsOpenDate: DateTime.now(),
+    membershipRequestsOpenDate: DateTime.now(),
+    rate: 0.0,
+    imgUrl: '',
+  );
+
+
+  @override
+  void initState() {
+    super.initState();
+    _societyAuthService = SocietyAuthService();
+    _loadSocietyDetails();
+  }
+
+  Future<void> _loadSocietyDetails() async {
+    try {
+      // Get society ID from shared preferences
+      final societyId = await _societyAuthService.getSocietyId();
+
+      // Print society ID for debugging
+      print('Society ID: $societyId');
+
+      // Check if society ID is available
+      if (societyId != null && societyId.isNotEmpty) {
+        // Retrieve society details using the society ID
+        final result = await _societyAuthService.getSocietyDetails(societyId);
+        print('the result is, ${result}!');
+        print('---------------------------------------------------------------');
+        print('the result of society details is , ${result['societyDetails']}!');
+
+
+        if (result['success']) {
+          // Update the state with the retrieved society details
+          print('---------------------------------------------------------------');
+          print("inside success ");
+
+          setState(() {
+            _society = Society.fromMap(result['societyDetails']);
+            print('Good Morning, ${_society}!');
+          });
+
+          // Print society name for debugging
+          print('Good Morning, ${_society.name}!');
+        } else {
+          // Print error message for debugging
+          print('Error: ${result['message']}');
+        }
+      } else {
+        // Print message if society ID is not available
+        print('Society ID is not available');
+      }
+    } catch (e) {
+      // Print error for debugging
+      print('Error: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Use _society object to access society details in your UI
     return Scaffold(
       backgroundColor: AppColor.appBgColor,
       body: CustomScrollView(
@@ -32,7 +107,7 @@ class _HomePageState extends State<HomePage> {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              (context, index) => _buildBody(),
+                  (context, index) => _buildBody(),
               childCount: 1,
             ),
           )
@@ -40,6 +115,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
 
   Widget _buildAppBar() {
     return Row(
@@ -50,18 +126,12 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Text(
-              //   profile["name"]!,
-              //   style: TextStyle(
-              //     color: AppColor.labelColor,
-              //     fontSize: 14,
-              //   ),
-              // ),
+
               const SizedBox(
                 height: 5,
               ),
               Text(
-                "Good Morning!",
+                'Good Morning, ${_society.name}',
                 style: TextStyle(
                   color: AppColor.textColor,
                   fontWeight: FontWeight.w500,
@@ -84,7 +154,7 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildCategories(),
+          //_buildCategories(),
           const SizedBox(
             height: 15,
           ),
@@ -135,7 +205,7 @@ class _HomePageState extends State<HomePage> {
       child: Row(
         children: List.generate(
           categories.length,
-          (index) => Padding(
+              (index) => Padding(
             padding: const EdgeInsets.only(right: 15),
             child: CategoryBox(
               selectedColor: Colors.white,
@@ -147,23 +217,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-  // _buildFeatured() {
-  //   return CarouselSlider(
-  //     options: CarouselOptions(
-  //       height: 290,
-  //       enlargeCenterPage: true,
-  //       disableCenter: true,
-  //       viewportFraction: .75,
-  //     ),
-  //     items: List.generate(
-  //       features.length,
-  //       (index) => FeatureItem(
-  //         data: features[index],
-  //       ),
-  //     ),
-  //   );
-  // }
   _buildFeatured() {
     return Column(
       children: [
@@ -220,7 +273,7 @@ class _HomePageState extends State<HomePage> {
       child: Row(
         children: List.generate(
           recommends.length,
-          (index) => Padding(
+              (index) => Padding(
             padding: const EdgeInsets.only(right: 10),
             child: RecommendItem(
               data: recommends[index],

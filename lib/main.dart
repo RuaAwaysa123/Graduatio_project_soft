@@ -2,25 +2,13 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rive_animation/providers/user_provider.dart';
-import 'package:rive_animation/screens/cources/course_details/Navigator_coffie.dart';
-import 'package:rive_animation/screens/cources/root_app.dart';
-import 'package:rive_animation/screens/cources/society_profile%20test.dart';
 import 'package:rive_animation/screens/onboding/onboding_screen.dart';
-import 'package:rive_animation/screens/profile_test/pages/profile_Screen.dart';
-import 'package:rive_animation/screens/signUp/society_signup/signup_society_step2.dart';
-import 'package:rive_animation/screens/society/root_app_society.dart';
 import 'package:rive_animation/themes.dart';
 import 'package:rive_animation/utils/Constants.dart';
 import 'package:rive_animation/utils/user_preferences.dart';
 
-import 'facebook/Calender_event_wedgets/create_event_page.dart';
-import 'facebook/Calender_event_wedgets/detals_ui.dart';
-import 'facebook/Cources_profile.dart';
-import 'facebook/calender.dart';
-import 'facebook/myCalnderhome.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (kIsWeb) {
@@ -45,7 +33,6 @@ Future<void> main() async {
   );
 }
 
-
 final String title = 'User Profile';
 class MyApp extends StatelessWidget {
 
@@ -62,8 +49,8 @@ class MyApp extends StatelessWidget {
               title: 'MyTitle',
               theme: isDarkMode ? MyThemes.darkTheme : MyThemes.lightTheme,
               // scrollBehavior: Profile(),
-              //  home: OnboardingScreen(),// //MyCalendarPage
-              home: EventDetailsPage(),// SignupStepper /MyCalendarPage/ MyHomePageCources /MyHomePageCources
+               home: OnboardingScreen(),// //MyCalendarPage
+              // home: ProfileFourPage(),// SignupStepper /MyCalendarPage/ MyHomePageCources /MyHomePageCources
               // home: MyHomePageTest(title: 'Flutter Demo Home Page', key: UniqueKey()),
 
 
@@ -77,4 +64,40 @@ class MyApp extends StatelessWidget {
 }
 
 
-
+// ***************************** Web Main ********************************
+// import 'package:flutter/material.dart';
+// import 'package:google_fonts/google_fonts.dart';
+// import 'package:provider/provider.dart';
+//
+// import 'Web_screens/constants.dart';
+// import 'Web_screens/controllers/MenuAppController.dart';
+// import 'Web_screens/screens/main/main_screen.dart';
+//
+// void main() {
+//   runApp(MyApp());
+// }
+//
+// class MyApp extends StatelessWidget {
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       title: 'Flutter Admin Panel',
+//       theme: ThemeData.dark().copyWith(
+//         scaffoldBackgroundColor: bgColor,
+//         textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
+//             .apply(bodyColor: Colors.white),
+//         canvasColor: secondaryColor,
+//       ),
+//       home: MultiProvider(
+//         providers: [
+//           ChangeNotifierProvider(
+//             create: (context) => MenuAppController(),
+//           ),
+//         ],
+//         child: MainScreen(),
+//       ),
+//     );
+//   }
+// }

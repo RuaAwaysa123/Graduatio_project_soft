@@ -84,7 +84,7 @@
 //   factory Society.fromJson(String source) => Society.fromMap(json.decode(source));
 // }
 import 'dart:convert';
-import 'dart:html';
+// import 'dart:html';
 import 'event.dart';
 import 'User1.dart';
 import 'course.dart';
@@ -148,6 +148,38 @@ class Society {
   }
 
 
+  // factory Society.fromMap(Map<String, dynamic> map) {
+  //   return Society(
+  //     id: map['_id'] ?? '',
+  //     name: map['name'] ?? '',
+  //     email: map['email'] ?? '',
+  //     password: map['password'] ?? '',
+  //     members: (map['members'] as List<dynamic>?)
+  //         ?.map((user) => User.fromMap(user))
+  //         .toList() ??
+  //         [],
+  //     followers: (map['followers'] as List<dynamic>?)
+  //         ?.map((user) => User.fromMap(user))
+  //         .toList() ??
+  //         [],
+  //     events: (map['events'] as List<dynamic>?)
+  //         ?.map((event) => Event.fromMap(event))
+  //         .toList() ??
+  //         [],
+  //     location: map['location'] ?? '',
+  //     mission: map['mission'] ?? '',
+  //     vision: map['vision'] ?? '',
+  //     courses: (map['courses'] as List<dynamic>?)
+  //         ?.map((course) => Course.fromMap(course))
+  //         .toList() ??
+  //         [],
+  //     recommendedTopics: List<String>.from(map['recommendedTopics'] ?? []),
+  //     joinRequestsOpenDate: DateTime.parse(map['joinRequestsOpenDate']),
+  //     membershipRequestsOpenDate: DateTime.parse(map['membershipRequestsOpenDate']),
+  //     rate: map['rate'] ?? 0.0,
+  //     imgUrl: map['imgUrl'] ?? '',
+  //   );
+  // }
   factory Society.fromMap(Map<String, dynamic> map) {
     return Society(
       id: map['_id'] ?? '',
@@ -174,9 +206,13 @@ class Society {
           .toList() ??
           [],
       recommendedTopics: List<String>.from(map['recommendedTopics'] ?? []),
-      joinRequestsOpenDate: DateTime.parse(map['joinRequestsOpenDate']),
-      membershipRequestsOpenDate: DateTime.parse(map['membershipRequestsOpenDate']),
-      rate: map['rate'] ?? 0.0,
+      joinRequestsOpenDate: map['joinRequestsOpenDate'] != null
+          ? DateTime.parse(map['joinRequestsOpenDate'])
+          : DateTime.now(),
+      membershipRequestsOpenDate: map['membershipRequestsOpenDate'] != null
+          ? DateTime.parse(map['membershipRequestsOpenDate'])
+          : DateTime.now(),
+      rate: map['rate'] != null ? map['rate'].toDouble() : 0.0,
       imgUrl: map['imgUrl'] ?? '',
     );
   }
