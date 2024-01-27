@@ -186,11 +186,29 @@ societyRouter.delete("/api/delete_event/:eventId", async (req, res) => {
   }
 });
 
-// Create a new course
-societyRouter.post("/api/create_course/:societyId", async (req, res) => {
+societyRouter.post("/api/create_course/:societyId", upload.single("image"), async (req, res) => {
   try {
     const { societyId } = req.params;
-    const { name, topics, prequests, majors, location, isOnline, startDate, time, credential, price, trainer, description } = req.body;
+    const {
+      name,
+      topics,
+      prequests,
+      majors,
+      location,
+      isOnline,
+      startDate,
+      endDate,
+      time,
+      credential,
+      //price,
+      trainer,
+      description,
+      startTime,
+      endTime,
+      days,
+      image, // Assuming you want to upload an image for the course
+      maxnumofstudent,
+    } = req.body;
 
     // Find the society by ID
     const society = await Society.findById(societyId);
@@ -211,16 +229,25 @@ societyRouter.post("/api/create_course/:societyId", async (req, res) => {
       endDate,
       time,
       credential,
-      price,
+//      price,
+//price: parseInt(price),
       trainer,
       description,
       isSociety: true,
       organization: societyId, // Assuming the society is the organizer
+      sessions: [],
+      ratings: [],
+      startTime,
+      endTime,
+      days,
+       image: req.file.buffer, // Assuming you want to upload an image for the course
+      maxnumofstudent,
     });
 
     await newCourse.save();
 
     // Add the course to the society's courses array
+
     society.course.push(newCourse._id);
     await society.save();
 
@@ -229,11 +256,13 @@ societyRouter.post("/api/create_course/:societyId", async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
+
+
 // Update a course
 societyRouter.put("/api/update_course/:courseId", async (req, res) => {
   try {
     const { courseId } = req.params;
-    const { name, topics, prequests, majors, location, isOnline, startDate, time, credential, price, trainer, description } = req.body;
+    const { name, topics, prequests, majors, location, isOnline, startDate, time, credential, trainer, description } = req.body;
 
     // Find the course by ID
     const course = await Course.findById(courseId);

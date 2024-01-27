@@ -8,6 +8,7 @@ import 'package:rive_animation/screens/cources/widgets_cources/feature_item.dart
 import 'package:rive_animation/screens/cources/widgets_cources/notification_box.dart';
 import 'package:rive_animation/screens/cources/widgets_cources/recommend_item.dart';
 
+import '../../model/course.dart';
 import '../../model/society.dart';
 import '../../services/society_auth_service.dart';
 import 'All_Coueces_page.dart';
@@ -21,6 +22,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late SocietyAuthService _societyAuthService =SocietyAuthService() ;
+   List<dynamic> coursestest = [];
+  // late final Map<String, dynamic> currentCourse;
   late Society _society = Society(
     id: '',
     name: '',
@@ -43,81 +46,99 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    super.initState();
+    print('inside initState -');
     _societyAuthService = SocietyAuthService();
     _loadSocietyDetails();
+    super.initState();
   }
+
 
   Future<void> _loadSocietyDetails() async {
     try {
-      // Get society ID from shared preferences
       final societyId = await _societyAuthService.getSocietyId();
-
-      // Print society ID for debugging
-      print('Society ID: $societyId');
-
-      // Check if society ID is available
-      if (societyId != null && societyId.isNotEmpty) {
-        // Retrieve society details using the society ID
+      if (societyId != null) {
         final result = await _societyAuthService.getSocietyDetails(societyId);
-        print('the result is, ${result}!');
-        print('---------------------------------------------------------------');
-        print('the result of society details is , ${result['societyDetails']}!');
+        if (result['success'] == true) {
+          final societyDetails = result['societyDetails'];
 
-
-        if (result['success']) {
-          // Update the state with the retrieved society details
+          print('the result of society details is , $societyDetails');
           print('---------------------------------------------------------------');
-          print("inside success ");
 
-          setState(() {
-            _society = Society.fromMap(result['societyDetails']);
-            print('Good Morning, ${_society}!');
-          });
+          if (societyDetails != null) {
+            print('inside success ');
+            print('*****************society details from result ,  $societyDetails');
 
-          // Print society name for debugging
-          print('Good Morning, ${_society.name}!');
+            // Now you can access properties safely
+           final List<dynamic> courses = societyDetails['course'];
+           coursestest = courses;
+           // print('course length is ###################  ${courses.length} ');
+
+            if (courses.isNotEmpty) {
+              // print('current course is course is ************************##################### ');
+              // print('Course at index################# 0:');
+
+              // final Map<String, dynamic> currentCourse = courses[0];
+               final Map<String, dynamic>  currentCourse = courses[0];
+
+              if (currentCourse != null) {
+               print('Name: inside load #################### ${currentCourse['name']}');
+               print('Society ID: ${currentCourse['organization']}');
+                // Access other properties as needed
+              }
+            }
+          }
         } else {
-          // Print error message for debugging
           print('Error: ${result['message']}');
         }
-      } else {
-        // Print message if society ID is not available
-        print('Society ID is not available');
       }
     } catch (e) {
-      // Print error for debugging
-      print('Error: $e');
+      print('Error loading society details: $e');
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
-    // Use _society object to access society details in your UI
+    print('Good Morning from build  context new');
     return Scaffold(
       backgroundColor: AppColor.appBgColor,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            backgroundColor: AppColor.appBarColor,
-            pinned: true,
-            snap: true,
-            floating: true,
-            title: _buildAppBar(),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-                  (context, index) => _buildBody(),
-              childCount: 1,
-            ),
-          )
-        ],
+      body: FutureBuilder(
+        future: _loadSocietyDetails(), // Use FutureBuilder to handle async operation
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // Show a loading indicator while waiting for data
+            return CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            // Show an error message if loading fails
+            return Text('Error: ${snapshot.error}');
+          } else {
+            // Use _society object to access society details in your UI
+            return CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  backgroundColor: AppColor.appBarColor,
+                  pinned: true,
+                  snap: true,
+                  floating: true,
+                  title: _buildAppBar(),
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                        (context, index) => _buildBody(),
+                    childCount: 1,
+                  ),
+                )
+              ],
+            );
+          }
+        },
       ),
     );
   }
 
 
   Widget _buildAppBar() {
+    print('Good Morning from build  app par');
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -149,6 +170,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   _buildBody() {
+    print('Good Morning from build bodey item');
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -169,6 +191,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+
           _buildFeatured(),
           const SizedBox(
             height: 15,
@@ -199,6 +222,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   _buildCategories() {
+    print('Good Morning from build categories item');
     return SingleChildScrollView(
       padding: EdgeInsets.fromLTRB(15, 10, 0, 10),
       scrollDirection: Axis.horizontal,
@@ -217,7 +241,9 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
   _buildFeatured() {
+    print('Good Morning from build featured item');
     return Column(
       children: [
         CarouselSlider(
@@ -227,11 +253,28 @@ class _HomePageState extends State<HomePage> {
             disableCenter: true,
             viewportFraction: .75,
           ),
+
           items: List.generate(
-            features.length,
-                (index) => FeatureItem(
-              data: features[index],
-            ),
+            coursestest.length,
+
+                (index) {
+              final Map<String, dynamic>    currentCourse1 = coursestest[index];
+              Course course1 = Course.fromMap(currentCourse1);
+              print('Good Morning from build featured item , ${_society.name}!');
+
+              print('course length is ###################  ${coursestest.length} ');
+              print('course   ###################  ${course1} ');
+              print('course   ###################  ${course1} ');
+              print('current course is course is ************************##################### ${_society.imgUrl}');
+              print('Course at index################# $index:');
+              print('Name:#################### ${currentCourse1}');
+             print('name from build  fgfh:####################### ${currentCourse1['name']}');
+              // Add more print statements for other properties as needed
+
+              return FeatureItem(
+                course: course1,
+              );
+            },
           ),
         ),
         const SizedBox(height: 20),
@@ -243,12 +286,12 @@ class _HomePageState extends State<HomePage> {
               GestureDetector(
                 onTap: () {
                   // Navigate to the page containing the featured items as a list
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => FeaturedListPage(features: features),
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => FeaturedListPage(courses: courses),
+                  //   ),
+                  // );
                 },
                 child: Row(
                   children: [
@@ -267,6 +310,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
   _buildRecommended() {
+    print('Good Morning from build recommended item');
     return SingleChildScrollView(
       padding: EdgeInsets.fromLTRB(15, 5, 0, 5),
       scrollDirection: Axis.horizontal,

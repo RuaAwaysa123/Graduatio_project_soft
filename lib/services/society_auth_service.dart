@@ -90,10 +90,10 @@ class SocietyAuthService {
         }),
       );
 
-      print('Response Body: ${response.body}'); // Add this line for debugging
-      print('society email $email');
+      //print('Response Body from login : ${response.body}'); // Add this line for debugging
+      //print('society email $email');
       final responseData = json.decode(response.body);
-      print('Response data: ${responseData['society']}');
+     // print('Response data: ${responseData['society']}');
       if (response.statusCode == 200) {
         // Save society ID in shared preferences or a constant accessible from all pages
         final societyId = responseData['society']['_id'] ?? ''; // Assuming the API returns the societyId
@@ -113,8 +113,8 @@ class SocietyAuthService {
   Future<void> _saveSocietyId(String societyId) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('societyId', societyId);
-    print('Society ID saved succesfully');
-    print('Society ID: $societyId');
+    //print('Society ID saved succesfully');
+    //print('Society ID: $societyId');
   }
 
   // Function to get society ID from shared preferences
@@ -266,65 +266,12 @@ class SocietyAuthService {
       return {'success': false, 'message': 'Error deleting event: $e'};
     }
   }
-// // creat course
-//   Future<Map<String, dynamic>> createCourse({
-//     required String societyId,
-//     required String name,
-//     required List<String> topics,
-//     required int prequisites,
-//     required List<String> majors,
-//     required String location,
-//     required bool isOnline,
-//     required DateTime startDate,
-//     required DateTime endDate,
-//     required String time,
-//     required String credential,
-//     required double price,
-//     required String trainer,
-//     required File imageFile,
-//   }) async {
-//     final url = Uri.parse('$baseUrl/api/create_course/$societyId');
-//
-//     try {
-//       final request = http.MultipartRequest('POST', url)
-//         ..fields.addAll({
-//           'name': name,
-//           'topics': jsonEncode(topics),
-//           'prequisites': prequisites.toString(),
-//           'majors': jsonEncode(majors),
-//           'location': location,
-//           'isOnline': isOnline.toString(),
-//           'startDate': startDate.toIso8601String(),
-//           'endDate': endDate.toIso8601String(),
-//           'time': time,
-//           'credential': credential,
-//           'price': price.toString(),
-//           'trainer': trainer,
-//         })
-//         ..files.add(
-//           http.MultipartFile.fromBytes(
-//             'image',
-//             await File(imageFile.path).readAsBytes(),
-//             filename: 'course_image.jpg',
-//           ),
-//         );
-//
-//       final response = await request.send();
-//
-//       if (response.statusCode == 200) {
-//         return {'success': true, 'message': 'Course created successfully'};
-//       } else {
-//         return {'success': false, 'message': 'Error creating course'};
-//       }
-//     } catch (e) {
-//       return {'success': false, 'message': 'Error creating course: $e'};
-//     }
-//   }
+
   Future<Map<String, dynamic>> createCourse({
     required String societyId,
     required String name,
     required List<String> topics,
-    required int prequisites,
+    required List<String> prequests,
     required List<String> majors,
     required String location,
     required bool isOnline,
@@ -332,9 +279,14 @@ class SocietyAuthService {
     required DateTime endDate,
     required String time,
     required String credential,
-    required double price,
+    // required double price,
+    // required int price,
     required String trainer,
     required File imageFile,
+    required List<String> days,
+    required String startTime,
+    required String endTime,
+    required int maxnumofstudent,
   }) async {
     final url = Uri.parse('$baseUrl/api/create_course/$societyId');
 
@@ -343,7 +295,7 @@ class SocietyAuthService {
         ..fields.addAll({
           'name': name,
           'topics': jsonEncode(topics),
-          'prequisites': prequisites.toString(),
+          'prequests': jsonEncode(prequests),
           'majors': jsonEncode(majors),
           'location': location,
           'isOnline': isOnline.toString(),
@@ -351,8 +303,13 @@ class SocietyAuthService {
           'endDate': endDate.toIso8601String(),
           'time': time,
           'credential': credential,
-          'price': price.toString(),
+          // 'price': price.toString(),
+          // 'price': price.toString(),
           'trainer': trainer,
+          'days': jsonEncode(days),
+          'startTime': startTime,
+          'endTime': endTime,
+          'maxnumofstudent': maxnumofstudent.toString(),
         })
         ..files.add(
           http.MultipartFile.fromBytes(
@@ -363,16 +320,21 @@ class SocietyAuthService {
         );
 
       final response = await request.send();
+      print('Response Status Code: ${response.statusCode}');
 
       if (response.statusCode == 200) {
+        print('Response Body: ${await response.stream.bytesToString()}');
         return {'success': true, 'message': 'Course created successfully'};
       } else {
+        print('Error creating course. Status Code: ${response.statusCode}');
+        print('Error Response Body: ${await response.stream.bytesToString()}');
         return {'success': false, 'message': 'Error creating course'};
       }
     } catch (e) {
       return {'success': false, 'message': 'Error creating course: $e'};
     }
   }
+
 
 //update course
   Future<Map<String, dynamic>> updateCourse({
@@ -388,7 +350,7 @@ class SocietyAuthService {
     required DateTime endDate,
     required String time,
     required String credential,
-    required double price,
+    // required int price,
     required String trainer,
     required File imageFile,
   }) async {
@@ -407,7 +369,7 @@ class SocietyAuthService {
           'endDate': endDate.toIso8601String(),
           'time': time,
           'credential': credential,
-          'price': price.toString(),
+          //'price': price.toString(),
           'trainer': trainer,
         })
         ..files.add(
@@ -454,11 +416,11 @@ class SocietyAuthService {
 
     try {
       final response = await http.get(url);
-
+      print('Inside get society details in Authservise ');
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
         final societyDetails = responseData['society'];
-        print('Response Body: ${societyDetails}');
+        print('Response Body inside get society detaild: ${societyDetails}');
         return {'success': true, 'message': 'Society details retrieved successfully', 'societyDetails': societyDetails};
       } else {
         return {'success': false, 'message': 'Error retrieving society details'};

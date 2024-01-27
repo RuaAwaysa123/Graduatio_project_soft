@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 // Society Schema
 const societySchema = new mongoose.Schema({
   name: {

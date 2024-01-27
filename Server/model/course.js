@@ -5,10 +5,7 @@ const course = new mongoose.Schema({
     required: true,
   },
   topics: [String],
-  prequests: {
-    type: Number,
-    default: 0,
-  },
+  prequests:[String],
   majors: [String],
   location: String,
   isOnline: {
@@ -25,10 +22,10 @@ const course = new mongoose.Schema({
   },
   time: String,
   credential: String,
-  price: {
-    type: Number,
-    default: 0,
-  },
+//  price: {
+//    type: Number,
+//    default: 0,
+//  },
   trainer: String,
   description: String,
   applicants: [
@@ -44,10 +41,10 @@ const course = new mongoose.Schema({
       ref: 'User',
     },
   ],
-  rate: {
-    type: Number,
-    default: 0,
-  },
+//  rate: {
+//    type: Number,
+//    default: 0.0,
+//  },
   isSociety: {
     type: Boolean,
     default: false,
@@ -99,15 +96,11 @@ const course = new mongoose.Schema({
             type: String,
             required: true,
           },
-          days: [
-            {
-              type: String,
-              enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-              required: true,
-            },
-          ],
- image: Buffer,
- maxnumof :Number
+          days: [String],
+
+// image: Buffer,
+image: String,
+ maxnumofstudent :Number
 });
 const Course = mongoose.model("Course", course);
 module.exports = Course;

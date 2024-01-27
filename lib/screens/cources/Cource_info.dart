@@ -460,6 +460,13 @@ class _AddNewCourseState extends State<AddNewCourse> {
   bool isOnline = false;
   XFile? selectedImage; // Image selected from the gallery
   String location = '';
+  TimeOfDay? startTime;
+  TimeOfDay? endTime;
+  final List<String> daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  List<String> selectedDays = [];
+  final TextEditingController locationController = TextEditingController();
+  final TextEditingController uriController = TextEditingController();
+
   late SocietyAuthService _societyAuthService = SocietyAuthService();
   late Society _society = Society(
     id: '',
@@ -529,6 +536,74 @@ class _AddNewCourseState extends State<AddNewCourse> {
     }
   }
   // Decoration for boxes
+  // Helper method to call createCourse function
+  Future<void> submitCourse() async {
+    print('society id is , ${_society.id}!');
+    print('society name is , ${courseNameController.text}!');
+    print('society selected topics is , ${selectedTopics}!');
+    print('society selectedPrerequisites , ${selectedPrerequisites}!');
+    print('society selectedTargetAudience , ${selectedTargetAudience}!');
+    print('society selectedPrerequisites , ${isOnline}!');
+    print('society startDate , ${startDate}!');
+    // print('society start time , ${startTime!.format(context)}');
+    // print('society end time , ${endTime!.format(context)}');
+    print('society price , ${double.parse(priceController.text)}!');
+    print('society image , ${File(selectedImage!.path)}!');
+    print('society Days , ${selectedDays}!');
+    // selectedDays
+    try {
+      if (startDate == null) {
+        print('StartDate or time is null');
+        return;
+      }
+      else if(endDate == null){
+        print('endDate or time is null');
+        return;
+      }
+
+
+      if (priceController.text.isEmpty || selectedImage == null) {
+        print('Price or image is null');
+        return;
+      }
+
+      final response = await _societyAuthService.createCourse(
+        societyId: _society.id,
+        name: courseNameController.text,
+        topics: selectedTopics,
+        prequests: selectedPrerequisites,
+        majors: selectedTargetAudience,
+        location: locationController.text,
+        isOnline: isOnline,
+        startDate: startDate!,
+        endDate: endDate!,
+        time: '${startTime!.format(context)} - ${endTime!.format(context)}',
+        credential: '10',
+        //price: int.parse(priceController.text),
+        trainer: 'Trainer Name', // You may replace this with the actual trainer information
+        imageFile: File(selectedImage!.path),
+        days: selectedDays,
+        startTime: '${startTime!.format(context)}',
+        endTime: '${endTime!.format(context)}',
+        maxnumofstudent: 30, // You may adjust this value based on your requirements
+      );
+
+      print('response is : ${response}');
+      if (response['success']) {
+        // Course created successfully
+        // You may navigate to a success screen or perform any other action
+        print(response['message']);
+      } else {
+
+        // Error creating course
+        // You may show an error message to the user
+        print(response['message']);
+      }
+    } catch (e) {
+      // Handle exceptions
+      print('Error submitting course: $e');
+    }
+  }
   final BoxDecoration boxDecoration = BoxDecoration(
     border: Border.all(color: Colors.black12),
     borderRadius: BorderRadius.all(Radius.circular(30.0)),
@@ -562,6 +637,9 @@ class _AddNewCourseState extends State<AddNewCourse> {
             _index += 1;
           });
         }
+        else {
+          submitCourse() ;
+        }
       },
       onStepTapped: (int index) {
         setState(() {
@@ -574,12 +652,13 @@ class _AddNewCourseState extends State<AddNewCourse> {
           content: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Add TextFormField for course name
               TextFormField(
+                controller: courseNameController,
                 decoration: textInputDecoration.copyWith(
                   labelText: 'Course Name',
                 ),
               ),
-
               SizedBox(height: 10),
               // Multi-select list for topics
               MultiSelectDialogField(
@@ -626,6 +705,7 @@ class _AddNewCourseState extends State<AddNewCourse> {
             ],
           ),
         ),
+
         Step(
           title: const Text('Step2'),
           content: Column(
@@ -658,7 +738,8 @@ class _AddNewCourseState extends State<AddNewCourse> {
                 ),
               ),
               SizedBox(height: 20),
-              Text('End Date'),
+              SizedBox(height: 20),
+              Text('end Date'),
               SizedBox(height: 5),
               InkWell(
                 onTap: () async {
@@ -680,10 +761,115 @@ class _AddNewCourseState extends State<AddNewCourse> {
                   decoration: boxDecoration,
                   child: Text(endDate != null
                       ? '${DateFormat.yMd().format(endDate!)}'
-                      : 'Select End Date'),
+                      : 'Select Start Date'),
                 ),
               ),
               SizedBox(height: 20),
+              Row(
+                children: [
+                  // Time Picker for Start Time
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Start Time'),
+                        SizedBox(height: 5),
+                        InkWell(
+                          onTap: () async {
+                            final selectedTime = await showTimePicker(
+                              context: context,
+                              initialTime: startTime ?? TimeOfDay.now(),
+                            );
+                            if (selectedTime != null && selectedTime != startTime) {
+                              setState(() {
+                                startTime = selectedTime;
+                                updateDurationText();
+                              });
+                            }
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: boxDecoration,
+                            child: Text(startTime != null
+                                ? '${startTime!.format(context)}'
+                                : 'Select Start Time'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  // Time Picker for End Time
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('End Time'),
+                        SizedBox(height: 5),
+                        InkWell(
+                          onTap: () async {
+                            final selectedTime = await showTimePicker(
+                              context: context,
+                              initialTime: endTime ?? TimeOfDay.now(),
+                            );
+                            if (selectedTime != null && selectedTime != endTime) {
+                              setState(() {
+                                endTime = selectedTime;
+                                updateDurationText();
+                              });
+                            }
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: boxDecoration,
+                            child: Text(endTime != null
+                                ? '${endTime!.format(context)}'
+                                : 'Select End Time'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              // Multi-select list for days
+              MultiSelectDialogField(
+                items: daysOfWeek.map((day) => MultiSelectItem(day, day)).toList(),
+                title: Text('Select Days'),
+                selectedColor: Colors.blue,
+                decoration: boxDecoration,
+                onConfirm: (values) {
+                  setState(() {
+                    selectedDays = values;
+                  });
+                },
+              ),
+              SizedBox(height: 20),
+              // Location Textfield (if in person)
+              if (!isOnline) ...[
+                Text('Location'),
+                SizedBox(height: 5),
+                TextFormField(
+                  controller: locationController,
+                  decoration: textInputDecoration.copyWith(
+                    labelText: 'Enter Location',
+                  ),
+                ),
+                SizedBox(height: 20),
+              ],
+              // URI Textfield (if online)
+              if (isOnline) ...[
+                Text('Meeting URI'),
+                SizedBox(height: 5),
+                TextFormField(
+                  controller: uriController,
+                  decoration: textInputDecoration.copyWith(
+                    labelText: 'Enter Meeting URI',
+                  ),
+                ),
+                SizedBox(height: 20),
+              ],
               Text('Duration'),
               SizedBox(height: 5),
               Container(

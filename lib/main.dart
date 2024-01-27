@@ -62,41 +62,34 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+//---------------------------------------------------------------------------------------------
 
-
-// ***************************** Web Main ********************************
+// // ***************************** Web Main ********************************
 // import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
 // import 'package:provider/provider.dart';
+// import 'package:rive_animation/AdminDashboard/controllers/menu_controller.dart' as CustomMenuController;
+// import 'package:rive_animation/screens/cources/home_courses.dart';
 //
-// import 'Web_screens/constants.dart';
-// import 'Web_screens/controllers/MenuAppController.dart';
-// import 'Web_screens/screens/main/main_screen.dart';
+// import 'AdminDashboard/pages/home_page.dart';
 //
 // void main() {
 //   runApp(MyApp());
 // }
 //
 // class MyApp extends StatelessWidget {
-//   // This widget is the root of your application.
 //   @override
 //   Widget build(BuildContext context) {
 //     return MaterialApp(
+//       title: 'Flutter Demo',
 //       debugShowCheckedModeBanner: false,
-//       title: 'Flutter Admin Panel',
 //       theme: ThemeData.dark().copyWith(
-//         scaffoldBackgroundColor: bgColor,
-//         textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
-//             .apply(bodyColor: Colors.white),
-//         canvasColor: secondaryColor,
-//       ),
+//           textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)),
 //       home: MultiProvider(
 //         providers: [
-//           ChangeNotifierProvider(
-//             create: (context) => MenuAppController(),
-//           ),
+//           ChangeNotifierProvider(create: (context) => CustomMenuController.MenuController()),
 //         ],
-//         child: MainScreen(),
+//         child: HomePageAdmin(),
 //       ),
 //     );
 //   }
