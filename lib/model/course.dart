@@ -463,6 +463,7 @@ class Course {
   final List<User> applicants;
   final List<User> rejectedApplicants;
   final bool isSociety;
+  final int price ;
   final String organization;
   final List<Session> sessions;
   final List<Rating> ratings;
@@ -495,6 +496,7 @@ class Course {
     required this.days,
     required this.image,
     required this.maxnumofstudent,
+   required this.price,
   });
 
   Map<String, dynamic> toMap() {
@@ -521,6 +523,7 @@ class Course {
       'days': days,
       'image': image,
       'maxnumofstudent': maxnumofstudent,
+      'price': price,
     };
   }
 
@@ -548,6 +551,7 @@ class Course {
       days: List<String>.from(map['days'] ?? []),
       image: map['image'] ?? '',
       maxnumofstudent: map['maxnumofstudent'] ?? 0,
+      price: map['price'] ?? 0,
     );
   }
 
@@ -575,6 +579,7 @@ class Course {
       days: [],
       image: '',
       maxnumofstudent: 0,
+      price: 0 ,
     );
   }
 

@@ -51,7 +51,7 @@ const societySchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  image: Buffer,
+  image: String,
    membershipRequests: [{
       user: {
         type: mongoose.Schema.Types.ObjectId,

@@ -1,7 +1,7 @@
 // // import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 // // import 'package:flutter/cupertino.dart';
 // // import 'package:flutter/material.dart';
-// // import 'package:rive_animation/model/user.dart';
+// // import 'package:rive_animation/model/user_follower.dart';
 // // class HomePage extends StatefulWidget {
 // //   @override
 // //   _HomePageState createState() => _HomePageState();
@@ -34,7 +34,7 @@
 //
 // import 'package:flutter/material.dart';
 // import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-// import 'package:rive_animation/model/user.dart';
+// import 'package:rive_animation/model/user_follower.dart';
 // import '../test/home_screen.dart';
 //
 // class HomePage extends StatefulWidget {

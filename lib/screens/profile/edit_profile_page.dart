@@ -3,7 +3,7 @@
 // import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 // import 'package:flutter/material.dart';
 // import 'package:path/path.dart';
-// import 'package:rive_animation/model/user.dart';
+// import 'package:rive_animation/model/user_follower.dart';
 // import 'package:rive_animation/utils/user_preferences.dart';
 // import 'package:rive_animation/widget/appbar_widget.dart';
 // import 'package:rive_animation/widget/button_widget.dart';
@@ -64,7 +64,7 @@
 // //
 // // import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 // // import 'package:flutter/material.dart';
-// // import 'package:rive_animation/model/user.dart';
+// // import 'package:rive_animation/model/user_follower.dart';
 // // import 'package:rive_animation/utils/user_preferences.dart';
 // // import 'package:rive_animation/widget/appbar_widget.dart';
 // // import 'package:rive_animation/widget/button_widget.dart';

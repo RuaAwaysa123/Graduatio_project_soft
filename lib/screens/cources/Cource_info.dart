@@ -579,7 +579,7 @@ class _AddNewCourseState extends State<AddNewCourse> {
         endDate: endDate!,
         time: '${startTime!.format(context)} - ${endTime!.format(context)}',
         credential: '10',
-        //price: int.parse(priceController.text),
+        price: int.parse(priceController.text),
         trainer: 'Trainer Name', // You may replace this with the actual trainer information
         imageFile: File(selectedImage!.path),
         days: selectedDays,

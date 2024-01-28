@@ -266,9 +266,9 @@ class FeatureItem extends StatelessWidget {
           ),
         ],
       ),
-      child: const Text(
-        // '\$${course.price.toStringAsFixed(2)}',
-        '\$ 20.00',
+      child: Text(
+         '\$ ${course.price.toString()}',
+       // '\$ 20.00',
 
         style: TextStyle(
           color: Colors.white,
@@ -301,7 +301,7 @@ class FeatureItem extends StatelessWidget {
         _getAttribute(
           Icons.star,
           AppColor.yellow,
-            '4.5 hours'
+            '4.5'
          // course.rate.toString(),
         ),
       ],

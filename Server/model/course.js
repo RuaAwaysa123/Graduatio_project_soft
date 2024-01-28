@@ -22,10 +22,10 @@ const course = new mongoose.Schema({
   },
   time: String,
   credential: String,
-//  price: {
-//    type: Number,
-//    default: 0,
-//  },
+  price: {
+    type: Number,
+    default: 0,
+  },
   trainer: String,
   description: String,
   applicants: [
@@ -41,10 +41,10 @@ const course = new mongoose.Schema({
       ref: 'User',
     },
   ],
-//  rate: {
-//    type: Number,
-//    default: 0.0,
-//  },
+  rate: {
+    type: Number,
+    default: 0.0,
+  },
   isSociety: {
     type: Boolean,
     default: false,

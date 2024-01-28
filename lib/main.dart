@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rive_animation/providers/user_provider.dart';
+import 'package:rive_animation/screens/cources/course_details/courses_view_detail.dart';
+import 'package:rive_animation/screens/cources/course_details/details_page.dart';
 import 'package:rive_animation/screens/onboding/onboding_screen.dart';
 import 'package:rive_animation/themes.dart';
 import 'package:rive_animation/utils/Constants.dart';
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
               theme: isDarkMode ? MyThemes.darkTheme : MyThemes.lightTheme,
               // scrollBehavior: Profile(),
                home: OnboardingScreen(),// //MyCalendarPage
-              // home: ProfileFourPage(),// SignupStepper /MyCalendarPage/ MyHomePageCources /MyHomePageCources
+              // home: DetailsPage(),//ProfileFourPage// SignupStepper /MyCalendarPage/ MyHomePageCources /MyHomePageCources
               // home: MyHomePageTest(title: 'Flutter Demo Home Page', key: UniqueKey()),
 
 

@@ -41,7 +41,7 @@ class UserPreferences {
 //
 // import 'package:shared_preferences/shared_preferences.dart';
 //
-// import '../model/user.dart';
+// import '../model/user_follower.dart';
 //
 //
 // class UserPreferences {

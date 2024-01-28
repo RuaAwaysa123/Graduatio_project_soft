@@ -1,5 +1,5 @@
 // import 'package:flutter/foundation.dart';
-// import 'package:rive_animation/model/user.dart';
+// import 'package:rive_animation/model/user_follower.dart';
 //
 // import '../utils/user_preferences.dart';
 //

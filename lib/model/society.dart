@@ -34,7 +34,7 @@ class Society {
     required this.joinRequestsOpenDate,
     required this.membershipRequestsOpenDate,
     required this.rate,
-    required this.imgUrl,
+    required this.imgUrl ,
   });
 
   Map<String, dynamic> toMap() {
@@ -58,6 +58,26 @@ class Society {
     };
   }
 
+  // factory Society.fromMap(Map<String, dynamic> map) {
+  //   return Society(
+  //     id: map['_id'] != null ? map['_id'] : '',
+  //     name: map['name'] != null ? map['name'] : '',
+  //     email: map['email'] != null ? map['email'] : '',
+  //     password: map['password'] ?? '',
+  //     members: List<String>.from(map['members'] ?? []),
+  //     followers: List<String>.from(map['followers'] ?? []),
+  //     events: List<String>.from(map['events'] ?? []),
+  //     location: map['location'] ?? '',
+  //     mission: map['mission'] ?? '',
+  //     vision: map['vision'] ?? '',
+  //     courses: List<String>.from(map['courses'] ?? []),
+  //     recommendedTopics: List<String>.from(map['recommendedTopics'] ?? []),
+  //     joinRequestsOpenDate: DateTime.parse(map['joinRequestsOpenDate']),
+  //     membershipRequestsOpenDate: DateTime.parse(map['membershipRequestsOpenDate']),
+  //     rate: map['rate'] ?? 0.0,
+  //     imgUrl: map['imgUrl'] ?? '',
+  //   );
+  // }
   factory Society.fromMap(Map<String, dynamic> map) {
     return Society(
       id: map['_id'] != null ? map['_id'] : '',
@@ -75,7 +95,7 @@ class Society {
       joinRequestsOpenDate: DateTime.parse(map['joinRequestsOpenDate']),
       membershipRequestsOpenDate: DateTime.parse(map['membershipRequestsOpenDate']),
       rate: map['rate'] ?? 0.0,
-      imgUrl: map['imgUrl'] ?? '',
+      imgUrl: map['imgUrl'] as String? ?? '', // handle null value
     );
   }
 

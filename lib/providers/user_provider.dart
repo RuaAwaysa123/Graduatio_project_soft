@@ -4,7 +4,7 @@
 // //import 'package:rive_animation/model/User1.dart';
 //
 // //import '../model/User1.dart';
-// import '../model/user.dart';
+// import '../model/user_follower.dart';
 //
 // class UserProvider extends ChangeNotifier {
 //

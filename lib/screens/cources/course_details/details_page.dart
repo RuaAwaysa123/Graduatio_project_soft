@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+
+import '../../test/home_screen.dart';
+import 'folowers/folowers_list.dart';
 class DetailsPage extends StatefulWidget {
   @override
   _DetailsPageState createState() => _DetailsPageState();
@@ -431,35 +434,59 @@ class _DetailsPageState extends State<DetailsPage> {
                                       ),
                                     ),
                                   ),
-                                  Container(
-                                    height: 35.0,
-                                    width: 35.0,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(17.5),
-                                      image: DecorationImage(
-                                        image: AssetImage('assets/model2.jpg'),
-                                        fit: BoxFit.cover,
-                                      ),
-                                      border: Border.all(
-                                        color: Color(0xFFF3B2B7),
-                                        style: BorderStyle.solid,
-                                        width: 1.0,
+                                  GestureDetector(
+                                    onTap: () {
+                                      // Navigate to the followersList page
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => followersList(),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      height: 35.0,
+                                      width: 35.0,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(17.5),
+                                        image: DecorationImage(
+                                          image: AssetImage('assets/model2.jpg'),
+                                          fit: BoxFit.cover,
+                                        ),
+                                        border: Border.all(
+                                          color: Color(0xFFF3B2B7),
+                                          style: BorderStyle.solid,
+                                          width: 1.0,
+                                        ),
                                       ),
                                     ),
-                                  ),
+                                  )
                                 ],
                               ),
                               SizedBox(
                                 height: 3.0,
                               ),
-                              Text(
-                                '+ 27 more',
-                                style: TextStyle(
-                                  fontFamily: 'nunito',
-                                  fontSize: 12.0,
-                                  color: Colors.white,
+                              // GestureDetector(
+                              //   onTap: () {
+                              //     // Navigate to the followersList page
+                              //     Navigator.push(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //         builder: (context) => HomePage1(),
+                              //       ),
+                              //     );
+                              //   },
+                                 Text(
+                                  '+ 27 more',
+                                  style: TextStyle(
+                                    fontFamily: 'nunito',
+                                    fontSize: 12.0,
+                                    color: Colors.white,
+
+                                  ),
                                 ),
-                              ),
+                              // ),
+
                             ],
                           ),
                         ],

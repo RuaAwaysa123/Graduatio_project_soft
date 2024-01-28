@@ -200,7 +200,7 @@ societyRouter.post("/api/create_course/:societyId", upload.single("image"), asyn
       endDate,
       time,
       credential,
-      //price,
+      price,
       trainer,
       description,
       startTime,
@@ -226,6 +226,7 @@ societyRouter.post("/api/create_course/:societyId", upload.single("image"), asyn
       location,
       isOnline,
       startDate,
+      price,
       endDate,
       time,
       credential,
@@ -262,7 +263,7 @@ societyRouter.post("/api/create_course/:societyId", upload.single("image"), asyn
 societyRouter.put("/api/update_course/:courseId", async (req, res) => {
   try {
     const { courseId } = req.params;
-    const { name, topics, prequests, majors, location, isOnline, startDate, time, credential, trainer, description } = req.body;
+    const { name, topics, prequests, majors, location, isOnline, startDate, time, credential, trainer, description,price } = req.body;
 
     // Find the course by ID
     const course = await Course.findById(courseId);
@@ -598,5 +599,54 @@ societyRouter.post("/api/upload_course_image/:courseId", upload.single("image"),
     res.status(500).json({ error: e.message });
   }
 });
+
+societyRouter.get("/api/get_all_courses", async (req, res) => {
+  try {
+    // Retrieve all courses from the Course model
+    const allCourses = await Course.find();
+
+    res.json({ courses: allCourses });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+// society_apis.js
+
+// ... (existing imports)
+
+// Define a route to get filtered courses
+societyRouter.get("/api/get_filtered_courses", async (req, res) => {
+  try {
+    // Extract filtering parameters from the query string
+    const { location, majors, isOnline } = req.query;
+
+    // Build the filter object based on the provided parameters
+    const filter = {};
+
+    if (location) {
+      filter.location = location;
+    }
+
+    if (majors) {
+      filter.majors = { $in: majors.split(",") };
+    }
+
+    if (isOnline !== undefined) {
+      filter.isOnline = isOnline === "true";
+    }
+
+    // Retrieve filtered courses from the Course model
+    const filteredCourses = await Course.find(filter);
+
+    res.json({ courses: filteredCourses });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// ... (existing routes)
+
+module.exports = societyRouter;
+
 
 module.exports = societyRouter;
