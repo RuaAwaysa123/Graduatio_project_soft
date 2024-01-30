@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:rive_animation/screens/cources/theme/color.dart';
@@ -58,18 +61,71 @@ class CustomImage extends StatelessWidget {
     );
   }
 
+  // Widget _buildNetworkImage() {
+  //   return CachedNetworkImage(
+  //     imageUrl: image,
+  //     placeholder: (context, url) => BlankImageWidget(),
+  //     errorWidget: (context, url, error) => BlankImageWidget(),
+  //     imageBuilder: (context, imageProvider) => Container(
+  //       decoration: BoxDecoration(
+  //         borderRadius: borderRadius ?? BorderRadius.circular(radius),
+  //         image: DecorationImage(image: imageProvider, fit: fit),
+  //       ),
+  //     ),
+  //   );
+  // }
+  // Widget _buildNetworkImage() {
+  //   return Image.memory(
+  //     _decodeBase64Image(),
+  //     width: width,
+  //     height: height,
+  //     fit: fit,
+  //   );
+  // }
+  // Widget _buildNetworkImage() {
+  //   try {
+  //     return Image.memory(
+  //       _decodeBase64Image(),
+  //       width: width,
+  //       height: height,
+  //       fit: fit,
+  //     );
+  //   } catch (e) {
+  //     print('Error building network image: $e');
+  //     // Provide a fallback image
+  //     return Image.asset('assets/OIP.jpg', width: width, height: height, fit: fit);
+  //   }
+  // }
   Widget _buildNetworkImage() {
-    return CachedNetworkImage(
-      imageUrl: image,
-      placeholder: (context, url) => BlankImageWidget(),
-      errorWidget: (context, url, error) => BlankImageWidget(),
-      imageBuilder: (context, imageProvider) => Container(
-        decoration: BoxDecoration(
-          borderRadius: borderRadius ?? BorderRadius.circular(radius),
-          image: DecorationImage(image: imageProvider, fit: fit),
-        ),
-      ),
-    );
+    try {
+      return Image.memory(
+        _decodeBase64Image(),
+        width: width,
+        height: height,
+        fit: fit,
+      );
+    } catch (e) {
+      print('Error building network image: $e');
+      // Provide a fallback image
+      return Image.asset('assets/OIP.jpg', width: width, height: height, fit: fit);
+    }
+  }
+
+
+
+  // Uint8List _decodeBase64Image() {
+  //   // Assume 'image' is a base64-encoded string
+  //   List<int> decodedBytes = base64.decode(image);
+  //   return Uint8List.fromList(decodedBytes);
+  // }
+  Uint8List _decodeBase64Image() {
+    try {
+      List<int> decodedBytes = base64.decode(image);
+      return Uint8List.fromList(decodedBytes);
+    } catch (e) {
+      print('Error decoding base64 image: $e');
+      return Uint8List(0); // or provide a default image
+    }
   }
 }
 

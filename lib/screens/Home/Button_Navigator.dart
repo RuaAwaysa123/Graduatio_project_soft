@@ -93,6 +93,7 @@ import '../../chat_groups/home_page.dart';
 import '../cources/widgets_cources/notification_box.dart';
 import '../profile/profile_page.dart';
 import '../test/home_screen.dart';
+import '../test/student_home_screen.dart';
 import 'notifcation_tap.dart';
 
 
@@ -109,7 +110,7 @@ class _RootApp1State extends State<RootApp1> with TickerProviderStateMixin {
     {
       "icon": "assets/icons/home.svg",
       "active_icon": "assets/icons/home.svg",
-      "page": HomePage1(),
+      "page": home_student2(),//HomePage1
     },
     {
       "icon": "assets/icons/notification.svg",

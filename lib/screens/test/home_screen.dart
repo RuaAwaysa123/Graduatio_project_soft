@@ -226,6 +226,7 @@ class _HomePage1State extends State<HomePage1> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -246,7 +247,7 @@ class _HomePage1State extends State<HomePage1> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Hi " + userhome.fullName[0],
+                      "Hi " + userhome.fullName  ,
                       style: TextStyle(
                         fontSize: 24,
                         color: Colors.white,

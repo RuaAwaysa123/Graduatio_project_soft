@@ -815,7 +815,7 @@ class AuthService {
         password: password,
         token: '',
         phoneNumber: phoneNumber,
-        fullName: '',
+        fullName:fullName ,
         // firstName: firstName,
         // lastName: lastName,
         location: location,

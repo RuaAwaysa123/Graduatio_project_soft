@@ -6,7 +6,10 @@ import 'package:provider/provider.dart';
 import 'package:rive_animation/providers/user_provider.dart';
 import 'package:rive_animation/screens/cources/course_details/courses_view_detail.dart';
 import 'package:rive_animation/screens/cources/course_details/details_page.dart';
+import 'package:rive_animation/screens/cources/search_filter_courses.dart';
 import 'package:rive_animation/screens/onboding/onboding_screen.dart';
+import 'package:rive_animation/screens/test/home_screen.dart';
+import 'package:rive_animation/screens/test/student_home_screen.dart';
 import 'package:rive_animation/themes.dart';
 import 'package:rive_animation/utils/Constants.dart';
 import 'package:rive_animation/utils/user_preferences.dart';
@@ -51,8 +54,8 @@ class MyApp extends StatelessWidget {
               title: 'MyTitle',
               theme: isDarkMode ? MyThemes.darkTheme : MyThemes.lightTheme,
               // scrollBehavior: Profile(),
-               home: OnboardingScreen(),// //MyCalendarPage
-              // home: DetailsPage(),//ProfileFourPage// SignupStepper /MyCalendarPage/ MyHomePageCources /MyHomePageCources
+              //  home: OnboardingScreen(),// //MyCalendarPage
+              home: CourseListScreen(),//ProfileFourPage// SignupStepper /MyCalendarPage/ MyHomePageCources /MyHomePageCources
               // home: MyHomePageTest(title: 'Flutter Demo Home Page', key: UniqueKey()),
 
 

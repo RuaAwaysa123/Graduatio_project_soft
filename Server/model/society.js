@@ -49,7 +49,7 @@ const societySchema = new mongoose.Schema({
    membershipRequestsCloseDate: Date,
   rate: {
     type: Number,
-    default: 0,
+    default: 0.0,
   },
   image: String,
    membershipRequests: [{

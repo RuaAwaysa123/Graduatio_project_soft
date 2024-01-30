@@ -464,6 +464,7 @@ import 'package:rive_animation/services/database_service.dart';
 import 'package:rive_animation/services/society_auth_service.dart';
 import 'package:rive_animation/widget/chat_wedgets/widgets.dart';
 
+import 'Notification/Notification_APi.dart';
 import 'chat_groups/helper/helper_function.dart';
 import 'chat_groups/home_page.dart';
 
@@ -1047,6 +1048,7 @@ class _LoginPageState extends State<LoginPage> {
                       TextStyle(color: Colors.white, fontSize: 16),
                     ),
                     onPressed: () async {
+
                       if(selectedUserType == "Student"){
                         login();
                         authService.loginUser(
@@ -1116,6 +1118,7 @@ class _LoginPageState extends State<LoginPage> {
     return GestureDetector(
       onTap: () {
         // Handle the onTap event for each square
+
         print("User type selected: $type");
         setState(() {
           selectedUserType = type; // Set the selected user type

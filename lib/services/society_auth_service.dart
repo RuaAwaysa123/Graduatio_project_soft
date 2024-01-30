@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import '../model/course.dart';
 import '../utils/Constants.dart';
 class SocietyAuthService {
   static String baseUrl = Constants.uri ;// Replace with your API base URL
@@ -350,7 +351,7 @@ class SocietyAuthService {
     required DateTime endDate,
     required String time,
     required String credential,
-    // required int price,
+     required int price,
     required String trainer,
     required File imageFile,
   }) async {
@@ -429,4 +430,27 @@ class SocietyAuthService {
       return {'success': false, 'message': 'Error retrieving society details: $e'};
     }
   }
+  Future<Map<String, dynamic>> getAllCourses() async {
+    final url = Uri.parse('$baseUrl/api/get_all_courses');
+
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        print('inside sucess of society  auth service getAllCourses ,  ');
+        final responseData = json.decode(response.body);
+        print('the respond data is inside Authservice getall courses ${responseData} ');
+        final courses = (responseData['courses'] as List<dynamic>)
+            .map((course) => Course.fromMap(course))
+            .toList();
+        print('the respond data after  .map((course) => Course.fromMap(course)).toList() ,  ${courses} ');
+        return {'success': true, 'message': 'Courses retrieved successfully', 'courses': courses};
+      } else {
+        return {'success': false, 'message': 'Error retrieving courses'};
+      }
+    } catch (e) {
+      return {'success': false, 'message': 'Error retrieving courses: $e'};
+    }
+  }
+
 }

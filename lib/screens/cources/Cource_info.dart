@@ -411,6 +411,7 @@ import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 import 'package:intl/intl.dart';
 
+import '../../Notification/Notification_APi.dart';
 import '../../model/society.dart';
 import '../../services/society_auth_service.dart';
 import 'All_Coueces_page.dart';
@@ -547,7 +548,7 @@ class _AddNewCourseState extends State<AddNewCourse> {
     print('society startDate , ${startDate}!');
     // print('society start time , ${startTime!.format(context)}');
     // print('society end time , ${endTime!.format(context)}');
-    print('society price , ${double.parse(priceController.text)}!');
+    print('society price , ${int.parse(priceController.text)}!');
     print('society image , ${File(selectedImage!.path)}!');
     print('society Days , ${selectedDays}!');
     // selectedDays
@@ -592,6 +593,11 @@ class _AddNewCourseState extends State<AddNewCourse> {
       if (response['success']) {
         // Course created successfully
         // You may navigate to a success screen or perform any other action
+        // NotificationApi.sowNotification (
+        //   title :' ${courseNameController.text} added Succesfully ',
+        //    body:         'New course was added you may interested in ',
+        //     payload : 'Gdg'
+        // );
         print(response['message']);
       } else {
 
@@ -638,6 +644,11 @@ class _AddNewCourseState extends State<AddNewCourse> {
           });
         }
         else {
+          // NotificationApi.sowNotification (
+          //     title :' ${courseNameController.text} added Succesfully ',
+          //     body:         'New course was added you may interested in ',
+          //     payload : 'Gdg'
+          // );
           submitCourse() ;
         }
       },
@@ -882,7 +893,7 @@ class _AddNewCourseState extends State<AddNewCourse> {
               SizedBox(height: 5),
               TextFormField(
                 controller: priceController,
-                keyboardType: TextInputType.number,
+                //keyboardType: TextInputType.number,
                 decoration: textInputDecoration.copyWith(
                   labelText: 'Enter Price',
                 ),
@@ -1040,3 +1051,4 @@ class _AddNewCourseState extends State<AddNewCourse> {
     );
   }
 }
+

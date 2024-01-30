@@ -1,3 +1,5 @@
+
+//module.exports = Course;
 const mongoose = require("mongoose");
 const course = new mongoose.Schema({
   name: {

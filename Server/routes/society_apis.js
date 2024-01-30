@@ -644,9 +644,4 @@ societyRouter.get("/api/get_filtered_courses", async (req, res) => {
   }
 });
 
-// ... (existing routes)
-
-module.exports = societyRouter;
-
-
 module.exports = societyRouter;

@@ -56,14 +56,17 @@ class _HomePageState extends State<HomePageChat> {
       });
     });
     // getting the list of snapshots in our stream
-    await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
+    await DatabaseService(
+        uid: FirebaseAuth.instance.currentUser?.uid ?? "")
         .getUserGroups()
         .then((snapshot) {
       setState(() {
         groups = snapshot;
       });
     });
+
   }
+
 
   @override
   Widget build(BuildContext context) {

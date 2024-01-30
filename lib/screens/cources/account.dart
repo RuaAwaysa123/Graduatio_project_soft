@@ -5,6 +5,8 @@ import 'package:rive_animation/screens/cources/widgets_cources/custom_image.dart
 import 'package:rive_animation/screens/cources/widgets_cources/setting_box.dart';
 import 'package:rive_animation/screens/cources/widgets_cources/setting_item.dart';
 
+import '../../login_page.dart';
+
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
 
@@ -101,7 +103,7 @@ class _AccountPageState extends State<AccountPage> {
       children: [
         Expanded(
           child: SettingBox(
-            title: "12 courses",
+            title: "0 courses",
             icon: "assets/icons/work.svg",
           ),
         ),
@@ -110,7 +112,7 @@ class _AccountPageState extends State<AccountPage> {
         ),
         Expanded(
           child: SettingBox(
-            title: "55 hours",
+            title: "0 hours",
             icon: "assets/icons/time.svg",
           ),
         ),
@@ -119,7 +121,7 @@ class _AccountPageState extends State<AccountPage> {
         ),
         Expanded(
           child: SettingBox(
-            title: "4.8",
+            title: "no rated",
             icon: "assets/icons/star.svg",
           ),
         ),
@@ -217,25 +219,35 @@ class _AccountPageState extends State<AccountPage> {
     );
   }
 
+  // Widget _buildSection3() {
   Widget _buildSection3() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: AppColor.cardColor,
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.shadowColor.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 1,
-            offset: Offset(0, 1), // changes position of shadow
-          ),
-        ],
-      ),
-      child: SettingItem(
-        title: "Log Out",
-        leadingIcon: "assets/icons/logout.svg",
-        bgIconColor: AppColor.darker,
+    return GestureDetector(
+      onTap: () {
+        // Navigate to the login page when "Log Out" is tapped
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => LoginPage()),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          color: AppColor.cardColor,
+          boxShadow: [
+            BoxShadow(
+              color: AppColor.shadowColor.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 1,
+              offset: Offset(0, 1), // changes position of shadow
+            ),
+          ],
+        ),
+        child: SettingItem(
+          title: "Log Out",
+          leadingIcon: "assets/icons/logout.svg",
+          bgIconColor: AppColor.darker,
+        ),
       ),
     );
   }

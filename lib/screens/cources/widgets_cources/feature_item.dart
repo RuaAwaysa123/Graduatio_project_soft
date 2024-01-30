@@ -1,18 +1,182 @@
+// // import 'package:flutter/material.dart';
+// // import 'package:rive_animation/screens/cources/theme/color.dart';
+// //
+// // import 'custom_image.dart';
+// //
+// // class FeatureItem extends StatelessWidget {
+// //   FeatureItem({
+// //     Key? key,
+// //     required this.data,
+// //     this.width = 280,
+// //     this.height = 290,
+// //     this.onTap,
+// //   }) : super(key: key);
+// //
+// //   final data;
+// //   final double width;
+// //   final double height;
+// //   final GestureTapCallback? onTap;
+// //
+// //   @override
+// //   Widget build(BuildContext context) {
+// //     return GestureDetector(
+// //       onTap: onTap,
+// //       child: Container(
+// //         width: width,
+// //         height: height,
+// //         padding: EdgeInsets.all(10),
+// //         margin: EdgeInsets.symmetric(vertical: 5),
+// //         decoration: BoxDecoration(
+// //           color: Colors.white,
+// //           borderRadius: BorderRadius.circular(20),
+// //           boxShadow: [
+// //             BoxShadow(
+// //               color: AppColor.shadowColor.withOpacity(0.1),
+// //               spreadRadius: 1,
+// //               blurRadius: 1,
+// //               offset: Offset(1, 1), // changes position of shadow
+// //             ),
+// //           ],
+// //         ),
+// //         child: Stack(
+// //           children: [
+// //             CustomImage(
+// //               data["image"],
+// //
+// //               width: double.infinity,
+// //               height: 190,
+// //               radius: 15,
+// //             ),
+// //             Positioned(
+// //               top: 170,
+// //               right: 15,
+// //               child: _buildPrice(),
+// //             ),
+// //             Positioned(
+// //               top: 210,
+// //               child: _buildInfo(),
+// //             )
+// //           ],
+// //         ),
+// //       ),
+// //     );
+// //   }
+// //
+// //   Widget _buildInfo() {
+// //     return Container(
+// //       width: width - 20,
+// //       padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+// //       child: Column(
+// //         crossAxisAlignment: CrossAxisAlignment.start,
+// //         children: [
+// //           Text(
+// //             data["name"],
+// //             maxLines: 1,
+// //             overflow: TextOverflow.ellipsis,
+// //             style: TextStyle(
+// //               fontSize: 17,
+// //               color: AppColor.textColor,
+// //               fontWeight: FontWeight.w600,
+// //             ),
+// //           ),
+// //           const SizedBox(
+// //             height: 10,
+// //           ),
+// //           _buildAttributes(),
+// //         ],
+// //       ),
+// //     );
+// //   }
+// //
+// //   Widget _buildPrice() {
+// //     return Container(
+// //       padding: EdgeInsets.all(10),
+// //       decoration: BoxDecoration(
+// //         color: AppColor.primary,
+// //         borderRadius: BorderRadius.circular(20),
+// //         boxShadow: [
+// //           BoxShadow(
+// //             color: AppColor.shadowColor.withOpacity(0.05),
+// //             spreadRadius: 1,
+// //             blurRadius: 1,
+// //             offset: Offset(0, 0),
+// //           ),
+// //         ],
+// //       ),
+// //       child: Text(
+// //         data["price"],
+// //         style: TextStyle(
+// //           color: Colors.white,
+// //           fontWeight: FontWeight.w500,
+// //         ),
+// //       ),
+// //     );
+// //   }
+// //
+// //   Widget _buildAttributes() {
+// //     return Row(
+// //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+// //       children: [
+// //         _getAttribute(
+// //           Icons.play_circle_outlined,
+// //           AppColor.labelColor,
+// //           data["credential"],
+// //         ),
+// //         const SizedBox(
+// //           width: 12,
+// //         ),
+// //         _getAttribute(
+// //           Icons.schedule_rounded,
+// //           AppColor.labelColor,
+// //           data["duration"],
+// //         ),
+// //         const SizedBox(
+// //           width: 12,
+// //         ),
+// //         _getAttribute(
+// //           Icons.star,
+// //           AppColor.yellow,
+// //           data["rate"],
+// //         ),
+// //       ],
+// //     );
+// //   }
+// //
+// //   _getAttribute(IconData icon, Color color, String info) {
+// //     return Row(
+// //       children: [
+// //         Icon(
+// //           icon,
+// //           size: 18,
+// //           color: color,
+// //         ),
+// //         const SizedBox(
+// //           width: 3,
+// //         ),
+// //         Text(
+// //           info,
+// //           maxLines: 1,
+// //           overflow: TextOverflow.ellipsis,
+// //           style: TextStyle(color: AppColor.labelColor, fontSize: 13),
+// //         ),
+// //       ],
+// //     );
+// //   }
+// // }
 // import 'package:flutter/material.dart';
 // import 'package:rive_animation/screens/cources/theme/color.dart';
-//
+// import '../../../model/course.dart';
 // import 'custom_image.dart';
-//
 // class FeatureItem extends StatelessWidget {
 //   FeatureItem({
 //     Key? key,
-//     required this.data,
+//     required this.course,
 //     this.width = 280,
 //     this.height = 290,
 //     this.onTap,
 //   }) : super(key: key);
 //
-//   final data;
+//   final Course course;
 //   final double width;
 //   final double height;
 //   final GestureTapCallback? onTap;
@@ -34,15 +198,14 @@
 //               color: AppColor.shadowColor.withOpacity(0.1),
 //               spreadRadius: 1,
 //               blurRadius: 1,
-//               offset: Offset(1, 1), // changes position of shadow
+//               offset: Offset(1, 1),
 //             ),
 //           ],
 //         ),
 //         child: Stack(
 //           children: [
 //             CustomImage(
-//               data["image"],
-//
+//               course.imageBase64,
 //               width: double.infinity,
 //               height: 190,
 //               radius: 15,
@@ -70,7 +233,7 @@
 //         crossAxisAlignment: CrossAxisAlignment.start,
 //         children: [
 //           Text(
-//             data["name"],
+//             course.name,
 //             maxLines: 1,
 //             overflow: TextOverflow.ellipsis,
 //             style: TextStyle(
@@ -104,7 +267,9 @@
 //         ],
 //       ),
 //       child: Text(
-//         data["price"],
+//          '\$ ${course.price.toString()}',
+//        // '\$ 20.00',
+//
 //         style: TextStyle(
 //           color: Colors.white,
 //           fontWeight: FontWeight.w500,
@@ -120,7 +285,7 @@
 //         _getAttribute(
 //           Icons.play_circle_outlined,
 //           AppColor.labelColor,
-//           data["credential"],
+//           course.credential,
 //         ),
 //         const SizedBox(
 //           width: 12,
@@ -128,7 +293,7 @@
 //         _getAttribute(
 //           Icons.schedule_rounded,
 //           AppColor.labelColor,
-//           data["duration"],
+//           '${course.credential} hours',
 //         ),
 //         const SizedBox(
 //           width: 12,
@@ -136,13 +301,14 @@
 //         _getAttribute(
 //           Icons.star,
 //           AppColor.yellow,
-//           data["rate"],
+//             '4.5'
+//          // course.rate.toString(),
 //         ),
 //       ],
 //     );
 //   }
 //
-//   _getAttribute(IconData icon, Color color, String info) {
+//   Widget _getAttribute(IconData icon, Color color, String info) {
 //     return Row(
 //       children: [
 //         Icon(
@@ -167,6 +333,7 @@ import 'package:flutter/material.dart';
 import 'package:rive_animation/screens/cources/theme/color.dart';
 import '../../../model/course.dart';
 import 'custom_image.dart';
+
 class FeatureItem extends StatelessWidget {
   FeatureItem({
     Key? key,
@@ -267,9 +434,7 @@ class FeatureItem extends StatelessWidget {
         ],
       ),
       child: Text(
-         '\$ ${course.price.toString()}',
-       // '\$ 20.00',
-
+        '\$ ${course.price.toString()}',
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w500,
@@ -301,8 +466,7 @@ class FeatureItem extends StatelessWidget {
         _getAttribute(
           Icons.star,
           AppColor.yellow,
-            '4.5'
-         // course.rate.toString(),
+          '4.5',
         ),
       ],
     );
